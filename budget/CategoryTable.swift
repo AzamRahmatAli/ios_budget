@@ -13,5 +13,26 @@ import CoreData
 class CategoryTable: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
+    class func category(name : String, inManagedObjectContext context: NSManagedObjectContext) -> CategoryTable?
+        
+    {
+        /*let request  = NSFetchRequest(entityName : "SubCategoryTable")
+         request.predicate = NSPredicate(format: "name = %@", name)
+         if let subcategory = (try? context.executeFetchRequest(request))?.first as? SubCategoryTable
+         {
+         return subcategory
+         
+         }else */if let category = NSEntityDescription.insertNewObjectForEntityForName("CategoryTable", inManagedObjectContext: context) as? CategoryTable
+         {
+            category.name = name
+            category.icon = name
+            
+            
+            return category
+        }
+        
+        
+        return nil
+    }
 
 }

@@ -78,15 +78,15 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     
     @IBAction func addExpense(sender: AnyObject) {
         
-        if let expense = NSEntityDescription.insertNewObjectForEntityForName("AccountTable", inManagedObjectContext: managedObjectContext!) as? AccountTable
+        if let entity = NSEntityDescription.insertNewObjectForEntityForName("AccountTable", inManagedObjectContext: managedObjectContext!) as? AccountTable
         {
-            expense.category = category.text
-            expense.balance = amount.text
-            expense.name = subCategory.text
-            expense.createdAt = idate
+            entity.accountType = AccountTypeTable.accontType(category.text!, inManagedObjectContext: managedObjectContext!)
+            entity.amount = Double(amount.text!)
+            entity.name = subCategory.text
+            entity.createdAt = idate
          
             
-            print(expense)
+            print(entity)
             
             
         }

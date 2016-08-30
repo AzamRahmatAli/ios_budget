@@ -19,7 +19,7 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
     
-    var expenseData = [String:AnyObject]()
+    var expenseData : [CategoryTable]?
 
     
     @IBOutlet weak var tableView: UITableView!
@@ -29,7 +29,7 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
      
         
-        return expenseData.keys.count
+        return expenseData!.count
         
     }
     
@@ -73,32 +73,23 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
     {
     
         
-        expenseData = [:]
+        expenseData = []
         
         
         do{
-            let request = NSFetchRequest(entityName: "BudgetTable")
+            let request = NSFetchRequest(entityName: "CategoryTable")
             
             
-            let queryResult = try managedObjectContext?.executeFetchRequest(request) as! [BudgetTable]
+            let queryResult = try managedObjectContext?.executeFetchRequest(request) as! [CategoryTable]
             
-            for element in queryResult
-            {
+            
                 
                 
-                if (expenseData[element.category!] == nil)
-                {
-                    expenseData[element.category!] = [element]
-                }
-                else{
-                    
-                    var temp = expenseData[element.category!] as! [BudgetTable]
-                    temp.append(element)
-                    
-                    expenseData[element.category!] = temp
-                }
+            
+                    expenseData = queryResult
                 
-            }
+                
+            
             
         }
         catch let error {
@@ -118,16 +109,12 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cellparent", forIndexPath: indexPath) as! ParentTableViewCell
-        let index = expenseData.startIndex.advancedBy(indexPath.row)
+        let index = indexPath.row
         
-        cell.leftUp.text = expenseData.keys[index]
-        if let bt = expenseData[cell.leftUp.text!] as? [BudgetTable]
-        {
-            if let cicon = bt[0].iconCtg
-            {
-        cell.img.image = UIImage(named: cicon)
-            }
-        }
+        cell.leftUp.text = expenseData![index].name
+       
+        cell.img.image = UIImage(named: expenseData![index].icon!)
+           
         return cell
         
     }
@@ -156,10 +143,10 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
         {
             let path = self.tableView.indexPathForSelectedRow!
         let dvc = segue.destinationViewController as! SCBudgetViewController
-        let index = expenseData.startIndex.advancedBy(path.row)
+        let index = path.row
         
        
-        dvc.category = expenseData.keys[index]
+        dvc.category = expenseData![index].name!
     }
 
     }

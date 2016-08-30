@@ -104,17 +104,17 @@ class SetBudgetViewController: UIViewController , UITextFieldDelegate{
         
         let predicate = NSPredicate(format: "category == %@ AND subCategory == %@", crntCategory, crntSubCategory)
         
-        let fetchRequest = NSFetchRequest(entityName: "BudgetTable")
+        let fetchRequest = NSFetchRequest(entityName: "SubCategoryTable")
         fetchRequest.predicate = predicate
         
         do {
-            let entity = try self.managedObjectContext!.executeFetchRequest(fetchRequest) as! [BudgetTable]
+            let entity = try self.managedObjectContext!.executeFetchRequest(fetchRequest) as! [SubCategoryTable]
             
             
                 //entity.first?.category = crntCategory
                 
                 //entity.first?.subCategory = crntSubCategory
-            entity.first?.expenses = amount.text
+            entity.first?.amount = amount.text
                 // ... Update additional properties with new values
             
         } catch {

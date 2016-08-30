@@ -39,18 +39,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             {
                 for  value in SubCategories[key]!
                 {
-            if let expense = NSEntityDescription.insertNewObjectForEntityForName("BudgetTable", inManagedObjectContext: managedObjectContext!) as? BudgetTable
+            if let expense = NSEntityDescription.insertNewObjectForEntityForName("SubCategoryTable", inManagedObjectContext: managedObjectContext!) as? SubCategoryTable
             {
                 
               
-                expense.category = key
+                expense.name = value
                 
-                expense.subCategory = value
-                expense.createdAt = NSDate()
-                
-                expense.iconCtg = key
+                //xpense.subCategory = value
+                //expense.createdAt = NSDate()
+                expense.category = CategoryTable.category(key, inManagedObjectContext: managedObjectContext!)
                 expense.icon = value
+                expense.createdAt = NSDate()
+               
                 
+                print(expense)
               
                 do{
                     try self.managedObjectContext.save()
@@ -59,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                 }
                 catch{
-                    
+                    print("error")
                 }
                
                 

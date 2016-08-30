@@ -35,17 +35,17 @@ class AddBudgetCGViewController: UIViewController, UICollectionViewDelegate, UIC
             
             let predicate = NSPredicate(format: "category == %@ AND subCategory == %@", category, "")
             
-            let fetchRequest = NSFetchRequest(entityName: "BudgetTable")
+            let fetchRequest = NSFetchRequest(entityName: "CategoryTable")
             fetchRequest.predicate = predicate
             do {
-                let entity = try self.managedObjectContext!.executeFetchRequest(fetchRequest) as! [BudgetTable]
+                let entity = try self.managedObjectContext!.executeFetchRequest(fetchRequest) as! [CategoryTable]
                 
                 
                 if let firstEntity = entity.first
                 {
                     
                     firstEntity.icon = selectedImage
-                    firstEntity.subCategory = name.text
+                    
                     do {
                         try self.managedObjectContext!.save()
                         navigationController?.popViewControllerAnimated(true)
@@ -58,15 +58,13 @@ class AddBudgetCGViewController: UIViewController, UICollectionViewDelegate, UIC
                 }else {
                     
                     
-                    if let budget = NSEntityDescription.insertNewObjectForEntityForName("BudgetTable", inManagedObjectContext: managedObjectContext!) as? BudgetTable
+                    if let budget = NSEntityDescription.insertNewObjectForEntityForName("CategoryTable", inManagedObjectContext: managedObjectContext!) as? CategoryTable
                     {
                             
-                            budget.category = category
+                            budget.name = category
                             
                             budget.icon = selectedImage
-                            budget.subCategory = name.text
-                            
-                            budget.createdAt = NSDate()
+                        
                             
                             do{
                                 try self.managedObjectContext?.save()
@@ -96,17 +94,17 @@ class AddBudgetCGViewController: UIViewController, UICollectionViewDelegate, UIC
         else if addCategory  {
             
             
-            if let budget = NSEntityDescription.insertNewObjectForEntityForName("BudgetTable", inManagedObjectContext: managedObjectContext!) as? BudgetTable
+            if let budget = NSEntityDescription.insertNewObjectForEntityForName("CategoryTable", inManagedObjectContext: managedObjectContext!) as? CategoryTable
             {
                 
                
                     
-                    budget.category = name.text
-                    budget.iconCtg = selectedImage
+                    budget.name = name.text
+                    budget.icon = selectedImage
                     
-                    budget.subCategory = ""
+                
                     
-                    budget.createdAt = NSDate()
+                
                     
                     do{
                         try self.managedObjectContext?.save()

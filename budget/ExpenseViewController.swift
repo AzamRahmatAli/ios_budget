@@ -23,9 +23,9 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var expenseMonthDate = NSDate()
     
-    var expenseData : [String:[ExpenseTable]]?
+    var expenseData : [String:AnyObject]?
     
-   
+    
     var sectionTapped = -1{
         didSet{
             
@@ -40,7 +40,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func addExpense(sender: AnyObject) {
-         self.performSegueWithIdentifier("addExpense", sender: nil)
+        self.performSegueWithIdentifier("addExpense", sender: nil)
         
         
     }
@@ -60,7 +60,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     @IBAction func nextMonth(sender: AnyObject) {
-       
+        
         selectedIndexPath = nil
         let cal = NSCalendar.currentCalendar()
         expenseMonthDate = cal.dateByAddingUnit(.Month, value: 1, toDate: expenseMonthDate, options: [])!
@@ -82,7 +82,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let cell = self.tableView.dequeueReusableHeaderFooterViewWithIdentifier("TableSectionHeader")
         let header = cell as! TableSectionHeader
-        
+        /*
         let headerTapGesture = UITapGestureRecognizer()
         headerTapGesture.addTarget(self, action: #selector(ExpenseViewController.myAction(_:)))
         cell!.addGestureRecognizer(headerTapGesture)
@@ -96,7 +96,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
         let data = expenseData!.values[index]
         var price = 0.0
         for element in data{
-            price += Double(element.expenses!)!
+            price += Double(element.amount!)!
         }
         header.price.text = Helper.currency + String(price)
         
@@ -112,7 +112,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
             header.separator.hidden = false
         }
         header.headerCellSection = section
-        
+        */
         return header
     }
     
@@ -146,7 +146,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
             let index = expenseData!.values.startIndex.advancedBy(section)
             
             let array = expenseData!.values[index]
-            expenseDataForSection = array
+            expenseDataForSection = array as? [ExpenseTable]
             
             return array.count
         }
@@ -160,7 +160,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
         
-        return expenseData!.keys.count
+        return expenseData!.count
         
     }
     
@@ -172,7 +172,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         expenseMonthDate = NSDate()
         updateMonthlyExpenseView(expenseMonthDate)
-       
+        
         
     }
     
@@ -188,21 +188,21 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = tableView.dequeueReusableCellWithIdentifier("cellparent", forIndexPath: indexPath) as! ParentTableViewCell
         
         
-        cell.subCatg.text = expenseDataForSection![indexPath.row].subCategory
-        cell.categoryAmount.text = Helper.currency + expenseDataForSection![indexPath.row].expenses!
-     
+        cell.subCatg.text = expenseDataForSection![indexPath.row].category!.name
+        /*cell.categoryAmount.text = Helper.currency + expenseDataForSection![indexPath.row].amount!
+        
         let date = String(expenseDataForSection![indexPath.row].createdAt!).componentsSeparatedByString(" ").first
-       
-       
+        
+        
         let note = expenseDataForSection![indexPath.row].note ?? ""
         
         cell.leftDown.text = date! + " " + note
         if let img = expenseDataForSection![indexPath.row].icon where img != ""
         {
-        cell.img.image = UIImage(named: img)
-        
+            cell.img.image = UIImage(named: img)
+            
         }
-        
+ */
         return cell
         
     }
@@ -210,30 +210,23 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
-                if (segue.identifier == "updateExpense") {
-                    let indexPath = self.tableView.indexPathForSelectedRow!
-
-            let dvc = segue.destinationViewController as! AddExpenseViewController
-        
-            dvc.expenseData = expenseDataForSection![indexPath.row] 
-            dvc.updateExpens = true
-            /*print(expenseDataForSection[indexPath.row].expenses)
-            dvc.expenseData.expenses = expenseDataForSection[indexPath.row].expenses
-            dvc.expenseData.subCategory = expenseDataForSection[indexPath.row].subCategory
-            dvc.expenseData.createdAt  = expenseDataForSection[indexPath.row].createdAt
-            dvc.expenseData.note = expenseDataForSection[indexPath.row].note
-            dvc.expenseData.account = expenseDataForSection[indexPath.row].account
-             
-            dvc.objectID = expenseDataForSection[indexPath.row].objectID*/
+       /* if (segue.identifier == "updateExpense") {
+            let indexPath = self.tableView.indexPathForSelectedRow!
             
-        }
-
+            let dvc = segue.destinationViewController as! AddExpenseViewController
+            
+            dvc.expenseData = expenseDataForSection![indexPath.row]
+            dvc.updateExpens = true
+           
+            
+        }*/
+        
         
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-     
+        
         performSegueWithIdentifier("updateExpense", sender: self)
         
     }
@@ -257,7 +250,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
         do{
             let request = NSFetchRequest(entityName: "ExpenseTable")
             
-        
+            
             
             let startDate = NSDate().startOfMonth(components)
             let endDate = NSDate().endOfMonth(components)
@@ -269,14 +262,15 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
             for element in queryResult
             {
                 print(components.year ,  components.month)
-                
-                if (expenseData![element.category!] == nil)
+                let category = element.category!.category!.name
+                if (expenseData![category!] == nil)
                 {
-                    expenseData![element.category!] = [element]
+                    expenseData![category!] = [element]
                 }
                 else{
                     
-                    expenseData![element.category!]!.append(element)
+                    var temp = expenseData![category!]! as! [ExpenseTable]
+                    temp.append(element)
                 }
                 
             }

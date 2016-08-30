@@ -22,7 +22,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     
     var expenseMonthDate = NSDate()
     
-    var expenseData : [String:[AccountTable]]?
+    var accountData : [AccountTypeTable]?
     
     
     var sectionTapped = -1{
@@ -33,13 +33,13 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
     }
     
-    var expenseDataForSection = [AccountTable]()
+    var DataForSection : [AccountTable]?
     
     
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func addExpense(sender: AnyObject) {
-         self.performSegueWithIdentifier("addAccount", sender: nil)
+        self.performSegueWithIdentifier("addAccount", sender: nil)
         
         
     }
@@ -86,16 +86,18 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         headerTapGesture.addTarget(self, action: #selector(ExpenseViewController.myAction(_:)))
         cell!.addGestureRecognizer(headerTapGesture)
         
-        let index = expenseData!.startIndex.advancedBy(section)
+        let index = section
         
-        header.catg.text = expenseData!.keys[index]
+        header.catg.text = accountData![index].name
         
         
         
-        let data = expenseData!.values[index]
+        let data = accountData
         var price = 0.0
-        for element in data{
-            price += Double(element.balance!)!
+        for type in data!{
+            for element in type.account! {
+            price += Double((element as! AccountTable).amount!)
+            }
         }
         header.price.text = Helper.currency + String(price)
         
@@ -144,12 +146,12 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == sectionTapped
         {
-            let index = expenseData!.values.startIndex.advancedBy(section)
+            /*let index = section
             
-            let array = expenseData!.values[index]
-            expenseDataForSection = array
+            let array = accountData![index].account! as [AccountTable]
+            DataForSection = array*/
             
-            return array.count
+            return 1//array.count
         }
         else
         {
@@ -161,7 +163,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
         
-        return expenseData!.keys.count
+        return accountData!.count
         
     }
     
@@ -186,25 +188,25 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cellparent", forIndexPath: indexPath) as! ParentTableViewCell
+        /*
         
-        
-        cell.subCatg.text = expenseDataForSection[indexPath.row].name
-        cell.leftDown.text = "Reconciled: " + Helper.currency +  expenseDataForSection[indexPath.row].balance!
-        if (expenseDataForSection[indexPath.row].fundsOut != nil), let fo =  Double(expenseDataForSection[indexPath.row].fundsOut!)
+        cell.subCatg.text = DataForSection[indexPath.row].name
+        cell.leftDown.text = "Reconciled: " + Helper.currency +  DataForSection[indexPath.row].balance!
+        if (DataForSection[indexPath.row].fundsOut != nil), let fo =  Double(DataForSection[indexPath.row].fundsOut!)
         {
-           if (expenseDataForSection[indexPath.row].fundsIn != nil), let fi =  Double(expenseDataForSection[indexPath.row].fundsIn!)
-           {
-            cell.rightUp.text = String(Double(expenseDataForSection[indexPath.row].balance!)! + fi - fo)
+            if (DataForSection[indexPath.row].fundsIn != nil), let fi =  Double(DataForSection[indexPath.row].fundsIn!)
+            {
+                cell.rightUp.text = String(Double(expenseDataForSection[indexPath.row].balance!)! + fi - fo)
             }
-           else {
-            cell.rightUp.text = String(Double(expenseDataForSection[indexPath.row].balance!)! - fo)
+            else {
+                cell.rightUp.text = String(Double(expenseDataForSection[indexPath.row].balance!)! - fo)
             }
-        }else if (expenseDataForSection[indexPath.row].fundsIn != nil), let fi =  Double(expenseDataForSection[indexPath.row].fundsIn!){
+        }else if (DataForSection[indexPath.row].fundsIn != nil), let fi =  Double(DataForSection[indexPath.row].fundsIn!){
             cell.rightUp.text = String(Double(expenseDataForSection[indexPath.row].balance!)! + fi)
         }
         else{
-            cell.rightUp.text = expenseDataForSection[indexPath.row].balance
-        }
+            cell.rightUp.text = DataForSection[indexPath.row].balance
+        }*/
         
         return cell
         
@@ -214,7 +216,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
         
-       
+        
         
     }
     
@@ -222,32 +224,17 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     {
         
         
-               expenseData = [:]
-        
-        
-        
         do{
             let request = NSFetchRequest(entityName: "AccountTable")
             
             
-        
-        
-            let queryResult = try managedObjectContext?.executeFetchRequest(request) as! [AccountTable]
+            let queryResult = try managedObjectContext?.executeFetchRequest(request) as! [AccountTypeTable]
             
-            for element in queryResult
-            {
-                
-                if (expenseData![element.category!] == nil)
-                {
-                    expenseData![element.category!] = [element]
-                }
-                else{
-                
-                    expenseData![element.category!]!.append(element)                }
-                
-            }
             
+            accountData = queryResult
         }
+            
+            
         catch let error {
             print("error : ", error)
         }
@@ -261,9 +248,9 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         if Helper.pickAccount        {
             //  let index = expenseData.startIndex.advancedBy(indexPath.row)
-            Helper.objectIDofAccountRecord = expenseDataForSection[indexPath.row].objectID
+            Helper.objectIDofAccountRecord = DataForSection![indexPath.row].objectID
             
-           
+            
             Helper.accountPicked = true
             navigationController?.popViewControllerAnimated(true)
         }

@@ -73,15 +73,15 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
     
     @IBAction func addExpense(sender: AnyObject) {
         
-        if let expense = NSEntityDescription.insertNewObjectForEntityForName("IncomeTable", inManagedObjectContext: managedObjectContext!) as? IncomeTable
+        if let entity = NSEntityDescription.insertNewObjectForEntityForName("IncomeTable", inManagedObjectContext: managedObjectContext!) as? IncomeTable
         {
-            expense.category = category.text
-            expense.expenses = amount.text
-            expense.account = account.text
-            expense.createdAt = idate
-            expense.note = note.text
+            entity.category = category.text
+            entity.amount = amount.text
+            //entity.account = account.text
+            entity.createdAt = idate
+            entity.note = note.text
             
-            print(expense)
+            //print(expense)
             
             
         }

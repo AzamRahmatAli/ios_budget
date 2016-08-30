@@ -339,9 +339,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a2z-VD-If3">
-                                <rect key="frame" x="20" y="101" width="109" height="108"/>
-                            </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FEE-Sa-3wG">
                                 <rect key="frame" x="162" y="240" width="86" height="30"/>
                                 <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -366,6 +363,9 @@
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a2z-VD-If3">
+                                <rect key="frame" x="20" y="101" width="109" height="108"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -433,6 +433,7 @@
                         <outlet property="missing" destination="q6I-GS-tKD" id="ROs-OH-4gq"/>
                         <outlet property="note" destination="kjF-sP-FPk" id="dWD-2h-gWp"/>
                         <outlet property="payFrom" destination="Nce-P1-vK3" id="56N-AO-5NX"/>
+                        <outlet property="reciept" destination="a2z-VD-If3" id="dRw-D2-msG"/>
                         <outlet property="subCategory" destination="m9y-i4-vE7" id="VnG-eA-7yb"/>
                         <segue destination="F2O-Rf-L1q" kind="show" identifier="pickCategory" id="u5g-mR-znT"/>
                         <segue destination="Fbh-7Y-0n5" kind="show" identifier="pickDate" id="uHg-lh-ava"/>

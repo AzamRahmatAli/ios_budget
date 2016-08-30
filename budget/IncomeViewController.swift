@@ -87,7 +87,7 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let data = expenseData!.values[index]
         var price = 0.0
         for element in data{
-            price += Double(element.expenses!)!
+            price += Double(element.amount!)!
         }
         header.price.text = Helper.currency + String(price)
         

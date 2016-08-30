@@ -87,7 +87,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 {
                    
                     
-                    total += Double(element.expenses!)!
+                    total += Double(element.amount!)
                     
                    
                     
@@ -120,7 +120,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 {
                     
                     
-                    total += Double(element.expenses!)!
+                    total += Double(element.amount!)!
                     
                     
                     
@@ -138,21 +138,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         }else if indexPath.row == 2
         {
-            request = NSFetchRequest(entityName: "BudgetTable")
-            request.predicate = predicate
+            request = NSFetchRequest(entityName: "SubCategoryTable")
+            request.predicate = nil
             do{
                 
                 
                 total = 0.0
                 
-                let queryResult = try managedObjectContext?.executeFetchRequest(request) as! [BudgetTable]
+                let queryResult = try managedObjectContext?.executeFetchRequest(request) as! [SubCategoryTable]
                 
                 for element in queryResult
                 {
+                    print(element.amount)
                     
-                    if let _ =  element.expenses , value =  Double(element.expenses!)
-                    {
+                   
+                        if let value =  Double(element.amount ?? "0")
+                        {
                         total += value
+                        
                         
                     }
                    
@@ -174,7 +177,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }else if indexPath.row == 3
         {
             request = NSFetchRequest(entityName: "AccountTable")
-            request.predicate = predicate
+            request.predicate = nil
             do{
                 
                 
@@ -186,7 +189,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 {
                     
                    
-                    total += Double(element.balance!)!
+                    total += Double(element.amount!)
                     
                     
                     

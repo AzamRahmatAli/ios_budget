@@ -22,6 +22,7 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
    
     @IBOutlet weak var expnseDate: UITextField!
     
+    @IBOutlet weak var reciept: UIImageView!
     @IBOutlet weak var note: UITextField!
     
     @IBOutlet weak var payFrom: UITextField!
@@ -102,17 +103,17 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
                 if let entity =  managedObjectContext!.objectWithID(expenseData!.objectID)  as? ExpenseTable
                 {
                 
-                entity.expenses = amount.text
+                entity.amount = Double(amount.text!)
                 
                 
-                entity.category = category.text
-                entity.expenses = amount.text
-                entity.subCategory = subCategory.text
+                entity.category?.category?.name = category.text
+                
+                entity.category?.name = subCategory.text
                 
                 entity.createdAt = dateValue
                
                 entity.note = note.text
-                entity.account  = payFrom.text
+                entity.account?.name = payFrom.text
                 // ... Update additional properties with new values
                 
                 do {
@@ -127,26 +128,26 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
         
         }
         
-        else if let expense = NSEntityDescription.insertNewObjectForEntityForName("ExpenseTable", inManagedObjectContext: managedObjectContext!) as? ExpenseTable
+        else if let entity = NSEntityDescription.insertNewObjectForEntityForName("ExpenseTable", inManagedObjectContext: managedObjectContext!) as? ExpenseTable
     
         
         {
         
         if category.text != ""
         {
-        expense.category = category.text
-        expense.expenses = amount.text
-        expense.subCategory = subCategory.text
+        entity.category?.category?.name = category.text
+        entity.amount = Double(amount.text!)
+        entity.category?.name = subCategory.text
        
-        expense.createdAt = dateValue
+        entity.createdAt = dateValue
             if Helper.pickedIcon != ""
             {
-         expense.icon = Helper.pickedIcon
+                entity.reciept = UIImageJPEGRepresentation(reciept.image!, 1.0)//back by UIImage(data: imageData)
             }
-        expense.note = note.text
-            expense.account  = payFrom.text
+        entity.note = note.text
+            entity.account?.name  = payFrom.text
         
-        print(expense)
+        print(entity)
             do{
                 try self.managedObjectContext?.save()
                 navigationController?.popViewControllerAnimated(true)
@@ -180,10 +181,7 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
         }
         if Helper.accountPicked
         {
-            payFrom.text = Helper.pickedAccount
             
-            
-            Helper.pickedAccount = ""
             
             Helper.pickAccount = false
             Helper.accountPicked = false
@@ -200,13 +198,13 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
             if updateExpens
             {
                 
-                category.text = expenseData!.category
-                 amount.text = expenseData!.expenses
-                 subCategory.text =  expenseData!.subCategory
+                category.text = expenseData!.category?.category!.name
+                 amount.text = String(expenseData!.amount)
+                 subCategory.text =  expenseData!.category?.name
                 
                 dateValue = expenseData!.createdAt!
                 note.text = expenseData!.note
-                payFrom.text = expenseData!.account
+                payFrom.text = expenseData!.account?.name
 
             }
         
