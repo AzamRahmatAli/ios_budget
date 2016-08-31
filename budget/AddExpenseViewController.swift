@@ -10,16 +10,16 @@ import UIKit
 import CoreData
 
 class AddExpenseViewController: UIViewController, UITextFieldDelegate {
-
-  
+    
+    
     @IBOutlet weak var category: UITextField!
-
+    
     @IBOutlet weak var subCategory: UITextField!
     @IBOutlet weak var amount: UITextField!
     
-
+    
     @IBOutlet weak var missing: UILabel!
-   
+    
     @IBOutlet weak var expnseDate: UITextField!
     
     @IBOutlet weak var reciept: UIImageView!
@@ -28,9 +28,9 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var payFrom: UITextField!
     var dateValue = NSDate()
     var updateExpens = false
-     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
+    var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     var expenseData : ExpenseTable?
-
+    
     
     
     override func viewDidLoad() {
@@ -44,23 +44,23 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-       // Constants.Picker.chooseSubCategory = true
+        // Constants.Picker.chooseSubCategory = true
         if textField == expnseDate
         {
-         self.performSegueWithIdentifier("pickDate", sender: nil)
+            self.performSegueWithIdentifier("pickDate", sender: nil)
         }else if textField  == amount
         {
             amount.text = ""
             return true
         }else if textField  == payFrom
         {
-             Helper.pickAccount = true
+            Helper.pickAccount = true
             self.performSegueWithIdentifier("pickAccount", sender: nil)
         }
-
+            
         else{
-        Helper.pickCategory = true
-        self.performSegueWithIdentifier("pickCategory", sender: nil)
+            Helper.pickCategory = true
+            self.performSegueWithIdentifier("pickCategory", sender: nil)
         }
         return false
     }
@@ -89,8 +89,8 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func addExpense(sender: AnyObject) {
-    
-    
+        
+        
         if updateExpens
         {
             
@@ -99,19 +99,29 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
             //let fetchRequest = NSFetchRequest(entityName: "ExpenseTable")
             //fetchRequest.predicate = predicate
             
-        
-                if let entity =  managedObjectContext!.objectWithID(expenseData!.objectID)  as? ExpenseTable
-                {
+            
+            if let entity =  managedObjectContext!.objectWithID(expenseData!.objectID)  as? ExpenseTable
+            {
                 
                 entity.amount = amount.text!
                 
+                if let account = Helper.pickedAccountData
+                {
+                    entity.account = account
+                    Helper.pickedAccountData = nil
+                }
+               
+                if let category = Helper.pickedSubCaregory
+                {
+                    entity.category = category
+                    Helper.pickedSubCaregory = nil
+                }
                 
-                entity.category = Helper.pickedSubCaregory
-                
+
                 
                 
                 entity.createdAt = dateValue
-               
+                
                 entity.note = note.text
                 //entity.account?.name = payFrom.text
                 // ... Update additional properties with new values
@@ -123,50 +133,54 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
                     print("error")
                 }
             }
-           
-
-        
+            
+            
+            
         }
-        
+            
         else if let entity = NSEntityDescription.insertNewObjectForEntityForName("ExpenseTable", inManagedObjectContext: managedObjectContext!) as? ExpenseTable
-    
-        
+            
+            
         {
-        
-        if category.text != ""
-        {
-        entity.category = Helper.pickedSubCaregory
-        entity.amount =  amount.text
-       
-        entity.createdAt = dateValue
-            if (reciept.image != nil)
+            
+            if category.text != ""
             {
-                entity.reciept = UIImageJPEGRepresentation(reciept.image!, 1.0)//back by UIImage(data: imageData)
-            }
-        entity.note = note.text
-            entity.account?.name  = payFrom.text
-        
-        print(entity)
-            do{
-                try self.managedObjectContext?.save()
-                navigationController?.popViewControllerAnimated(true)
-                //receivedMessageFromServer()
+                entity.category = Helper.pickedSubCaregory
+                entity.amount =  amount.text
+                
+                entity.createdAt = dateValue
+                if (reciept.image != nil)
+                {
+                    entity.reciept = UIImageJPEGRepresentation(reciept.image!, 1.0)//back by UIImage(data: imageData)
+                }
+                entity.note = note.text
+                if let account = Helper.pickedAccountData
+                {
+                     entity.account = account
+                }
+               
+                
+                print(entity)
+                do{
+                    try self.managedObjectContext?.save()
+                    navigationController?.popViewControllerAnimated(true)
+                    //receivedMessageFromServer()
+                    
+                }
+                catch{
+                    
+                }
                 
             }
-            catch{
-                
+            else{
+                missing.text = "Select category"
             }
-        
-    }
-    else{
-    missing.text = "Select category"
-    }
-    
-    
+            
+            
         }
     }
     
-        override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         if Helper.categoryPicked
         {
             
@@ -174,48 +188,58 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
             category.text = Helper.pickedSubCaregory?.category!.name
             
             subCategory.text = Helper.pickedSubCaregory?.name
-           
-          
-           
+            
+            
+            
             Helper.categoryPicked = false
             
         }
         if Helper.accountPicked
         {
             
-            
+        
             Helper.pickAccount = false
             Helper.accountPicked = false
+            if let account = Helper.pickedAccountData
+            {
+                payFrom.text = account.name
+                
+            }
+        }
+        else if updateExpens
+        {
+            
+            category.text = expenseData!.category?.category!.name
+            amount.text = String(expenseData!.amount!)
+            subCategory.text =  expenseData!.category?.name
+            
+            dateValue = expenseData!.createdAt!
+            note.text = expenseData!.note
+            if let account = expenseData!.account
+            {
+                payFrom.text = account.name
+                
+            }
+            
             
         }
-       
+
+        
         if let date  = Helper.datePic
         {
             dateValue = date
             Helper.datePic = nil
             
-         
-                    }
-            if updateExpens
-            {
-                
-                category.text = expenseData!.category?.category!.name
-                 amount.text = String(expenseData!.amount!)
-                 subCategory.text =  expenseData!.category?.name
-                
-                dateValue = expenseData!.createdAt!
-                note.text = expenseData!.note
-                //payFrom.text = expenseData!.account?.name
-
-            }
+            
+        }
         
         expnseDate.text = Helper.getFormattedDate(dateValue)
         
-
+        
     }
     
-     func receivedMessageFromServer() {
+    func receivedMessageFromServer() {
         NSNotificationCenter.defaultCenter().postNotificationName("ReceivedData", object: nil)
     }
-
+    
 }

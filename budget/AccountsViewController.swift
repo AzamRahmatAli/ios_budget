@@ -234,9 +234,6 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
             
             accountData = queryResult
            
-            
-                
-              
         }
             
             
@@ -253,7 +250,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         if Helper.pickAccount        {
             //  let index = expenseData.startIndex.advancedBy(indexPath.row)
-            Helper.objectIDofAccountRecord = DataForSection[indexPath.row].objectID
+            Helper.pickedAccountData = DataForSection[indexPath.row]
             
             
             Helper.accountPicked = true

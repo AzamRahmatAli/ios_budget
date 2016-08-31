@@ -23,7 +23,7 @@ struct  Helper {
     static var pickAccount = false
     static var accountPicked = false
     static var currency = "RS"
-    static var objectIDofAccountRecord : NSManagedObjectID?
+    static var pickedAccountData : AccountTable?
     
     
     static func getFormattedDate( date : NSDate ) -> String
