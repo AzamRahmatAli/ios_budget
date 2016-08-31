@@ -80,11 +80,11 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
         
         if let entity = NSEntityDescription.insertNewObjectForEntityForName("AccountTable", inManagedObjectContext: managedObjectContext!) as? AccountTable
         {
-            entity.accountType = AccountTypeTable.accontType(category.text!, inManagedObjectContext: managedObjectContext!)
-            entity.amount = Double(amount.text!)
+            
+            entity.amount = amount.text!
             entity.name = subCategory.text
             entity.createdAt = idate
-         
+         entity.accountType = AccountTypeTable.accontType(category.text!, inManagedObjectContext: managedObjectContext!)
             
             print(entity)
             
@@ -106,17 +106,17 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
-        if Helper.categoryPicked
+       /* if Helper.categoryPicked
         {
-            category.text = Helper.pickedCategory
+            category.text = Helper.pickedSubCaregory?.category!.name
             
-            subCategory.text = Helper.pickedSubCaregory
-            Helper.pickedCategory = ""
-            Helper.pickedSubCaregory = ""
+            subCategory.text = Helper.pickedSubCaregory?.name
+            
+            Helper.pickedSubCaregory = nil
             
             Helper.categoryPicked = false
             
-        }
+        }*/
         
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "dd MMM yyyy"

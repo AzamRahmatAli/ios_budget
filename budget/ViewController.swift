@@ -87,7 +87,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 {
                    
                     
-                    total += Double(element.amount!)
+                    total += Double(element.amount ?? "0") ?? 0.0
                     
                    
                     
@@ -189,7 +189,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 {
                     
                    
-                    total += Double(element.amount!)
+                    total += Double(element.amount ?? "0") ?? 0.0
                     
                     
                     

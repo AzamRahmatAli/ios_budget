@@ -22,7 +22,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     
     var expenseMonthDate = NSDate()
     
-    var accountData : [AccountTypeTable]?
+    var accountData = [AccountTypeTable]()
     
     
     var sectionTapped = -1{
@@ -33,7 +33,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
     }
     
-    var DataForSection : [AccountTable]?
+    var DataForSection = [AccountTable]()
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -88,15 +88,15 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         let index = section
         
-        header.catg.text = accountData![index].name
+        header.catg.text = accountData[index].name
         
         
         
         let data = accountData
         var price = 0.0
-        for type in data!{
+        for type in data{
             for element in type.account! {
-            price += Double((element as! AccountTable).amount!)
+            price += Double((element as! AccountTable).amount!)!
             }
         }
         header.price.text = Helper.currency + String(price)
@@ -146,12 +146,13 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == sectionTapped
         {
-            /*let index = section
+         
             
-            let array = accountData![index].account! as [AccountTable]
-            DataForSection = array*/
+             DataForSection = accountData[section].account!.allObjects as! [AccountTable]
             
-            return 1//array.count
+                print(DataForSection.count)
+            return DataForSection.count
+        
         }
         else
         {
@@ -162,8 +163,8 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        
-        return accountData!.count
+        print("accountData.count= ", accountData.count)
+        return accountData.count
         
     }
     
@@ -188,11 +189,11 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cellparent", forIndexPath: indexPath) as! ParentTableViewCell
-        /*
-        
+        print(DataForSection.count)
+        print("DataForSection[indexPath.row].name = ",DataForSection[0])
         cell.subCatg.text = DataForSection[indexPath.row].name
-        cell.leftDown.text = "Reconciled: " + Helper.currency +  DataForSection[indexPath.row].balance!
-        if (DataForSection[indexPath.row].fundsOut != nil), let fo =  Double(DataForSection[indexPath.row].fundsOut!)
+        cell.leftDown.text = "Reconciled: " + Helper.currency +  DataForSection[indexPath.row].amount!
+        /*if (DataForSection[indexPath.row].fundsOut != nil), let fo =  Double(DataForSection![indexPath.row].fundsOut!)
         {
             if (DataForSection[indexPath.row].fundsIn != nil), let fi =  Double(DataForSection[indexPath.row].fundsIn!)
             {
@@ -225,13 +226,17 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         
         do{
-            let request = NSFetchRequest(entityName: "AccountTable")
+            let request = NSFetchRequest(entityName: "AccountTypeTable")
             
             
             let queryResult = try managedObjectContext?.executeFetchRequest(request) as! [AccountTypeTable]
             
             
             accountData = queryResult
+           
+            
+                
+              
         }
             
             
@@ -248,7 +253,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         if Helper.pickAccount        {
             //  let index = expenseData.startIndex.advancedBy(indexPath.row)
-            Helper.objectIDofAccountRecord = DataForSection![indexPath.row].objectID
+            Helper.objectIDofAccountRecord = DataForSection[indexPath.row].objectID
             
             
             Helper.accountPicked = true

@@ -36,16 +36,15 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         
         do{
             
-            let predicate = NSPredicate(format: "category == %@", category)
+            let predicate = NSPredicate(format: "category.name == %@", category)
             let request = NSFetchRequest(entityName: "SubCategoryTable")
             request.predicate = predicate
             
             
             let queryResult = try managedObjectContext?.executeFetchRequest(request) as! [SubCategoryTable]
-            if (queryResult[0].name != "" )
-            {
+            
             expenseData = queryResult
-            }
+            
         }
         catch let error {
             print("error : ", error)
@@ -68,11 +67,11 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.indexPathForSelectedRow!
         
-      /*  if Helper.pickCategory
+        if Helper.pickCategory
         {
-            Helper.pickedCategory = category
-            Helper.pickedSubCaregory = expenseData[indexPath.row].subCategory!
-            Helper.pickedIcon = expenseData[indexPath.row].icon ?? ""
+            
+            Helper.pickedSubCaregory = expenseData[indexPath.row]
+            
             Helper.pickCategory = false
             Helper.categoryPicked = true
             navigationController?.popViewControllerAnimated(true)
@@ -80,7 +79,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         else
         {
             self.performSegueWithIdentifier("setBudget", sender: nil)
-        }*/
+        }
         
         
     }
@@ -94,20 +93,20 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cellparent", forIndexPath: indexPath) as! ParentTableViewCell
-      /*  // let index = expenseData.startIndex.advancedBy(indexPath.row)
+       
         
-        cell.leftUp.text = expenseData[indexPath.row].subCategory
-        cell.rightUp.text = expenseData[indexPath.row].expenses
+        cell.leftUp.text = expenseData[indexPath.row].name
+        cell.rightUp.text = expenseData[indexPath.row].amount
         if let scicon = expenseData[indexPath.row].icon
         {
             cell.img.image = UIImage(named: scicon)
-        }*/
+        }
         return cell
         
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     /*  if (segue.identifier == "addSubCategory") {
+       if (segue.identifier == "addSubCategory") {
         let dvc = segue.destinationViewController as! AddBudgetCGViewController
         
         dvc.addSubCategory = true
@@ -120,13 +119,13 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         let path = self.tableView.indexPathForSelectedRow!
         let dvc = segue.destinationViewController as! SetBudgetViewController
         
-        dvc.crntCategory = expenseData[path.row].category!
-        dvc.crntSubCategory = expenseData[path.row].subCategory!
-        if let amount = expenseData[path.row].expenses
+        dvc.crntCategory = expenseData[path.row].category!.name!
+        dvc.crntSubCategory = expenseData[path.row].name!
+        if let amount = expenseData[path.row].amount
         {
             dvc.crntAmount = amount
         }
-        }*/
+        }
     }
     
 }

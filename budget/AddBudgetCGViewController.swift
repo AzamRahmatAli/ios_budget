@@ -33,39 +33,16 @@ class AddBudgetCGViewController: UIViewController, UICollectionViewDelegate, UIC
         if addSubCategory
         {
             
-            let predicate = NSPredicate(format: "category == %@ AND subCategory == %@", category, "")
             
-            let fetchRequest = NSFetchRequest(entityName: "CategoryTable")
-            fetchRequest.predicate = predicate
-            do {
-                let entity = try self.managedObjectContext!.executeFetchRequest(fetchRequest) as! [CategoryTable]
-                
-                
-                if let firstEntity = entity.first
-                {
-                    
-                    firstEntity.icon = selectedImage
-                    
-                    do {
-                        try self.managedObjectContext!.save()
-                        navigationController?.popViewControllerAnimated(true)
-                    } catch {
-                        // Do something in response to error condition
-                        print("azam")
-                    }
-
-                
-                }else {
-                    
-                    
-                    if let budget = NSEntityDescription.insertNewObjectForEntityForName("CategoryTable", inManagedObjectContext: managedObjectContext!) as? CategoryTable
+            
+                    if let budget = NSEntityDescription.insertNewObjectForEntityForName("SubCategoryTable", inManagedObjectContext: managedObjectContext!) as? SubCategoryTable
                     {
                             
-                            budget.name = category
+                            budget.name = name.text
                             
                             budget.icon = selectedImage
+                            budget.category = CategoryTable.category(category, inManagedObjectContext: managedObjectContext!)
                         
-                            
                             do{
                                 try self.managedObjectContext?.save()
                                 navigationController?.popViewControllerAnimated(true)
@@ -76,21 +53,11 @@ class AddBudgetCGViewController: UIViewController, UICollectionViewDelegate, UIC
                                 
                             }
                        
-                        
-                        
                     }
-                }
-                
-                
-            }
-            catch
-            {
-                // Do something in response to error condition
+            
             }
             
-            
-                
-    }
+   
         else if addCategory  {
             
             
@@ -121,8 +88,8 @@ class AddBudgetCGViewController: UIViewController, UICollectionViewDelegate, UIC
                 
             }
         }
-        
-        }
+         }
+       
         
     }
     @IBAction func cancel(sender: AnyObject) {

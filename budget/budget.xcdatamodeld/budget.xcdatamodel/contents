@@ -22,6 +22,7 @@
         <attribute name="amount" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reciept" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AccountTable" inverseName="expense" inverseEntity="AccountTable" syncable="YES"/>
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SubCategoryTable" inverseName="expense" inverseEntity="SubCategoryTable" syncable="YES"/>
     </entity>
@@ -45,7 +46,7 @@
         <element name="AccountTable" positionX="421" positionY="170" width="128" height="150"/>
         <element name="AccountTypeTable" positionX="261" positionY="108" width="128" height="73"/>
         <element name="CategoryTable" positionX="432" positionY="18" width="128" height="88"/>
-        <element name="ExpenseTable" positionX="-36" positionY="71" width="128" height="120"/>
+        <element name="ExpenseTable" positionX="-36" positionY="71" width="128" height="135"/>
         <element name="IncomeTable" positionX="-36" positionY="222" width="128" height="120"/>
         <element name="SubCategoryTable" positionX="234" positionY="-63" width="128" height="150"/>
     </elements>

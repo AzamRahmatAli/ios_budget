@@ -82,7 +82,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let cell = self.tableView.dequeueReusableHeaderFooterViewWithIdentifier("TableSectionHeader")
         let header = cell as! TableSectionHeader
-        /*
+        
         let headerTapGesture = UITapGestureRecognizer()
         headerTapGesture.addTarget(self, action: #selector(ExpenseViewController.myAction(_:)))
         cell!.addGestureRecognizer(headerTapGesture)
@@ -93,10 +93,10 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         
-        let data = expenseData!.values[index]
+        let data = expenseData!.values[index] as! [ExpenseTable]
         var price = 0.0
         for element in data{
-            price += Double(element.amount!)!
+            price += Double(element.amount ?? "0") ?? 0.0
         }
         header.price.text = Helper.currency + String(price)
         
@@ -112,7 +112,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
             header.separator.hidden = false
         }
         header.headerCellSection = section
-        */
+        
         return header
     }
     
@@ -147,7 +147,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             let array = expenseData!.values[index]
             expenseDataForSection = array as? [ExpenseTable]
-            
+            print(array.count)
             return array.count
         }
         else
@@ -189,7 +189,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         cell.subCatg.text = expenseDataForSection![indexPath.row].category!.name
-        /*cell.categoryAmount.text = Helper.currency + expenseDataForSection![indexPath.row].amount!
+        cell.categoryAmount.text = Helper.currency + expenseDataForSection![indexPath.row].amount!
         
         let date = String(expenseDataForSection![indexPath.row].createdAt!).componentsSeparatedByString(" ").first
         
@@ -197,12 +197,12 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
         let note = expenseDataForSection![indexPath.row].note ?? ""
         
         cell.leftDown.text = date! + " " + note
-        if let img = expenseDataForSection![indexPath.row].icon where img != ""
+        if let img = expenseDataForSection![indexPath.row].category?.icon where img != ""
         {
             cell.img.image = UIImage(named: img)
             
         }
- */
+ 
         return cell
         
     }
@@ -210,7 +210,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
-       /* if (segue.identifier == "updateExpense") {
+       if (segue.identifier == "updateExpense") {
             let indexPath = self.tableView.indexPathForSelectedRow!
             
             let dvc = segue.destinationViewController as! AddExpenseViewController
@@ -219,7 +219,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
             dvc.updateExpens = true
            
             
-        }*/
+        }
         
         
     }
@@ -270,7 +270,9 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
                 else{
                     
                     var temp = expenseData![category!]! as! [ExpenseTable]
+                    print(temp.count)
                     temp.append(element)
+                    expenseData![category!] = temp
                 }
                 
             }

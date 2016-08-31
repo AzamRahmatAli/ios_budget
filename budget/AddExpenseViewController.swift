@@ -103,24 +103,24 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
                 if let entity =  managedObjectContext!.objectWithID(expenseData!.objectID)  as? ExpenseTable
                 {
                 
-                entity.amount = Double(amount.text!)
+                entity.amount = amount.text!
                 
                 
-                entity.category?.category?.name = category.text
+                entity.category = Helper.pickedSubCaregory
                 
-                entity.category?.name = subCategory.text
+                
                 
                 entity.createdAt = dateValue
                
                 entity.note = note.text
-                entity.account?.name = payFrom.text
+                //entity.account?.name = payFrom.text
                 // ... Update additional properties with new values
                 
                 do {
                     try self.managedObjectContext!.save()
                     navigationController?.popViewControllerAnimated(true)
                 } catch {
-                    // Do something in response to error condition
+                    print("error")
                 }
             }
            
@@ -135,12 +135,11 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
         
         if category.text != ""
         {
-        entity.category?.category?.name = category.text
-        entity.amount = Double(amount.text!)
-        entity.category?.name = subCategory.text
+        entity.category = Helper.pickedSubCaregory
+        entity.amount =  amount.text
        
         entity.createdAt = dateValue
-            if Helper.pickedIcon != ""
+            if (reciept.image != nil)
             {
                 entity.reciept = UIImageJPEGRepresentation(reciept.image!, 1.0)//back by UIImage(data: imageData)
             }
@@ -170,11 +169,13 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
         override func viewWillAppear(animated: Bool) {
         if Helper.categoryPicked
         {
-            category.text = Helper.pickedCategory
             
-            subCategory.text = Helper.pickedSubCaregory
-            Helper.pickedCategory = ""
-            Helper.pickedSubCaregory = ""
+            
+            category.text = Helper.pickedSubCaregory?.category!.name
+            
+            subCategory.text = Helper.pickedSubCaregory?.name
+           
+          
            
             Helper.categoryPicked = false
             
@@ -199,12 +200,12 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
             {
                 
                 category.text = expenseData!.category?.category!.name
-                 amount.text = String(expenseData!.amount)
+                 amount.text = String(expenseData!.amount!)
                  subCategory.text =  expenseData!.category?.name
                 
                 dateValue = expenseData!.createdAt!
                 note.text = expenseData!.note
-                payFrom.text = expenseData!.account?.name
+                //payFrom.text = expenseData!.account?.name
 
             }
         

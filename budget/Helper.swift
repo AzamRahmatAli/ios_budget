@@ -14,9 +14,9 @@ import CoreData
 struct  Helper {
     static var pickCategory = false
     static var categoryPicked = false
-    static var pickedCategory = ""
-    static var pickedIcon = ""
-    static var pickedSubCaregory = ""
+   
+    
+    static var pickedSubCaregory : SubCategoryTable?
     
 
     static var datePic : NSDate? = nil

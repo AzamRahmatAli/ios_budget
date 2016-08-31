@@ -16,13 +16,13 @@ class CategoryTable: NSManagedObject {
     class func category(name : String, inManagedObjectContext context: NSManagedObjectContext) -> CategoryTable?
         
     {
-        /*let request  = NSFetchRequest(entityName : "SubCategoryTable")
+        let request  = NSFetchRequest(entityName : "CategoryTable")
          request.predicate = NSPredicate(format: "name = %@", name)
-         if let subcategory = (try? context.executeFetchRequest(request))?.first as? SubCategoryTable
+         if let category = (try? context.executeFetchRequest(request))?.first as? CategoryTable
          {
-         return subcategory
+         return category
          
-         }else */if let category = NSEntityDescription.insertNewObjectForEntityForName("CategoryTable", inManagedObjectContext: context) as? CategoryTable
+         }else if let category = NSEntityDescription.insertNewObjectForEntityForName("CategoryTable", inManagedObjectContext: context) as? CategoryTable
          {
             category.name = name
             category.icon = name
