@@ -41,6 +41,27 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
         expnseDate.delegate = self
         amount.delegate = self
         payFrom.delegate = self
+        
+        
+        
+        if updateExpens
+        {
+            
+            category.text = expenseData!.category?.category!.name
+            amount.text = String(expenseData!.amount!)
+            subCategory.text =  expenseData!.category?.name
+            
+            dateValue = expenseData!.createdAt!
+            note.text = expenseData!.note
+            if let account = expenseData!.account
+            {
+                payFrom.text = account.name
+                
+            }
+            
+            
+        }
+
     }
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
@@ -50,8 +71,11 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
             self.performSegueWithIdentifier("pickDate", sender: nil)
         }else if textField  == amount
         {
+            if amount.text == "0"
+            {
             amount.text = ""
             return true
+            }
         }else if textField  == payFrom
         {
             Helper.pickAccount = true
@@ -103,7 +127,7 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
             if let entity =  managedObjectContext!.objectWithID(expenseData!.objectID)  as? ExpenseTable
             {
                 
-                entity.amount = amount.text!
+                entity.amount = (amount.text != "") ? amount.text : "0"
                 
                 if let account = Helper.pickedAccountData
                 {
@@ -145,8 +169,14 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
             
             if category.text != ""
             {
+                
+                /*if amount.text != ""
+                 {
+                 }else{
+                 missing.text = "Enter Amount"
+                 }*/
                 entity.category = Helper.pickedSubCaregory
-                entity.amount =  amount.text
+                entity.amount =  (amount.text != "") ? amount.text : "0"
                 
                 entity.createdAt = dateValue
                 if (reciept.image != nil)
@@ -194,7 +224,7 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
             Helper.categoryPicked = false
             
         }
-        if Helper.accountPicked
+        else if Helper.accountPicked
         {
             
         
@@ -206,26 +236,9 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
                 
             }
         }
-        else if updateExpens
-        {
-            
-            category.text = expenseData!.category?.category!.name
-            amount.text = String(expenseData!.amount!)
-            subCategory.text =  expenseData!.category?.name
-            
-            dateValue = expenseData!.createdAt!
-            note.text = expenseData!.note
-            if let account = expenseData!.account
-            {
-                payFrom.text = account.name
-                
-            }
-            
-            
-        }
-
         
-        if let date  = Helper.datePic
+        
+        else if let date  = Helper.datePic
         {
             dateValue = date
             Helper.datePic = nil

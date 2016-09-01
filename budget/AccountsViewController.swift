@@ -216,14 +216,15 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
-        
+        if segue.identifier == "updateAccount"
+        {
         let indexPath = self.tableView.indexPathForSelectedRow!
         
         let dvc = segue.destinationViewController as! AddAccountViewController
         
         dvc.accountData = DataForSection[indexPath.row]
         dvc.updateAccount = true
-
+        }
         
     }
     

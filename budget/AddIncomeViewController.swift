@@ -16,7 +16,29 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
         super.viewDidLoad()
         dateValue.delegate = self
         amount.delegate = self
-        // Do any additional setup after loading the view.
+        account.delegate = self
+        
+        
+        
+        if updateIncome
+        {
+            
+            category.text = incomeData!.category
+            amount.text = String(incomeData!.amount!)
+            
+            
+            incomeDate = incomeData!.createdAt
+            
+            note.text = incomeData!.note
+            if let acount = incomeData!.account
+            {
+                account.text = acount.name
+                
+            }
+            
+            
+        }
+
     }
 
     @IBOutlet weak var category: UITextField!
@@ -24,11 +46,17 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
     @IBOutlet weak var account: UITextField!
     @IBOutlet weak var amount: UITextField!
     
+    var incomeData : IncomeTable?
+    var updateIncome = false
     
     @IBOutlet weak var dateValue: UITextField!
    
     @IBOutlet weak var note: UITextField!
-    var idate = NSDate()
+    
+    @IBOutlet weak var missing: UILabel!
+    
+    
+    var incomeDate : NSDate? = NSDate()
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
@@ -38,11 +66,14 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
             self.performSegueWithIdentifier("pickDate", sender: nil)
         }else if textField  == amount
         {
+            if amount.text == "0"
+            {
             amount.text = ""
             return true
+            }
         }else{
-            Helper.pickCategory = true
-            self.performSegueWithIdentifier("pickCategory", sender: nil)
+            Helper.pickAccount = true
+            self.performSegueWithIdentifier("pickAccount", sender: nil)
         }
         return false
     }
@@ -73,33 +104,85 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
     
     @IBAction func addExpense(sender: AnyObject) {
         
-        if let entity = NSEntityDescription.insertNewObjectForEntityForName("IncomeTable", inManagedObjectContext: managedObjectContext!) as? IncomeTable
+        if updateIncome
         {
-            entity.category = category.text
-            entity.amount = amount.text
+            
+            //let predicate = NSPredicate(format: "category == %@ AND subCategory == %@", crntCategory, crntSubCategory)
+            
+            //let fetchRequest = NSFetchRequest(entityName: "ExpenseTable")
+            //fetchRequest.predicate = predicate
+            
+            
+            if let entity =  managedObjectContext!.objectWithID(incomeData!.objectID)  as? IncomeTable
+            {
+                
+                entity.amount = (amount.text != "") ? amount.text : "0"
+                
+                if let account = Helper.pickedAccountData
+                {
+                    entity.account = account
+                    Helper.pickedAccountData = nil
+                }
+                
+                
+                
+                
+                entity.category = (category.text != "") ? category.text : "income"
+                
+                entity.createdAt = incomeDate
+                
+                entity.note = note.text
+                //entity.account?.name = payFrom.text
+                // ... Update additional properties with new values
+                
+                do {
+                    try self.managedObjectContext!.save()
+                    navigationController?.popViewControllerAnimated(true)
+                } catch {
+                    print("error")
+                }
+            }
+            
+            
+        }
+      
+            else if let entity = NSEntityDescription.insertNewObjectForEntityForName("IncomeTable", inManagedObjectContext: managedObjectContext!) as? IncomeTable
+        {
+            
+                
+            entity.category = (category.text != "") ? category.text : "income"
+            entity.amount = (amount.text != "") ? amount.text : "0"
             //entity.account = account.text
-            entity.createdAt = idate
+            if let account = Helper.pickedAccountData
+            {
+                entity.account = account
+                Helper.pickedAccountData = nil
+            }
+            
+
+            entity.createdAt = incomeDate
             entity.note = note.text
             
             //print(expense)
+            do{
+                try self.managedObjectContext?.save()
+                navigationController?.popViewControllerAnimated(true)
+                //receivedMessageFromServer()
+                
+            }
+            catch{
+                
+            }
             
-            
-        }
-        else{
-            print("fail insert")
         }
         
         
-        do{
-            try self.managedObjectContext?.save()
-            navigationController?.popViewControllerAnimated(true)
-            //receivedMessageFromServer()
-            
-        }
-        catch{
-            
-        }
+     
+        
+
+    
     }
+    
     /*
      // MARK: - Navigation
      
@@ -116,18 +199,33 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
     
     
     override func viewWillAppear(animated: Bool) {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "dd MMM yyyy"
-        if let date  = Helper.datePic
+       
+        
+       
+        if Helper.accountPicked
         {
-            idate = date
+            
+            
+            Helper.pickAccount = false
+            Helper.accountPicked = false
+            if let acount = Helper.pickedAccountData
+            {
+                account.text = acount.name
+                
+            }
+        }
+            
+            
+        else if let date  = Helper.datePic
+        {
+            incomeDate = date
             Helper.datePic = nil
             
             
         }
         
-        let selectedDate = dateFormatter.stringFromDate(idate)
-        dateValue.text = selectedDate
+        dateValue.text = Helper.getFormattedDate(incomeDate!)
+
     }
 
 

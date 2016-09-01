@@ -85,11 +85,11 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let index = expenseData!.startIndex.advancedBy(section)
         
         let data = expenseData!.values[index]
-        var price = 0.0
+        var price : Float = 0.0
         for element in data{
-            price += Double(element.amount!)!
+            price += Float(element.amount ?? "0") ?? 0.0
         }
-        header.price.text = Helper.currency + String(price)
+        header.price.text = price.asLocaleCurrency
         
         
         
@@ -186,6 +186,9 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let note = expenseDataForSection![indexPath.row].note ?? ""
         
         cell.leftDown.text = date + " " + note
+        let amount = Float(expenseDataForSection![indexPath.row].amount ?? "0") ?? 0.0
+       
+        cell.rightUp.text = amount.asLocaleCurrency
         
         return cell
         
@@ -194,11 +197,24 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
-        
-        if (segue.identifier == "myposts") {
+        if (segue.identifier == "updateIncome") {
+            let indexPath = self.tableView.indexPathForSelectedRow!
+            
+            let dvc = segue.destinationViewController as! AddIncomeViewController
+            
+            dvc.incomeData = expenseDataForSection![indexPath.row]
+            dvc.updateIncome = true
             
             
         }
+        
+        
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        
+        performSegueWithIdentifier("updateIncome", sender: self)
         
     }
     

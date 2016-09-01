@@ -354,6 +354,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a2z-VD-If3">
+                                <rect key="frame" x="20" y="101" width="109" height="108"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q6I-GS-tKD">
                                 <rect key="frame" x="20" y="539" width="280" height="21"/>
                                 <constraints>
@@ -363,9 +366,6 @@
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a2z-VD-If3">
-                                <rect key="frame" x="20" y="101" width="109" height="108"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -442,7 +442,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PEz-D5-KOO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2468" y="336"/>
+            <point key="canvasLocation" x="2436" y="329"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="g6p-LT-Y5T">
@@ -823,12 +823,6 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WS7-Wx-nbT">
                                                     <rect key="frame" x="8" y="12" width="22" height="21"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$5,62,031" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQm-ab-Bsx">
-                                                    <rect key="frame" x="157" y="8" width="122" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home/Rent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Iz-U4-pmY">
                                                     <rect key="frame" x="38" y="8" width="111" height="21"/>
                                                     <constraints>
@@ -845,6 +839,12 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQm-ab-Bsx">
+                                                    <rect key="frame" x="157" y="8" width="122" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -868,6 +868,7 @@
                                         <connections>
                                             <outlet property="categoryAmount" destination="RQm-ab-Bsx" id="x2f-nL-436"/>
                                             <outlet property="leftDown" destination="R7K-Zt-FC7" id="yrd-oT-BaY"/>
+                                            <outlet property="rightUp" destination="RQm-ab-Bsx" id="Mf7-6o-LLG"/>
                                             <outlet property="subCatg" destination="7Iz-U4-pmY" id="p5i-CR-hmI"/>
                                         </connections>
                                     </tableViewCell>
@@ -911,6 +912,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="tableView" destination="99U-qF-6SA" id="1pb-Gk-62R"/>
+                        <segue destination="kZa-3P-UXW" kind="show" identifier="updateIncome" id="rxT-Kq-Ui6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5AL-ad-DkQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1143,7 +1145,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mbF-8C-bxX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2476" y="1184"/>
+            <point key="canvasLocation" x="2509" y="1200"/>
         </scene>
         <!--Add Income-->
         <scene sceneID="mOH-Sa-XCd">
@@ -1235,6 +1237,15 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k5U-bF-bnr">
+                                <rect key="frame" x="20" y="539" width="280" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Ysy-7u-zWf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1258,12 +1269,15 @@
                             <constraint firstItem="Htr-Ga-a9f" firstAttribute="top" secondItem="dze-sM-gVe" secondAttribute="bottom" constant="8" symbolic="YES" id="mCX-BN-wsa"/>
                             <constraint firstItem="hL5-Ec-TYj" firstAttribute="leading" secondItem="sw1-4a-MTY" secondAttribute="leading" id="owO-36-67T"/>
                             <constraint firstItem="Yxs-1A-80v" firstAttribute="top" secondItem="sw1-4a-MTY" secondAttribute="bottom" constant="8" symbolic="YES" id="q0U-9i-gt7"/>
+                            <constraint firstItem="B4f-QH-UvZ" firstAttribute="top" secondItem="k5U-bF-bnr" secondAttribute="bottom" constant="8" symbolic="YES" id="rIv-uO-ebC"/>
+                            <constraint firstItem="k5U-bF-bnr" firstAttribute="centerX" secondItem="wLu-hC-4sc" secondAttribute="centerX" id="rxK-eJ-2Ja"/>
                             <constraint firstItem="7Di-pu-Bwv" firstAttribute="leading" secondItem="Fqf-8q-d9c" secondAttribute="leadingMargin" constant="96" id="tTH-Cu-Pn6"/>
                             <constraint firstItem="Htr-Ga-a9f" firstAttribute="centerX" secondItem="Fqf-8q-d9c" secondAttribute="centerX" id="ubv-pU-vSK"/>
                             <constraint firstItem="sSt-DA-yv6" firstAttribute="leading" secondItem="Fqf-8q-d9c" secondAttribute="leadingMargin" constant="90" id="vJ0-WO-EaY"/>
                             <constraint firstItem="7Di-pu-Bwv" firstAttribute="top" secondItem="hL5-Ec-TYj" secondAttribute="bottom" constant="8" symbolic="YES" id="xBh-J6-qjG"/>
                             <constraint firstItem="wLu-hC-4sc" firstAttribute="top" secondItem="ujR-5P-kGS" secondAttribute="bottom" constant="8" symbolic="YES" id="xKj-JL-A5c"/>
                             <constraint firstItem="MHu-SQ-9b6" firstAttribute="trailing" secondItem="ujR-5P-kGS" secondAttribute="trailing" id="xdQ-kq-nwf"/>
+                            <constraint firstItem="k5U-bF-bnr" firstAttribute="leading" secondItem="Fqf-8q-d9c" secondAttribute="leadingMargin" constant="4" id="y4x-dS-nST"/>
                             <constraint firstItem="4GG-qF-qma" firstAttribute="top" secondItem="MHu-SQ-9b6" secondAttribute="bottom" constant="8" symbolic="YES" id="yJg-bh-wNu"/>
                             <constraint firstItem="Htr-Ga-a9f" firstAttribute="leading" secondItem="hL5-Ec-TYj" secondAttribute="leading" id="ywb-GL-axr"/>
                         </constraints>
@@ -1286,8 +1300,10 @@
                         <outlet property="amount" destination="Yxs-1A-80v" id="KHR-OV-Asp"/>
                         <outlet property="category" destination="sSt-DA-yv6" id="y0A-hC-HjM"/>
                         <outlet property="dateValue" destination="7Di-pu-Bwv" id="JQq-i5-hEo"/>
+                        <outlet property="missing" destination="k5U-bF-bnr" id="u2L-Gr-Gwb"/>
                         <outlet property="note" destination="wLu-hC-4sc" id="DsO-OE-n6g"/>
                         <segue destination="Fbh-7Y-0n5" kind="show" identifier="pickDate" id="FPP-Zd-6Ca"/>
+                        <segue destination="FLn-43-NNw" kind="show" identifier="pickAccount" id="CDC-Zr-p0D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KA6-XP-l3S" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1476,7 +1492,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rei-eW-sl7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1951" y="850"/>
+            <point key="canvasLocation" x="1995" y="666"/>
         </scene>
         <!--Add Account-->
         <scene sceneID="8I2-bt-XHD">
@@ -1619,11 +1635,12 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="DM0-rh-VpF"/>
-        <segue reference="MIH-f8-SUb"/>
         <segue reference="aKh-Cl-C3P"/>
+        <segue reference="MIH-f8-SUb"/>
         <segue reference="u5g-mR-znT"/>
-        <segue reference="uHg-lh-ava"/>
         <segue reference="MQw-lE-v7I"/>
+        <segue reference="rxT-Kq-Ui6"/>
+        <segue reference="FPP-Zd-6Ca"/>
+        <segue reference="CDC-Zr-p0D"/>
     </inferredMetricsTieBreakers>
 </document>

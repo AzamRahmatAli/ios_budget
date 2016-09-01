@@ -120,8 +120,7 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
             
         }*/
         
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "dd MMM yyyy"
+        
             if let date  = Helper.datePic
             {
                 idate = date
@@ -130,8 +129,8 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
                 
             }
             
-            let selectedDate = dateFormatter.stringFromDate(idate)
-            dateValue.text = selectedDate
+        
+            dateValue.text =  Helper.getFormattedDate(idate)
         
     }
     

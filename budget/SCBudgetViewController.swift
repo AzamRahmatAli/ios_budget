@@ -86,7 +86,23 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     
-    
+    func getBudgetForCategory(row : Int) -> Float?
+    {
+        
+        var amount : Float = 0.0
+       
+            if let price = Float(expenseData[row].amount ?? "0")
+            {
+                amount += price
+            }
+            
+        
+        if amount != 0
+        {
+            return amount
+        }
+        return nil
+    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -96,7 +112,13 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
        
         
         cell.leftUp.text = expenseData[indexPath.row].name
-        cell.rightUp.text = expenseData[indexPath.row].amount
+        
+        if let budget = getBudgetForCategory(indexPath.row)
+        {
+            cell.rightUp.text = budget.asLocaleCurrency
+            
+        }
+
         if let scicon = expenseData[indexPath.row].icon
         {
             cell.img.image = UIImage(named: scicon)
