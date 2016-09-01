@@ -24,7 +24,7 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
         {
             
             category.text = incomeData!.category
-            amount.text = String(incomeData!.amount!)
+            amount.text = incomeData!.amount
             
             
             incomeDate = incomeData!.createdAt

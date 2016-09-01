@@ -48,7 +48,7 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
         {
             
             category.text = expenseData!.category?.category!.name
-            amount.text = String(expenseData!.amount!)
+            amount.text = expenseData!.amount
             subCategory.text =  expenseData!.category?.name
             
             dateValue = expenseData!.createdAt!

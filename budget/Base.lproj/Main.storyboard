@@ -1407,12 +1407,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$5,62,031" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cDY-l5-0sg">
-                                                    <rect key="frame" x="165" y="8" width="122" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mZe-fX-s19">
                                                     <rect key="frame" x="8" y="17" width="22" height="21"/>
                                                     <constraints>
@@ -1434,6 +1428,12 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cDY-l5-0sg">
+                                                    <rect key="frame" x="165" y="8" width="122" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="cDY-l5-0sg" firstAttribute="baseline" secondItem="IpV-Mb-fqL" secondAttribute="firstBaseline" id="8hA-Or-xf8"/>
@@ -1452,9 +1452,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="categoryAmount" destination="cDY-l5-0sg" id="wa2-YD-zQq"/>
                                             <outlet property="img" destination="mZe-fX-s19" id="3TE-cM-lhK"/>
                                             <outlet property="leftDown" destination="jCT-11-aXb" id="AJx-eG-BpL"/>
+                                            <outlet property="rightUp" destination="cDY-l5-0sg" id="TPP-DH-hxN"/>
                                             <outlet property="subCatg" destination="IpV-Mb-fqL" id="gfl-ty-4Je"/>
                                         </connections>
                                     </tableViewCell>
@@ -1488,6 +1488,7 @@
                     <connections>
                         <outlet property="tableView" destination="0cG-7g-z1f" id="kbK-gE-LNN"/>
                         <segue destination="lQ8-HK-Rlz" kind="show" identifier="addAccount" id="hsH-l5-Qe9"/>
+                        <segue destination="lQ8-HK-Rlz" kind="show" identifier="updateAccount" id="4bb-iU-kYY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rei-eW-sl7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1631,7 +1632,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="esv-HE-Twl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2561" y="666"/>
+            <point key="canvasLocation" x="2484" y="647"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
@@ -1640,7 +1641,8 @@
         <segue reference="u5g-mR-znT"/>
         <segue reference="MQw-lE-v7I"/>
         <segue reference="rxT-Kq-Ui6"/>
-        <segue reference="FPP-Zd-6Ca"/>
         <segue reference="CDC-Zr-p0D"/>
+        <segue reference="4bb-iU-kYY"/>
+        <segue reference="lxu-3I-7YJ"/>
     </inferredMetricsTieBreakers>
 </document>

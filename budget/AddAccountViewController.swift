@@ -23,7 +23,7 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     var accountData : AccountTable?
     
    
-    var idate = NSDate()
+    var accountDate : NSDate? = NSDate()
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
     
@@ -35,6 +35,23 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
         dateValue.delegate = self
         amount.delegate = self
         //subCategory.delegate = self
+        
+        
+        if updateAccount
+        {
+            
+            category.text = accountData!.accountType?.name
+            amount.text = accountData!.amount
+            
+            
+            accountDate = accountData!.createdAt!
+            
+            subCategory.text = accountData!.name
+            
+            
+            
+        }
+
     }
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
@@ -44,8 +61,11 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
             self.performSegueWithIdentifier("pickDate", sender: nil)
         }else if textField  == amount
         {
+            if amount.text == "0"
+            {
             amount.text = ""
             return true
+            }
         }else{
             Helper.pickCategory = true
             self.performSegueWithIdentifier("pickCategory", sender: nil)
@@ -80,21 +100,61 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     
     @IBAction func addExpense(sender: AnyObject) {
         
-        if let entity = NSEntityDescription.insertNewObjectForEntityForName("AccountTable", inManagedObjectContext: managedObjectContext!) as? AccountTable
+        if updateAccount
+        {
+            
+            //let predicate = NSPredicate(format: "category == %@ AND subCategory == %@", crntCategory, crntSubCategory)
+            
+            //let fetchRequest = NSFetchRequest(entityName: "ExpenseTable")
+            //fetchRequest.predicate = predicate
+            
+            
+            if let entity =  managedObjectContext!.objectWithID(accountData!.objectID)  as? AccountTable
+            {
+                
+                entity.amount = (amount.text != "") ? amount.text : "0"
+                
+                
+                
+                
+                
+                
+                entity.createdAt = accountDate
+                
+                entity.name = subCategory.text
+                if let accountType = AccountTypeTable.accontType(category.text!, inManagedObjectContext: managedObjectContext!)
+                {
+                    entity.accountType = accountType
+                }
+
+                
+                //entity.account?.name = payFrom.text
+                // ... Update additional properties with new values
+                
+                do {
+                    try self.managedObjectContext!.save()
+                    navigationController?.popViewControllerAnimated(true)
+                } catch {
+                    print("error")
+                }
+            }
+            
+            
+            
+        }
+        
+        else if let entity = NSEntityDescription.insertNewObjectForEntityForName("AccountTable", inManagedObjectContext: managedObjectContext!) as? AccountTable
         {
             
             entity.amount = amount.text!
             entity.name = subCategory.text
-            entity.createdAt = idate
+            entity.createdAt = accountDate
          entity.accountType = AccountTypeTable.accontType(category.text!, inManagedObjectContext: managedObjectContext!)
             
             print(entity)
             
             
-        }
-        else{
-            print("fail insert")
-        }
+        
         
         do{
             try self.managedObjectContext?.save()
@@ -104,6 +164,7 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
         }
         catch{
             
+        }
         }
     }
     
@@ -123,14 +184,14 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
         
             if let date  = Helper.datePic
             {
-                idate = date
+                accountDate = date
                 Helper.datePic = nil
                 
                 
             }
             
         
-            dateValue.text =  Helper.getFormattedDate(idate)
+            dateValue.text =  Helper.getFormattedDate(accountDate!)
         
     }
     

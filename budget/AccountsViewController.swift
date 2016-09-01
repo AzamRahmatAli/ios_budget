@@ -33,7 +33,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
     }
     
-    var DataForSection = [AccountTable]()
+    var dataForSection = [AccountTable]()
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -57,23 +57,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     
     
     
-    
-    @IBAction func nextMonth(sender: AnyObject) {
-        
-        selectedIndexPath = nil
-        let cal = NSCalendar.currentCalendar()
-        expenseMonthDate = cal.dateByAddingUnit(.Month, value: 1, toDate: expenseMonthDate, options: [])!
-        updateMonthlyExpenseView(expenseMonthDate)
-    }
-    
-    
-    @IBAction func prevMonth(sender: AnyObject) {
-        selectedIndexPath = nil
-        let cal = NSCalendar.currentCalendar()
-        expenseMonthDate = cal.dateByAddingUnit(.Month, value: -1, toDate: expenseMonthDate, options: [])!
-        updateMonthlyExpenseView(expenseMonthDate)
-    }
-    
+
     
     
     
@@ -148,10 +132,10 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         {
          
             
-             DataForSection = accountData[section].account!.allObjects as! [AccountTable]
+             dataForSection = accountData[section].account!.allObjects as! [AccountTable]
             
-                print(DataForSection.count)
-            return DataForSection.count
+                print(dataForSection.count)
+            return dataForSection.count
         
         }
         else
@@ -189,25 +173,13 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cellparent", forIndexPath: indexPath) as! ParentTableViewCell
-        print(DataForSection.count)
-        print("DataForSection[indexPath.row].name = ",DataForSection[0])
-        cell.subCatg.text = DataForSection[indexPath.row].name
-        cell.leftDown.text = "Reconciled: " + Helper.currency +  DataForSection[indexPath.row].amount!
-        /*if (DataForSection[indexPath.row].fundsOut != nil), let fo =  Double(DataForSection![indexPath.row].fundsOut!)
-        {
-            if (DataForSection[indexPath.row].fundsIn != nil), let fi =  Double(DataForSection[indexPath.row].fundsIn!)
-            {
-                cell.rightUp.text = String(Double(expenseDataForSection[indexPath.row].balance!)! + fi - fo)
-            }
-            else {
-                cell.rightUp.text = String(Double(expenseDataForSection[indexPath.row].balance!)! - fo)
-            }
-        }else if (DataForSection[indexPath.row].fundsIn != nil), let fi =  Double(DataForSection[indexPath.row].fundsIn!){
-            cell.rightUp.text = String(Double(expenseDataForSection[indexPath.row].balance!)! + fi)
-        }
-        else{
-            cell.rightUp.text = DataForSection[indexPath.row].balance
-        }*/
+        print(dataForSection.count)
+        print("DataForSection[indexPath.row].name = ",dataForSection[0])
+        cell.subCatg.text = dataForSection[indexPath.row].name
+        cell.leftDown.text = "Reconciled: " + Helper.currency +  dataForSection[indexPath.row].amount!
+        let amount = Float(dataForSection[indexPath.row].amount ?? "0") ?? 0.0
+        
+        cell.rightUp.text = amount.asLocaleCurrency
         
         return cell
         
@@ -222,7 +194,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         let dvc = segue.destinationViewController as! AddAccountViewController
         
-        dvc.accountData = DataForSection[indexPath.row]
+        dvc.accountData = dataForSection[indexPath.row]
         dvc.updateAccount = true
         }
         
@@ -257,7 +229,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         if Helper.pickAccount        {
             //  let index = expenseData.startIndex.advancedBy(indexPath.row)
-            Helper.pickedAccountData = DataForSection[indexPath.row]
+            Helper.pickedAccountData = dataForSection[indexPath.row]
             
             
             Helper.accountPicked = true
@@ -265,7 +237,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         }
         else
         {
-            self.performSegueWithIdentifier("addAccount", sender: nil)
+            self.performSegueWithIdentifier("updateAccount", sender: nil)
             
         }
         
