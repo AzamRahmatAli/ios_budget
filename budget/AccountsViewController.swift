@@ -23,7 +23,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     var expenseMonthDate = NSDate()
     
     var accountData = [AccountTypeTable]()
-    
+    var calculatedAmount = [[Float]]()
     
     var sectionTapped = -1{
         didSet{
@@ -76,14 +76,18 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         
         
-        let data = accountData
-        var price = 0.0
-        for type in data{
-            for element in type.account! {
-            price += Double((element as! AccountTable).amount!)!
-            }
+        let data = calculatedAmount[section]
+        var price : Float = 0.0
+        for amount in data{
+            
+            price += amount
+            
         }
-        header.price.text = Helper.currency + String(price)
+        header.price.text = price.asLocaleCurrency
+        if price < 0
+        {
+            header.price.textColor = UIColor.redColor()
+        }
         
         
         
@@ -161,10 +165,30 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         expenseMonthDate = NSDate()
         updateMonthlyExpenseView(expenseMonthDate)
         
+        
+        
     }
     
     
-    
+    func calculateCurrentAmount(amount : Float, row : Int) -> Float?
+    {
+        var total = amount
+        if let incomes =  dataForSection[row].income!.allObjects as? [IncomeTable]
+        {
+            for element in incomes
+            {
+                total += Float(element.amount ?? "0") ?? 0.0
+            }
+        }
+        if let expenses =  dataForSection[row].expense!.allObjects as? [ExpenseTable]
+        {
+            for element in expenses
+            {
+                total -= Float(element.amount ?? "0") ?? 0.0
+            }
+        }
+        return total
+    }
     
     
     
@@ -178,8 +202,12 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         cell.subCatg.text = dataForSection[indexPath.row].name
         cell.leftDown.text = "Reconciled: " + Helper.currency +  dataForSection[indexPath.row].amount!
         let amount = Float(dataForSection[indexPath.row].amount ?? "0") ?? 0.0
-        
-        cell.rightUp.text = amount.asLocaleCurrency
+        let total = calculateCurrentAmount(amount, row: indexPath.row)
+        cell.rightUp.text = total!.asLocaleCurrency
+        if total < 0
+        {
+            cell.rightUp.textColor = UIColor.redColor()
+        }
         
         return cell
         
@@ -202,7 +230,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     
     func updateMonthlyExpenseView(expenseMonthDate : NSDate)
     {
-        
+        var i = 0, j = 0
         
         do{
             let request = NSFetchRequest(entityName: "AccountTypeTable")
@@ -212,6 +240,22 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
             
             
             accountData = queryResult
+            for element in accountData
+            {
+                if let accounts = element.account?.allObjects as? [AccountTable]
+                    {
+                        for account in accounts{
+                            if let amount = calculateCurrentAmount(Float(account.amount!)!, row:  j)
+                            {
+                            calculatedAmount[i].append(amount)
+                        }
+                            j += 1
+                        }
+                }
+                i += 1
+            }
+            
+            
            
         }
             
