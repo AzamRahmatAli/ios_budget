@@ -217,7 +217,13 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
         
+        let indexPath = self.tableView.indexPathForSelectedRow!
         
+        let dvc = segue.destinationViewController as! AddAccountViewController
+        
+        dvc.accountData = DataForSection[indexPath.row]
+        dvc.updateAccount = true
+
         
     }
     
@@ -259,6 +265,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         else
         {
             self.performSegueWithIdentifier("addAccount", sender: nil)
+            
         }
         
         

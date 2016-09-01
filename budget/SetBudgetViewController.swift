@@ -102,7 +102,7 @@ class SetBudgetViewController: UIViewController , UITextFieldDelegate{
         }*/
         
         
-        let predicate = NSPredicate(format: "category == %@ AND subCategory == %@", crntCategory, crntSubCategory)
+        let predicate = NSPredicate(format: "category.name == %@ AND name == %@", crntCategory, crntSubCategory)
         
         let fetchRequest = NSFetchRequest(entityName: "SubCategoryTable")
         fetchRequest.predicate = predicate

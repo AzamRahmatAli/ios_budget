@@ -69,7 +69,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let startDate = NSDate().startOfMonth(components)
         let endDate = NSDate().endOfMonth(components)
         let predicate = NSPredicate(format: "createdAt >= %@ AND createdAt <= %@", startDate!, endDate!)
-        var total = 0.0
+        var total : Float = 0.0
         
         
         if indexPath.row == 0
@@ -87,7 +87,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 {
                    
                     
-                    total += Double(element.amount ?? "0") ?? 0.0
+                    total += Float(element.amount ?? "0") ?? 0.0
                     
                    
                     
@@ -100,7 +100,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             catch let error {
                 print("error : ", error)
             }
-            cell.price.text = "Rs" + "\(total)"
+            cell.price.text = total.asLocaleCurrency
             cell.price.textColor = UIColor.orangeColor()
 
             
@@ -119,11 +119,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 for element in queryResult
                 {
                     
-                    
-                    total += Double(element.amount!)!
-                    
-                    
-                    
+                    total += Float(element.amount ?? "0") ?? 0.0
                     
                     
                 }
@@ -133,7 +129,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             catch let error {
                 print("error : ", error)
             }
-            cell.price.text = "Rs" + "\(total)"
+            cell.price.text = total.asLocaleCurrency
             cell.price.textColor = UIColor.blueColor()
             
         }else if indexPath.row == 2
@@ -152,10 +148,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     print(element.amount)
                     
                    
-                        if let value =  Double(element.amount ?? "0")
+                        if let value =  Float(element.amount ?? "0")
                         {
                         total += value
-                        
                         
                     }
                    
@@ -171,7 +166,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             catch let error {
                 print("error : ", error)
             }
-            cell.price.text = "Rs" + "\(total)"
+            cell.price.text = total.asLocaleCurrency
+
             cell.price.textColor = UIColor.greenColor()
             
         }else if indexPath.row == 3
@@ -189,7 +185,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 {
                     
                    
-                    total += Double(element.amount ?? "0") ?? 0.0
+                    total += Float(element.amount ?? "0") ?? 0.0
                     
                     
                     
@@ -202,7 +198,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             catch let error {
                 print("error : ", error)
             }
-            cell.price.text = "Rs" + "\(total)"
+            cell.price.text = total.asLocaleCurrency
             cell.price.textColor = UIColor.purpleColor()
             
             

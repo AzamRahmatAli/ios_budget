@@ -19,6 +19,8 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     
 
     @IBOutlet weak var dateValue: UITextField!
+    var updateAccount = true
+    var accountData : AccountTable?
     
    
     var idate = NSDate()

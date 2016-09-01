@@ -102,7 +102,23 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     }
     
-    
+    func getBudgetForCategory(name : String, row : Int) -> Float?
+    {
+         let data = expenseData![row].subcategory!.allObjects as! [SubCategoryTable]
+        var amount : Float = 0.0
+        for element in data{
+            if let price = Float(element.amount ?? "0")
+            {
+                amount += price
+            }
+        
+        }
+        if amount != 0
+        {
+            return amount
+        }
+    return nil
+    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -110,11 +126,16 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cellparent", forIndexPath: indexPath) as! ParentTableViewCell
         let index = indexPath.row
-        
-        cell.leftUp.text = expenseData![index].name
+        let ctgName = expenseData![index].name
+        cell.leftUp.text = ctgName
        
         cell.img.image = UIImage(named: expenseData![index].icon!)
-           
+        
+        if let budget = getBudgetForCategory(ctgName!,row: indexPath.row)
+        {
+        cell.rightUp.text = budget.asLocaleCurrency
+            
+        }
         return cell
         
     }

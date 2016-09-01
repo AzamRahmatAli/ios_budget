@@ -94,11 +94,13 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         let data = expenseData!.values[index] as! [ExpenseTable]
-        var price = 0.0
+        var price : Float = 0.0
         for element in data{
-            price += Double(element.amount ?? "0") ?? 0.0
+            price += Float(element.amount ?? "0") ?? 0.0
         }
-        header.price.text = Helper.currency + String(price)
+        
+        
+        header.price.text = price.asLocaleCurrency
         
         
         
@@ -189,8 +191,9 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         cell.subCatg.text = expenseDataForSection![indexPath.row].category!.name
-        cell.categoryAmount.text = Helper.currency + expenseDataForSection![indexPath.row].amount!
-        
+        //Helper.currency + expenseDataForSection![indexPath.row].amount!
+        let amount = Float(expenseDataForSection![indexPath.row].amount!)
+        cell.categoryAmount.text = amount?.asLocaleCurrency
         let date = String(expenseDataForSection![indexPath.row].createdAt!).componentsSeparatedByString(" ").first
         
         
