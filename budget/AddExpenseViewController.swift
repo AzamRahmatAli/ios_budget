@@ -118,11 +118,6 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
         if updateExpens
         {
             
-            //let predicate = NSPredicate(format: "category == %@ AND subCategory == %@", crntCategory, crntSubCategory)
-            
-            //let fetchRequest = NSFetchRequest(entityName: "ExpenseTable")
-            //fetchRequest.predicate = predicate
-            
             
             if let entity =  managedObjectContext!.objectWithID(expenseData!.objectID)  as? ExpenseTable
             {
@@ -147,8 +142,6 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
                 entity.createdAt = dateValue
                 
                 entity.note = note.text
-                //entity.account?.name = payFrom.text
-                // ... Update additional properties with new values
                 
                 do {
                     try self.managedObjectContext!.save()

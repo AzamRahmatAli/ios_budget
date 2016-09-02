@@ -209,6 +209,10 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         {
             cell.rightUp.textColor = UIColor.redColor()
         }
+        if let image = dataForSection[indexPath.row].icon
+        {
+        cell.img.image = UIImage(named: image)
+        }
         
         return cell
         

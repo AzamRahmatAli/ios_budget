@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-
+import UIKit
 
 
 struct  Helper {
@@ -24,6 +24,7 @@ struct  Helper {
     static var accountPicked = false
     static var currency = "RS"
     static var pickedAccountData : AccountTable?
+    static var bankIcon = "bank"
     
     
     static func getFormattedDate( date : NSDate ) -> String
@@ -33,7 +34,16 @@ struct  Helper {
         return dateFormatter.stringFromDate(date)
         
     }
-
+    static func saveChanges(context : NSManagedObjectContext, viewController : UIViewController)
+    {
+        do {
+            try context.save()
+            viewController.navigationController?.popViewControllerAnimated(true)
+            
+        } catch {
+            print("error")
+        }
+    }
     
 }
 

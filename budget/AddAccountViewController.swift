@@ -17,7 +17,9 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     @IBOutlet weak var subCategory: UITextField!
     @IBOutlet weak var amount: UITextField!
     
-
+    @IBOutlet weak var deleteIcon: UIImageView!
+    @IBOutlet weak var icon: UIImageView!
+    @IBOutlet weak var missing: UILabel!
     @IBOutlet weak var dateValue: UITextField!
     var updateAccount = false
     var accountData : AccountTable?
@@ -26,6 +28,12 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     var accountDate : NSDate? = NSDate()
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
+    @IBAction func deleteAccount(sender: UITapGestureRecognizer) {
+        
+        deleteRecord((accountData?.objectID)!)
+        Helper.saveChanges(managedObjectContext!, viewController: self)
+        
+    }
     
     
     
@@ -35,6 +43,10 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
         dateValue.delegate = self
         amount.delegate = self
         //subCategory.delegate = self
+        
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(AddAccountViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
         
         
         if updateAccount
@@ -47,12 +59,20 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
             accountDate = accountData!.createdAt!
             
             subCategory.text = accountData!.name
+            Helper.bankIcon =  accountData!.icon!
             
             
             
         }
 
     }
+    
+    
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         // Constants.Picker.chooseSubCategory = true
@@ -103,12 +123,19 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     func getById(id: NSManagedObjectID) -> AccountTypeTable? {
         return managedObjectContext!.objectWithID(id) as? AccountTypeTable
     }
+    
+    
+
     func deleteRecord(id: NSManagedObjectID){
         if let personToDelete = getById(id){
             managedObjectContext!.deleteObject(personToDelete)
         }
     }
     
+    @IBAction func pickIcon(sender: UITapGestureRecognizer) {
+        
+        performSegueWithIdentifier("pickIcon", sender: nil)
+    }
     func deleteAccountType(accountTypeName : String)
     {
         if category.text! != accountTypeName
@@ -132,14 +159,15 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     }
 
     @IBAction func addExpense(sender: AnyObject) {
+        dismissKeyboard()
         
+        
+        if category.text != ""
+        {
+            if subCategory.text != ""
+            {
         if updateAccount
         {
-            
-            //let predicate = NSPredicate(format: "category == %@ AND subCategory == %@", crntCategory, crntSubCategory)
-            
-            //let fetchRequest = NSFetchRequest(entityName: "ExpenseTable")
-            //fetchRequest.predicate = predicate
             
             
             if let entity =  managedObjectContext!.objectWithID(accountData!.objectID)  as? AccountTable
@@ -147,30 +175,26 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
                 
                 entity.amount = (amount.text != "") ? amount.text : "0"
                 
-                
+                entity.icon = Helper.bankIcon
+                Helper.bankIcon = "bank"
                 
                 entity.createdAt = accountDate
                 
                 entity.name = subCategory.text
+                
                 let  accountTypeName = entity.accountType!.name
+                
+                
                 if let accountType = AccountTypeTable.accontType(category.text!, inManagedObjectContext: managedObjectContext!)
                 {
                     entity.accountType = accountType
                 }
 
                 deleteAccountType(accountTypeName!) //if nesessary
-                //entity.account?.name = payFrom.text
-                // ... Update additional properties with new values
-                
-                do {
-                    try self.managedObjectContext!.save()
-                    navigationController?.popViewControllerAnimated(true)
-                } catch {
-                    print("error")
-                }
+              
             }
             
-            
+            Helper.saveChanges(managedObjectContext!, viewController : self )
             
         }
         
@@ -178,6 +202,8 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
         {
             
             entity.amount = amount.text!
+            entity.icon = Helper.bankIcon
+            Helper.bankIcon = "bank"
             entity.name = subCategory.text
             entity.createdAt = accountDate
          entity.accountType = AccountTypeTable.accontType(category.text!, inManagedObjectContext: managedObjectContext!)
@@ -187,31 +213,26 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
             
         
         
-        do{
-            try self.managedObjectContext?.save()
-            navigationController?.popViewControllerAnimated(true)
-            //receivedMessageFromServer()
-            
+         Helper.saveChanges(managedObjectContext!, viewController : self )
         }
-        catch{
-            
         }
+        else{
+            missing.text = "Enter Name"
         }
     }
+    else{
+    missing.text = "Enter Type"
+    }
     
+    }
+
     override func viewWillAppear(animated: Bool) {
-       /* if Helper.categoryPicked
-        {
-            category.text = Helper.pickedSubCaregory?.category!.name
-            
-            subCategory.text = Helper.pickedSubCaregory?.name
-            
-            Helper.pickedSubCaregory = nil
-            
-            Helper.categoryPicked = false
-            
-        }*/
+     
         
+        if updateAccount
+        {
+            deleteIcon.hidden = true
+        }
         
             if let date  = Helper.datePic
             {
@@ -223,6 +244,7 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
             
         
             dateValue.text =  Helper.getFormattedDate(accountDate!)
+        icon.image = UIImage(named: Helper.bankIcon)
         
     }
     
