@@ -19,7 +19,7 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     
 
     @IBOutlet weak var dateValue: UITextField!
-    var updateAccount = true
+    var updateAccount = false
     var accountData : AccountTable?
     
    
@@ -64,8 +64,9 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
             if amount.text == "0"
             {
             amount.text = ""
-            return true
             }
+            return true
+            
         }else{
             Helper.pickCategory = true
             self.performSegueWithIdentifier("pickCategory", sender: nil)
@@ -98,6 +99,38 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
         navigationController?.popViewControllerAnimated(true)
     }
     
+    
+    func getById(id: NSManagedObjectID) -> AccountTypeTable? {
+        return managedObjectContext!.objectWithID(id) as? AccountTypeTable
+    }
+    func deleteRecord(id: NSManagedObjectID){
+        if let personToDelete = getById(id){
+            managedObjectContext!.deleteObject(personToDelete)
+        }
+    }
+    
+    func deleteAccountType(accountTypeName : String)
+    {
+        if category.text! != accountTypeName
+        {
+            
+            let request = NSFetchRequest(entityName: "AccountTable")
+            
+            
+            request.predicate = NSPredicate(format: "accountType.name == %@", accountTypeName)
+            if managedObjectContext!.countForFetchRequest( request , error: nil) < 1
+            {
+                if let accountType = AccountTypeTable.accontType(accountTypeName, inManagedObjectContext: managedObjectContext!)
+                {
+                    
+                    deleteRecord(accountType.objectID)
+                }
+            }
+        }
+    
+    
+    }
+
     @IBAction func addExpense(sender: AnyObject) {
         
         if updateAccount
@@ -116,18 +149,16 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
                 
                 
                 
-                
-                
-                
                 entity.createdAt = accountDate
                 
                 entity.name = subCategory.text
+                let  accountTypeName = entity.accountType!.name
                 if let accountType = AccountTypeTable.accontType(category.text!, inManagedObjectContext: managedObjectContext!)
                 {
                     entity.accountType = accountType
                 }
 
-                
+                deleteAccountType(accountTypeName!) //if nesessary
                 //entity.account?.name = payFrom.text
                 // ... Update additional properties with new values
                 

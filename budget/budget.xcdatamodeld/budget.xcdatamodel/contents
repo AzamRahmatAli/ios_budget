@@ -43,7 +43,7 @@
         <relationship name="expense" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ExpenseTable" inverseName="category" inverseEntity="ExpenseTable" syncable="YES"/>
     </entity>
     <elements>
-        <element name="AccountTable" positionX="421" positionY="170" width="128" height="150"/>
+        <element name="AccountTable" positionX="421" positionY="170" width="128" height="148"/>
         <element name="AccountTypeTable" positionX="261" positionY="108" width="128" height="73"/>
         <element name="CategoryTable" positionX="432" positionY="18" width="128" height="88"/>
         <element name="ExpenseTable" positionX="-36" positionY="71" width="128" height="135"/>

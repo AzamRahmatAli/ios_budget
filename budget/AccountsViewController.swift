@@ -22,7 +22,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     
     var expenseMonthDate = NSDate()
     
-    var accountData = [AccountTypeTable]()
+    var accountData : [AccountTypeTable] = []
     var calculatedAmount = [[Float]]()
     
     var sectionTapped = -1{
@@ -88,6 +88,9 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         {
             header.price.textColor = UIColor.redColor()
         }
+        else{
+            header.price.textColor = UIColor.blackColor()
+        }
         
         
         
@@ -124,8 +127,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         // Get the section
         sectionTapped  = senderView.headerCellSection
-        
-        
+       
         
     }
     
@@ -138,7 +140,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
             
              dataForSection = accountData[section].account!.allObjects as! [AccountTable]
             
-                print(dataForSection.count)
+            
             return dataForSection.count
         
         }
@@ -173,14 +175,14 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     func calculateCurrentAmount(amount : Float, row : Int) -> Float?
     {
         var total = amount
-        if let incomes =  dataForSection[row].income!.allObjects as? [IncomeTable]
+        if let incomes =  dataForSection[row].income?.allObjects as? [IncomeTable]
         {
             for element in incomes
             {
                 total += Float(element.amount ?? "0") ?? 0.0
             }
         }
-        if let expenses =  dataForSection[row].expense!.allObjects as? [ExpenseTable]
+        if let expenses =  dataForSection[row].expense?.allObjects as? [ExpenseTable]
         {
             for element in expenses
             {
@@ -197,13 +199,12 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cellparent", forIndexPath: indexPath) as! ParentTableViewCell
-        print(dataForSection.count)
-        print("DataForSection[indexPath.row].name = ",dataForSection[0])
+        
         cell.subCatg.text = dataForSection[indexPath.row].name
         cell.leftDown.text = "Reconciled: " + Helper.currency +  dataForSection[indexPath.row].amount!
-        let amount = Float(dataForSection[indexPath.row].amount ?? "0") ?? 0.0
-        let total = calculateCurrentAmount(amount, row: indexPath.row)
-        cell.rightUp.text = total!.asLocaleCurrency
+        print(calculatedAmount[sectionTapped][indexPath.row],sectionTapped,indexPath.row,calculatedAmount)
+        let total = calculatedAmount[sectionTapped][indexPath.row]
+        cell.rightUp.text = total.asLocaleCurrency
         if total < 0
         {
             cell.rightUp.textColor = UIColor.redColor()
@@ -240,20 +241,25 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
             
             
             accountData = queryResult
+            calculatedAmount = [[Float]](count: accountData.count , repeatedValue: [])
             for element in accountData
             {
                 if let accounts = element.account?.allObjects as? [AccountTable]
                     {
+                           dataForSection = accounts
                         for account in accounts{
-                            if let amount = calculateCurrentAmount(Float(account.amount!)!, row:  j)
+                         
+                            if let amount = calculateCurrentAmount(Float(account.amount ?? "0") ?? 0.0, row:  j)
                             {
                             calculatedAmount[i].append(amount)
                         }
                             j += 1
                         }
+                        j = 0
                 }
                 i += 1
             }
+         
             
             
            
