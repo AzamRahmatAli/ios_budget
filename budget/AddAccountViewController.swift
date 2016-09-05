@@ -29,11 +29,14 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
     @IBAction func deleteAccount(sender: UITapGestureRecognizer) {
+        let accountTypeName = accountData?.accountType?.name
         
-        deleteRecord((accountData?.objectID)!)
+        deleteRecord(accountData!)
+        deleteAccountType(accountTypeName!)
         Helper.saveChanges(managedObjectContext!, viewController: self)
         
     }
+    
     
     
     
@@ -62,6 +65,12 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
             Helper.bankIcon =  accountData!.icon!
             
             
+            
+        }
+        else
+        {
+        
+                deleteIcon.hidden = true
             
         }
 
@@ -120,42 +129,41 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     }
     
     
-    func getById(id: NSManagedObjectID) -> AccountTypeTable? {
-        return managedObjectContext!.objectWithID(id) as? AccountTypeTable
+    func getById(id: NSManagedObjectID) -> AnyObject {
+        return managedObjectContext!.objectWithID(id)
     }
     
     
+    
 
-    func deleteRecord(id: NSManagedObjectID){
-        if let personToDelete = getById(id){
-            managedObjectContext!.deleteObject(personToDelete)
-        }
+    func deleteRecord(object: NSManagedObject){
+        
+        managedObjectContext!.deleteObject(object)
+        
+       
     }
     
     @IBAction func pickIcon(sender: UITapGestureRecognizer) {
         
         performSegueWithIdentifier("pickIcon", sender: nil)
     }
+    
+    
+    
     func deleteAccountType(accountTypeName : String)
     {
-        if category.text! != accountTypeName
-        {
-            
-            let request = NSFetchRequest(entityName: "AccountTable")
+         let request = NSFetchRequest(entityName: "AccountTable")
             
             
             request.predicate = NSPredicate(format: "accountType.name == %@", accountTypeName)
             if managedObjectContext!.countForFetchRequest( request , error: nil) < 1
             {
                 if let accountType = AccountTypeTable.accontType(accountTypeName, inManagedObjectContext: managedObjectContext!)
-                {
-                    
-                    deleteRecord(accountType.objectID)
+                { 
+                    deleteRecord(accountType)
                 }
             }
-        }
-    
-    
+        
     }
 
     @IBAction func addExpense(sender: AnyObject) {
@@ -228,12 +236,7 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
 
     override func viewWillAppear(animated: Bool) {
      
-        
-        if updateAccount
-        {
-            deleteIcon.hidden = true
-        }
-        
+       
             if let date  = Helper.datePic
             {
                 accountDate = date

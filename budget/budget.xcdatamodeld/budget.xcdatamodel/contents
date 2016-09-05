@@ -11,7 +11,7 @@
     </entity>
     <entity name="AccountTypeTable" representedClassName=".AccountTypeTable" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="account" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AccountTable" inverseName="accountType" inverseEntity="AccountTable" syncable="YES"/>
+        <relationship name="account" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AccountTable" inverseName="accountType" inverseEntity="AccountTable" syncable="YES"/>
     </entity>
     <entity name="CategoryTable" representedClassName=".CategoryTable" syncable="YES">
         <attribute name="icon" optional="YES" attributeType="String" syncable="YES"/>

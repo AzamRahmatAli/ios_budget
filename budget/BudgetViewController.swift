@@ -120,6 +120,32 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
     return nil
     }
     
+    func getExpensesForCategory(row : Int) -> Float?
+    {
+        // if expenseData[row].expense != nil{
+        var amount : Float = 0.0
+        
+        if let subCategories = expenseData![row].subcategory?.allObjects as? [SubCategoryTable]
+        {
+            for category in subCategories
+            {
+                if let expenses = category.expense?.allObjects as? [ExpenseTable]
+                {
+                    for expense in expenses
+                    {
+                        amount += Float(expense.amount ?? "0") ?? 0.0
+                    }
+                }            }
+        }
+        
+        
+        if amount != 0
+        {
+            return amount
+        }
+        //}
+        return nil
+    }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         
@@ -134,7 +160,18 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if let budget = getBudgetForCategory(ctgName!,row: indexPath.row)
         {
         cell.rightUp.text = budget.asLocaleCurrency
+            if let expenses = getExpensesForCategory(indexPath.row)
+            {
+                cell.leftDown.text = expenses.asLocaleCurrency
+                cell.rightDown.text = (budget - expenses).asLocaleCurrency
+            }
             
+        }
+        else if let expenses = getExpensesForCategory(indexPath.row)
+        {
+            cell.rightUp.text = Float(0).asLocaleCurrency
+            cell.leftDown.text = expenses.asLocaleCurrency
+            cell.rightDown.text = (0.0 - expenses).asLocaleCurrency
         }
         return cell
         
@@ -156,8 +193,6 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
           
             dvc.addCategory = true
        
-
-            
         }
       
         else
@@ -166,7 +201,6 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let dvc = segue.destinationViewController as! SCBudgetViewController
         let index = path.row
         
-       
         dvc.category = expenseData![index].name!
     }
 

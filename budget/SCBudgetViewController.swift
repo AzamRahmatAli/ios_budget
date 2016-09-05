@@ -86,14 +86,17 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     
-    func getBudgetForCategory(row : Int) -> Float?
+    func getExpensesForCategory(row : Int) -> Float?
     {
-        
+       // if expenseData[row].expense != nil{
         var amount : Float = 0.0
        
-            if let price = Float(expenseData[row].amount ?? "0")
+            if let expenses = expenseData[row].expense?.allObjects as? [ExpenseTable]
             {
-                amount += price
+                for expense in expenses
+                {
+                amount += Float(expense.amount ?? "0") ?? 0.0
+                }
             }
             
         
@@ -101,8 +104,28 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         {
             return amount
         }
+        //}
         return nil
     }
+    
+    func getBudgetForCategory(row : Int) -> Float?
+    {
+        
+        var amount : Float = 0.0
+        
+        if let price = Float(expenseData[row].amount ?? "0")
+        {
+            amount += price
+        }
+        
+        
+        if amount != 0
+        {
+            return amount
+        }
+        return nil
+    }
+
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -116,8 +139,20 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         if let budget = getBudgetForCategory(indexPath.row)
         {
             cell.rightUp.text = budget.asLocaleCurrency
+            if let expenses = getExpensesForCategory(indexPath.row)
+            {
+            cell.leftDown.text = expenses.asLocaleCurrency
+                cell.rightDown.text = (budget - expenses).asLocaleCurrency
+            }
             
         }
+        else if let expenses = getExpensesForCategory(indexPath.row)
+        {
+            cell.rightUp.text = Float(0).asLocaleCurrency
+            cell.leftDown.text = expenses.asLocaleCurrency
+            cell.rightDown.text = (0.0 - expenses).asLocaleCurrency
+        }
+
 
         if let scicon = expenseData[indexPath.row].icon
         {
