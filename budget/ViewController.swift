@@ -12,10 +12,18 @@ import CoreData
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
+    @IBOutlet weak var available: UILabel!
     
+    @IBOutlet weak var percentageText: UILabel!
+    @IBOutlet weak var percentage: UILabel!
     let images : [UIImage] = [UIImage(named : "expenses")!, UIImage(named : "income")!, UIImage(named : "budget")!, UIImage(named : "accounts")!]
     let ctgNames : [String] = ["Expenses","Income", "Budget", "Accounts"]
     
+    var expensesInAccountsTotal : Float = 0.0
+    var incomeInAccountsTotal : Float = 0.0
+    var totalExpenses : Float = 0.0
+    var totalIncome : Float = 0.0
+    var totalBudget : Float = 0.0
     
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
@@ -69,7 +77,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let startDate = NSDate().startOfMonth(components)
         let endDate = NSDate().endOfMonth(components)
         let predicate = NSPredicate(format: "createdAt >= %@ AND createdAt <= %@", startDate!, endDate!)
-        var total : Float = 0.0
+       
         
         
         if indexPath.row == 0
@@ -79,7 +87,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             do{
                
                 
-                total = 0.0
+                totalExpenses = 0.0
                 
                 let queryResult = try managedObjectContext?.executeFetchRequest(request) as! [ExpenseTable]
                 
@@ -87,8 +95,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 {
                    
                     
-                    total += Float(element.amount ?? "0") ?? 0.0
-                    
+                    totalExpenses += Float(element.amount ?? "0") ?? 0.0
+                    if (element.account != nil)
+                    {
+                        expensesInAccountsTotal += totalExpenses
+                    }
+
                    
                     
                         
@@ -100,7 +112,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             catch let error {
                 print("error : ", error)
             }
-            cell.price.text = total.asLocaleCurrency
+            
+            cell.price.text = totalExpenses.asLocaleCurrency
             cell.price.textColor = UIColor.orangeColor()
 
             
@@ -112,14 +125,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             do{
                 
                 
-                total = 0.0
+                totalIncome = 0.0
                 
                 let queryResult = try managedObjectContext?.executeFetchRequest(request) as! [IncomeTable]
                 
                 for element in queryResult
                 {
                     
-                    total += Float(element.amount ?? "0") ?? 0.0
+                    totalIncome += Float(element.amount ?? "0") ?? 0.0
+                    if (element.amount != nil)
+                    {
+                        incomeInAccountsTotal += totalIncome
+                    }
                     
                     
                 }
@@ -129,7 +146,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             catch let error {
                 print("error : ", error)
             }
-            cell.price.text = total.asLocaleCurrency
+            cell.price.text = totalIncome.asLocaleCurrency
             cell.price.textColor = UIColor.blueColor()
             
         }else if indexPath.row == 2
@@ -139,18 +156,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             do{
                 
                 
-                total = 0.0
+                totalBudget = 0.0
                 
                 let queryResult = try managedObjectContext?.executeFetchRequest(request) as! [SubCategoryTable]
                 
                 for element in queryResult
                 {
-                    print(element.amount)
+                   
                     
                    
                         if let value =  Float(element.amount ?? "0")
                         {
-                        total += value
+                        totalBudget += value
                         
                     }
                    
@@ -161,18 +178,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             catch let error {
                 print("error : ", error)
             }
-            cell.price.text = total.asLocaleCurrency
+            cell.price.text = totalBudget.asLocaleCurrency
 
             cell.price.textColor = UIColor.greenColor()
             
         }else if indexPath.row == 3
         {
+            var total : Float = 0.0
             request = NSFetchRequest(entityName: "AccountTable")
             request.predicate = nil
             do{
                 
                 
-                total = 0.0
+                
                 
                 let queryResult = try managedObjectContext?.executeFetchRequest(request) as! [AccountTable]
                 
@@ -193,7 +211,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             catch let error {
                 print("error : ", error)
             }
-            cell.price.text = total.asLocaleCurrency
+            cell.price.text = (total - expensesInAccountsTotal + incomeInAccountsTotal).asLocaleCurrency
+            if totalBudget == 0
+            {
+            available.text = (totalIncome -  totalExpenses).asLocaleCurrency
+                percentageText.text = "Expenses as % of Income"
+                percentage.text = String(Int((totalExpenses / totalIncome * 100))) +  "%"
+            }
+            else{
+                available.text = (totalBudget -  totalExpenses).asLocaleCurrency
+                percentageText.text = "Expenses as % of Budget"
+                percentage.text = String(Int((totalExpenses / totalBudget * 100))) + "%"
+            }
             cell.price.textColor = UIColor.purpleColor()
             
             
@@ -243,7 +272,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewWillAppear(animated: Bool) {
         
-        
+        incomeInAccountsTotal  = 0
+        expensesInAccountsTotal = 0
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         tableView.reloadData()
     }
