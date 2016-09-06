@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class AddExpenseViewController: UIViewController, UITextFieldDelegate {
+class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSheetDelegate , UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     
     @IBOutlet weak var category: UITextField!
@@ -31,6 +31,8 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     var expenseData : ExpenseTable?
     
+    var imagePicker: UIImagePickerController = UIImagePickerController()
+     var imagePicked = false
     
     
     override func viewDidLoad() {
@@ -41,8 +43,10 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
         expnseDate.delegate = self
         amount.delegate = self
         payFrom.delegate = self
+        imagePicker.delegate = self
         
         
+    
         
         if updateExpens
         {
@@ -58,12 +62,91 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
                 payFrom.text = account.name
                 
             }
-            
+            if let image = expenseData?.reciept
+            {
+                
+                reciept.image = UIImage(data: image)
+
+                
+            }
             
         }
 
     }
+       func ResizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+     let size = image.size
+     
+     let widthRatio  = targetSize.width  / image.size.width
+     let heightRatio = targetSize.height / image.size.height
+     
+     // Figure out what our orientation is, and use that to form the rectangle
+     var newSize: CGSize
+     if(widthRatio > heightRatio) {
+     newSize = CGSizeMake(size.width * heightRatio, size.height * heightRatio)
+     } else {
+     newSize = CGSizeMake(size.width * widthRatio,  size.height * widthRatio)
+     }
+     
+     // This is the rect that we've calculated out and this is what is actually used below
+     let rect = CGRectMake(0, 0, newSize.width, newSize.height)
+     
+     // Actually do the resizing to the rect using the ImageContext stuff
+     UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+     image.drawInRect(rect)
+     let newImage = UIGraphicsGetImageFromCurrentImageContext()
+     UIGraphicsEndImageContext()
+     
+     return newImage
+     }
     
+    
+   func getImageFromGallery() {
+        
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .PhotoLibrary
+        imagePicked = true
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
+   
+    
+    
+   func getImageFromCamera() {
+        
+    
+    
+        imagePicker.sourceType = .Camera
+        imagePicked = true
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        imagePicker.dismissViewControllerAnimated(true, completion: nil)
+        reciept.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+    }
+    @IBAction func addReciept(sender: UITapGestureRecognizer) {
+        //Create the AlertController and add Its action like button in Actionsheet
+        let actionSheetControllerIOS8: UIAlertController = UIAlertController(title: "", message: "Attach receipt image from", preferredStyle: .ActionSheet)
+        
+       
+        
+        let saveActionButton: UIAlertAction = UIAlertAction(title: "Camera", style: .Default)
+        { action -> Void in
+           self.getImageFromCamera()
+        }
+        actionSheetControllerIOS8.addAction(saveActionButton)
+        
+        let deleteActionButton: UIAlertAction = UIAlertAction(title: "Photo Library", style: .Default)
+        { action -> Void in
+            self.getImageFromGallery()
+        }
+        actionSheetControllerIOS8.addAction(deleteActionButton)
+        self.presentViewController(actionSheetControllerIOS8, animated: true, completion: nil)
+        
+        let cancelActionButton: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
+            
+        }
+        actionSheetControllerIOS8.addAction(cancelActionButton)
+        
+    }
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         // Constants.Picker.chooseSubCategory = true
         if textField == expnseDate
@@ -136,7 +219,12 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
                     Helper.pickedSubCaregory = nil
                 }
                 
-
+                if imagePicked
+                {
+                    let image = self.ResizeImage(reciept.image!, targetSize: CGSizeMake(500.0, 500.0))
+                    entity.reciept = UIImageJPEGRepresentation(image, 1.0)//back by UIImage(data: imageData)
+                    imagePicked = false
+                }
                 
                 
                 entity.createdAt = dateValue
@@ -172,9 +260,12 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate {
                 entity.amount =  (amount.text != "") ? amount.text : "0"
                 
                 entity.createdAt = dateValue
-                if (reciept.image != nil)
+                
+                if imagePicked
                 {
-                    entity.reciept = UIImageJPEGRepresentation(reciept.image!, 1.0)//back by UIImage(data: imageData)
+                    let image = self.ResizeImage(reciept.image!, targetSize: CGSizeMake(500.0, 500.0))
+                    entity.reciept = UIImageJPEGRepresentation(image, 1.0)//back by UIImage(data: imageData)
+                    imagePicked = false
                 }
                 entity.note = note.text
                 if let account = Helper.pickedAccountData
