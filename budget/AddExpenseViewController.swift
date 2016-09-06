@@ -71,7 +71,6 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
             }
             
         }
-
     }
        func ResizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
      let size = image.size

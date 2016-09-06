@@ -1,14 +1,14 @@
 //
-//  MenuTableViewController.swift
-//  H&H
+//  CurrencyPickerTableViewController.swift
+//  budget
 //
-//  Created by Azad on 19/03/2016.
-//  Copyright © 2016 Azad. All rights reserved.
+//  Created by Azam Rahmat on 9/6/16.
+//  Copyright © 2016 Brainload Technologies. All rights reserved.
 //
 
 import UIKit
 
-class MenuTableViewController: UITableViewController {
+class CurrencyPickerTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,70 +19,47 @@ class MenuTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-    
-    let views = ["home","profile","settings", "contactUs", "aboutUs"]
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        if(indexPath.row != 0)
-        {
-        var viewName = views[indexPath.row]
-        if viewName == "aboutUs"
-        {
-            viewName = "aboutUs"
-            
-        }
-        else if viewName == "contactUs"
-        {
-            viewName = "contactUs"
-            
-        }
-        else if viewName == "settings"
-        {
-            viewName = "settings"
-            
-        }
-        else if viewName == "profile"
-        {
-            viewName = "profile"
-        }
-        
-       
-    }
-      // nevigateTo(viewName)
-    }
-   /* func nevigateTo(viewName: String)
-    {
-        let baVC = self.storyboard?.instantiateViewControllerWithIdentifier(viewName)
-        self.presentViewController(baVC!, animated: true, completion: nil)
-        print("didSelect")
-    }*/
 
-     // Dispose of any resources that can be recreated.
+    
+    @IBAction func cancel(sender: AnyObject) {
+        
+        dismissViewControllerAnimated(true, completion: nil)
     }
-    /*override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return tableView.frame.height/5;
-    }*/
+
+    @IBAction func Select(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+        
+    }
     // MARK: - Table view data source
 
-   /* override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    /*override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 0
-    }
+    }*/
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
-    }*/
-
-    /*
+        return currency.currencies.count
+    }
+let currency = CurrencyDataSource ()
+    let locale = NSLocale.currentLocale()
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
 
-        // Configure the cell...
+       // cell.textLabel?.text = String(NSLocale(localeIdentifier: NSLocale.availableLocaleIdentifiers()[indexPath.row]))
+        
+        //let code = NSLocale.ISOCurrencyCodes()[indexPath.row]
+           // cell.textLabel?.text = "\(code) : \(locale.displayNameForKey(NSLocaleCurrencyCode, value: code)!)"
+        let code = currency.currencies[indexPath.row]
+    cell.textLabel?.text = " \(code.displayName) (\(code.code)) "
 
         return cell
     }
-    */
+    /*let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+     
+     let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("loginNav") as! UINavigationController
+     self.presentViewController(nextViewController, animated:true, completion:nil)
+*/
 
     /*
     // Override to support conditional editing of the table view.
@@ -129,4 +106,4 @@ class MenuTableViewController: UITableViewController {
     }
     */
 
-
+}

@@ -190,6 +190,8 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
             }
         }
         return total
+        
+        
     }
     
     

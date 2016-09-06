@@ -221,7 +221,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             else{
                 available.text = (totalBudget -  totalExpenses).asLocaleCurrency
                 percentageText.text = "Expenses as % of Budget"
-                percentage.text = String(Int((totalExpenses / totalBudget * 100))) + "%"
+                let pt = Int((totalExpenses / totalBudget * 100))
+                percentage.text =  pt > 100 ? (String(100) + "%+") : (String(pt) + "%")
+                
             }
             cell.price.textColor = UIColor.purpleColor()
             
