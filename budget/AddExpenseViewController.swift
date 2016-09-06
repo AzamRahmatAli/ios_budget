@@ -157,8 +157,9 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
             if amount.text == "0"
             {
             amount.text = ""
-            return true
+            
             }
+            return true
         }else if textField  == payFrom
         {
             Helper.pickAccount = true
