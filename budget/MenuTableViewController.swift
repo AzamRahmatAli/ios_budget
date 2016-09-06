@@ -19,37 +19,58 @@ class MenuTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        
+        // cell.textLabel?.text = String(NSLocale(localeIdentifier: NSLocale.availableLocaleIdentifiers()[indexPath.row]))
+        
+        //let code = NSLocale.ISOCurrencyCodes()[indexPath.row]
+        // cell.textLabel?.text = "\(code) : \(locale.displayNameForKey(NSLocaleCurrencyCode, value: code)!)"
+        if(indexPath.row == 2)
+        {
+        
+        cell.detailTextLabel?.text = "PKR"
+        }
+        return cell
+    }
     
     let views = ["home","profile","settings", "contactUs", "aboutUs"]
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if(indexPath.row != 0)
         {
-        var viewName = views[indexPath.row]
-        if viewName == "aboutUs"
-        {
-            viewName = "aboutUs"
-            
-        }
-        else if viewName == "contactUs"
-        {
-            viewName = "contactUs"
-            
-        }
-        else if viewName == "settings"
-        {
-            viewName = "settings"
-            
-        }
-        else if viewName == "profile"
-        {
-            viewName = "profile"
+        
         }
         
-       
+        else  if(indexPath.row == 2)
+        {
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+            
+            let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("currency") as! UINavigationController
+            self.presentViewController(nextViewController, animated:true, completion:nil)
+            }
+
     }
-      // nevigateTo(viewName)
+      
+    
+    
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
+        /*  if (segue.identifier == "updateExpense") {
+         let indexPath = self.tableView.indexPathForSelectedRow!
+         
+         let dvc = segue.destinationViewController as! AddExpenseViewController
+         
+         dvc.expenseData = expenseDataForSection![indexPath.row]
+         dvc.updateExpens = true
+         
+         
+         }
+         */
+        
     }
+   
+    }
+    
    /* func nevigateTo(viewName: String)
     {
         let baVC = self.storyboard?.instantiateViewControllerWithIdentifier(viewName)
@@ -58,7 +79,7 @@ class MenuTableViewController: UITableViewController {
     }*/
 
      // Dispose of any resources that can be recreated.
-    }
+
     /*override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return tableView.frame.height/5;
     }*/

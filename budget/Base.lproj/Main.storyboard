@@ -1860,7 +1860,7 @@
         <!--Navigation Controller-->
         <scene sceneID="RyY-XX-Waz">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LqX-V9-Aju" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="currency" automaticallyAdjustsScrollViewInsets="NO" id="LqX-V9-Aju" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rgE-Kl-qXW">

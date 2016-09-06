@@ -22,10 +22,10 @@ struct  Helper {
     static var datePic : NSDate? = nil
     static var pickAccount = false
     static var accountPicked = false
-    static var currency = "RS"
+    
     static var pickedAccountData : AccountTable?
     static var bankIcon = "bank"
-    
+    static var currency : String? = nil
     
     static func getFormattedDate( date : NSDate ) -> String
     {

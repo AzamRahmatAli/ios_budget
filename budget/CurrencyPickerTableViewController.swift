@@ -19,14 +19,16 @@ class CurrencyPickerTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-
+    var indexPathRow = 0
     
     @IBAction func cancel(sender: AnyObject) {
         
         dismissViewControllerAnimated(true, completion: nil)
     }
-
+    
     @IBAction func Select(sender: AnyObject) {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(indexPathRow, forKey: "currency")
         dismissViewControllerAnimated(true, completion: nil)
         
     }
@@ -55,12 +57,30 @@ let currency = CurrencyDataSource ()
 
         return cell
     }
-    /*let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-     
-     let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("loginNav") as! UINavigationController
-     self.presentViewController(nextViewController, animated:true, completion:nil)
-*/
-
+    
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
+        /*  if (segue.identifier == "updateExpense") {
+         let indexPath = self.tableView.indexPathForSelectedRow!
+         
+         let dvc = segue.destinationViewController as! AddExpenseViewController
+         
+         dvc.expenseData = expenseDataForSection![indexPath.row]
+         dvc.updateExpens = true
+         
+         
+         }
+         */
+        
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+       indexPathRow = indexPath.row
+        
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
