@@ -203,7 +203,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         let cell = tableView.dequeueReusableCellWithIdentifier("cellparent", forIndexPath: indexPath) as! ParentTableViewCell
         
         cell.subCatg.text = dataForSection[indexPath.row].name
-        cell.leftDown.text = "Reconciled: " + Helper.currency +  dataForSection[indexPath.row].amount!
+        cell.leftDown.text = "Reconciled: " + Float(dataForSection[indexPath.row].amount ?? "0")!.asLocaleCurrency
         print(calculatedAmount[sectionTapped][indexPath.row],sectionTapped,indexPath.row,calculatedAmount)
         let total = calculatedAmount[sectionTapped][indexPath.row]
         cell.rightUp.text = total.asLocaleCurrency

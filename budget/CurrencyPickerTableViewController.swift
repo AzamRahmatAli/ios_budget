@@ -27,8 +27,20 @@ class CurrencyPickerTableViewController: UITableViewController {
     }
     
     @IBAction func Select(sender: AnyObject) {
+        
+        let pickedCurrencyCode : String? = currency.currencies[indexPathRow].code
+        /*let localeIdentifier = NSLocale.localeIdentifierFromComponents([NSLocaleCurrencyCode : pickedCurrencyCode!])
+        print(localeIdentifier)
+        
+        let locale = NSLocale(localeIdentifier: localeIdentifier)
+        print(locale)
+        let Identifier = locale.objectForKey(NSLocaleCurrencySymbol) as? String*/
+        print(pickedCurrencyCode)
+        
+        Helper.currency = pickedCurrencyCode
+        
         let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(indexPathRow, forKey: "currency")
+        defaults.setObject(pickedCurrencyCode, forKey: "currency")
         dismissViewControllerAnimated(true, completion: nil)
         
     }

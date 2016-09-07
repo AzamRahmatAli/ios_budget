@@ -19,30 +19,36 @@ class MenuTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    /*override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
         
-        // cell.textLabel?.text = String(NSLocale(localeIdentifier: NSLocale.availableLocaleIdentifiers()[indexPath.row]))
+       
+        if(indexPath.row == 0)
+        {
+            
+            
+        }
+      
         
-        //let code = NSLocale.ISOCurrencyCodes()[indexPath.row]
-        // cell.textLabel?.text = "\(code) : \(locale.displayNameForKey(NSLocaleCurrencyCode, value: code)!)"
+        if(indexPath.row == 1)
+        {
+            
+            
+        }
         if(indexPath.row == 2)
         {
         
         cell.detailTextLabel?.text = "PKR"
         }
         return cell
-    }
+    }*/
     
-    let views = ["home","profile","settings", "contactUs", "aboutUs"]
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        if(indexPath.row != 0)
-        {
+       
         
-        }
-        
-        else  if(indexPath.row == 2)
+         if(indexPath.row == 2)
         {
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             
