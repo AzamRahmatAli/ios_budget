@@ -23,7 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let status = defaults.objectForKey("currency") as? String? {
             
             Helper.currency =  status
-            
+            if let symbol = defaults.objectForKey("currencySymbol") as? String? {
+                
+                Helper.currencySymbol =  symbol
+                
+            }
+
         }
 
         

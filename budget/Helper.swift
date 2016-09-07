@@ -26,6 +26,7 @@ struct  Helper {
     static var pickedAccountData : AccountTable?
     static var bankIcon = "bank"
     static var currency : String? = nil
+    static var currencySymbol : String? = nil
     
     static func getFormattedDate( date : NSDate ) -> String
     {
@@ -42,6 +43,30 @@ struct  Helper {
             
         } catch {
             print("error")
+        }
+    }
+    
+    static func getLocalCurrencySymbl(currencyCode : String) -> String
+    {
+        let locales: NSArray = NSLocale.availableLocaleIdentifiers()
+        for localeID in locales as! [NSString] {
+            let locale = NSLocale(localeIdentifier: localeID as String)
+                        let code = locale.objectForKey(NSLocaleCurrencyCode) as? String
+            if code == currencyCode{
+                print(currencyCode, localeID)
+
+                let symbol = locale.objectForKey(NSLocaleCurrencySymbol) as? String
+                print(symbol)
+                return symbol!
+             
+            }
+        }
+        return  "$"
+    }
+    
+    static func performUIUpdatesOnMain(updates: () -> Void) {
+        dispatch_async(dispatch_get_main_queue()) {
+            updates()
         }
     }
     
@@ -90,18 +115,20 @@ extension Float {
            formatter.locale = localeForDefaultCurrency
             */
            formatter.currencyCode = currencyCode
-          formatter.currencySymbol = formatter.locale.objectForKey(NSLocaleCurrencySymbol) as? String
-            print(formatter.internationalCurrencySymbol)
-            let locales: NSArray = NSLocale.availableLocaleIdentifiers()
+            formatter.currencySymbol = Helper.currencySymbol
+           /* let locales: NSArray = NSLocale.availableLocaleIdentifiers()
             for localeID in locales as! [NSString] {
                 let locale = NSLocale(localeIdentifier: localeID as String)
                 let code = locale.objectForKey(NSLocaleCurrencyCode) as? String
                 if code == currencyCode {
                     let symbol = locale.objectForKey(NSLocaleCurrencySymbol) as? String
                     print(symbol!)
-                    break
+                    
                 }
-            }
+            }*/
+         // formatter.currencySymbol = formatter.locale.objectForKey(NSLocaleCurrencySymbol) as? String
+            //print(formatter.internationalCurrencySymbol)
+            
             //formatter.locale = NSLocale(localeIdentifier: "en_US")
            
         }else
@@ -110,4 +137,6 @@ extension Float {
         }
         return formatter.stringFromNumber(self)!
     }
+    
+
 }

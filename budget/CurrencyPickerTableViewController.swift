@@ -9,10 +9,12 @@
 import UIKit
 
 class CurrencyPickerTableViewController: UITableViewController {
-
+    
+    var currency : CurrencyDataSource?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        currency = CurrencyDataSource ()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -28,7 +30,7 @@ class CurrencyPickerTableViewController: UITableViewController {
     
     @IBAction func Select(sender: AnyObject) {
         
-        let pickedCurrencyCode : String? = currency.currencies[indexPathRow].code
+        let pickedCurrencyCode : String? = currency!.currencies[indexPathRow].code
         /*let localeIdentifier = NSLocale.localeIdentifierFromComponents([NSLocaleCurrencyCode : pickedCurrencyCode!])
         print(localeIdentifier)
         
@@ -38,9 +40,10 @@ class CurrencyPickerTableViewController: UITableViewController {
         print(pickedCurrencyCode)
         
         Helper.currency = pickedCurrencyCode
-        
+        Helper.currencySymbol =  Helper.getLocalCurrencySymbl(pickedCurrencyCode!)
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(pickedCurrencyCode, forKey: "currency")
+        defaults.setObject(Helper.currencySymbol, forKey: "currencySymbol")
         dismissViewControllerAnimated(true, completion: nil)
         
     }
@@ -53,9 +56,9 @@ class CurrencyPickerTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return currency.currencies.count
+        return currency!.currencies.count
     }
-let currency = CurrencyDataSource ()
+
     let locale = NSLocale.currentLocale()
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
@@ -64,7 +67,7 @@ let currency = CurrencyDataSource ()
         
         //let code = NSLocale.ISOCurrencyCodes()[indexPath.row]
            // cell.textLabel?.text = "\(code) : \(locale.displayNameForKey(NSLocaleCurrencyCode, value: code)!)"
-        let code = currency.currencies[indexPath.row]
+        let code = currency!.currencies[indexPath.row]
     cell.textLabel?.text = " \(code.displayName) (\(code.code)) "
 
         return cell
