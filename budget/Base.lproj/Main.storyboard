@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
@@ -110,13 +111,13 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GhT-Wj-GUb">
                                 <rect key="frame" x="20" y="315" width="280" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkB-J9-dUI">
                                 <rect key="frame" x="20" y="373" width="280" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expenses as % of Budget" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mnP-hp-pdS">
@@ -156,6 +157,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="available" destination="GhT-Wj-GUb" id="IGt-2P-Him"/>
+                        <outlet property="currentMonth" destination="yYo-vj-Q4Z" id="0Tr-s6-3r1"/>
                         <outlet property="percentage" destination="dkB-J9-dUI" id="GVD-w1-r5e"/>
                         <outlet property="percentageText" destination="mnP-hp-pdS" id="AU2-aL-jzQ"/>
                         <outlet property="tableView" destination="HVE-Bo-HTq" id="c0f-UG-aS4"/>
@@ -426,6 +428,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t9f-na-40v">
+                                <rect key="frame" x="245" y="476" width="55" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="ANz-EX-69R"/>
+                                    <constraint firstAttribute="width" constant="55" id="Bss-C3-PVO"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="delete"/>
+                                <connections>
+                                    <action selector="deleteExpense:" destination="dzr-U8-tqR" eventType="touchUpInside" id="ndO-Ju-ast"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -442,6 +455,7 @@
                             <constraint firstItem="uw8-yH-w5d" firstAttribute="top" secondItem="Nce-P1-vK3" secondAttribute="top" id="BLr-Jg-WwD"/>
                             <constraint firstItem="m9y-i4-vE7" firstAttribute="trailing" secondItem="Nce-P1-vK3" secondAttribute="trailing" id="Czs-3b-Yln"/>
                             <constraint firstItem="yl7-Oc-RSS" firstAttribute="leading" secondItem="FEE-Sa-3wG" secondAttribute="leading" id="Dgk-NN-6wP"/>
+                            <constraint firstItem="t9f-na-40v" firstAttribute="trailing" secondItem="q6I-GS-tKD" secondAttribute="trailing" id="Edi-xt-NDN"/>
                             <constraint firstItem="RnO-2i-EDG" firstAttribute="top" secondItem="wEi-AB-S7Z" secondAttribute="top" id="GQ1-fg-1yk"/>
                             <constraint firstItem="GSP-gc-ghf" firstAttribute="top" secondItem="yl7-Oc-RSS" secondAttribute="top" id="GuZ-VI-3i0"/>
                             <constraint firstItem="VIe-rs-2qc" firstAttribute="centerX" secondItem="kjF-sP-FPk" secondAttribute="centerX" id="Gux-n7-Ehs"/>
@@ -453,6 +467,7 @@
                             <constraint firstItem="VIe-rs-2qc" firstAttribute="top" secondItem="pec-Ga-2um" secondAttribute="bottom" constant="23" id="PKu-ID-M6g"/>
                             <constraint firstItem="GSP-gc-ghf" firstAttribute="top" secondItem="E69-ek-Znv" secondAttribute="bottom" constant="8" symbolic="YES" id="Qe3-vu-cVx"/>
                             <constraint firstItem="FEE-Sa-3wG" firstAttribute="leading" secondItem="pec-Ga-2um" secondAttribute="trailing" constant="46" id="QeY-hd-j8g"/>
+                            <constraint firstItem="q6I-GS-tKD" firstAttribute="top" secondItem="t9f-na-40v" secondAttribute="bottom" constant="8" symbolic="YES" id="UpD-8h-anM"/>
                             <constraint firstItem="Nce-P1-vK3" firstAttribute="trailing" secondItem="yl7-Oc-RSS" secondAttribute="trailing" id="XLw-Uq-ija"/>
                             <constraint firstItem="GSP-gc-ghf" firstAttribute="baseline" secondItem="yl7-Oc-RSS" secondAttribute="baseline" id="ZHe-ko-bto"/>
                             <constraint firstItem="E69-ek-Znv" firstAttribute="leading" secondItem="GSP-gc-ghf" secondAttribute="leading" id="aGs-fw-ccv"/>
@@ -490,6 +505,7 @@
                     <connections>
                         <outlet property="amount" destination="FEE-Sa-3wG" id="El0-Wb-10u"/>
                         <outlet property="category" destination="xXA-P8-zWO" id="zZG-Ka-roX"/>
+                        <outlet property="deleteExpenseButton" destination="t9f-na-40v" id="7BJ-T2-uMI"/>
                         <outlet property="expnseDate" destination="pec-Ga-2um" id="wFE-PR-Plc"/>
                         <outlet property="missing" destination="q6I-GS-tKD" id="ROs-OH-4gq"/>
                         <outlet property="note" destination="kjF-sP-FPk" id="dWD-2h-gWp"/>
@@ -549,7 +565,7 @@
                                             <rect key="frame" x="15" y="0.0" width="290" height="43"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -614,7 +630,7 @@
                                                     <rect key="frame" x="15" y="0.0" width="290" height="52"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -631,7 +647,7 @@
                                                     <rect key="frame" x="15" y="0.0" width="290" height="55"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -648,7 +664,7 @@
                                                     <rect key="frame" x="15" y="0.0" width="290" height="59"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -770,7 +786,7 @@
             </objects>
             <point key="canvasLocation" x="3377" y="1097"/>
         </scene>
-        <!--Title-->
+        <!--Budget View Controller-->
         <scene sceneID="IIA-zK-hcK">
             <objects>
                 <viewController id="F2O-Rf-L1q" customClass="BudgetViewController" customModule="budget" customModuleProvider="target" sceneMemberID="viewController">
@@ -871,7 +887,37 @@
                             <constraint firstItem="v3q-jv-loz" firstAttribute="bottom" secondItem="HsJ-3I-uHR" secondAttribute="top" id="iIa-9w-lEu"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="QCa-55-WR9">
+                    <navigationItem key="navigationItem" id="QCa-55-WR9">
+                        <nil key="title"/>
+                        <barButtonItem key="backBarButtonItem" title="Back" id="9sx-CM-YTW"/>
+                        <view key="titleView" contentMode="scaleToFill" id="RhA-JN-JaQ">
+                            <rect key="frame" x="77" y="2" width="166" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Budget" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hvc-fi-VTB">
+                                    <rect key="frame" x="8" y="0.0" width="150" height="26"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aqA-qh-LDs">
+                                    <rect key="frame" x="8" y="22" width="150" height="18"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="hvc-fi-VTB" firstAttribute="leading" secondItem="aqA-qh-LDs" secondAttribute="leading" id="BYn-JO-0JR"/>
+                                <constraint firstItem="hvc-fi-VTB" firstAttribute="leading" secondItem="RhA-JN-JaQ" secondAttribute="leadingMargin" id="DyR-Xj-Vy1"/>
+                                <constraint firstAttribute="bottom" secondItem="aqA-qh-LDs" secondAttribute="bottom" id="Ohx-YX-SlG"/>
+                                <constraint firstItem="hvc-fi-VTB" firstAttribute="trailing" secondItem="RhA-JN-JaQ" secondAttribute="trailingMargin" id="UJR-Ca-S9Q"/>
+                                <constraint firstItem="aqA-qh-LDs" firstAttribute="top" secondItem="RhA-JN-JaQ" secondAttribute="top" constant="22" id="bck-9C-wmm"/>
+                                <constraint firstItem="hvc-fi-VTB" firstAttribute="trailing" secondItem="aqA-qh-LDs" secondAttribute="trailing" id="brj-9w-85g"/>
+                                <constraint firstItem="hvc-fi-VTB" firstAttribute="top" secondItem="RhA-JN-JaQ" secondAttribute="top" id="uTy-dB-KLg"/>
+                            </constraints>
+                        </view>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="UJd-hf-HP9">
                             <connections>
                                 <segue destination="m9h-SI-dz5" kind="show" identifier="addCategory" id="MQw-lE-v7I"/>
@@ -1002,7 +1048,7 @@
             </objects>
             <point key="canvasLocation" x="2005" y="-306"/>
         </scene>
-        <!--Title-->
+        <!--Budget View Controller-->
         <scene sceneID="akY-zo-A5X">
             <objects>
                 <viewController id="SAF-ci-MK7" customClass="SCBudgetViewController" customModule="budget" customModuleProvider="target" sceneMemberID="viewController">
@@ -1103,7 +1149,37 @@
                             <constraint firstItem="N4v-tt-2vb" firstAttribute="bottom" secondItem="5A9-d6-LSg" secondAttribute="top" id="nPr-Sf-OWa"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="Rmd-1G-OaJ">
+                    <navigationItem key="navigationItem" id="Rmd-1G-OaJ">
+                        <nil key="title"/>
+                        <barButtonItem key="backBarButtonItem" title="Back" id="RE1-S2-I5U"/>
+                        <view key="titleView" contentMode="scaleToFill" id="LDu-hS-JHn">
+                            <rect key="frame" x="77" y="2" width="166" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Budget" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8LD-Fd-uCE">
+                                    <rect key="frame" x="8" y="0.0" width="150" height="26"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVP-RZ-vX4">
+                                    <rect key="frame" x="8" y="22" width="150" height="18"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="8LD-Fd-uCE" firstAttribute="leading" secondItem="LDu-hS-JHn" secondAttribute="leadingMargin" id="Fhj-0C-5D5"/>
+                                <constraint firstItem="8LD-Fd-uCE" firstAttribute="trailing" secondItem="LDu-hS-JHn" secondAttribute="trailingMargin" id="L9j-6U-hlh"/>
+                                <constraint firstItem="8LD-Fd-uCE" firstAttribute="leading" secondItem="rVP-RZ-vX4" secondAttribute="leading" id="bY2-6f-0RI"/>
+                                <constraint firstItem="rVP-RZ-vX4" firstAttribute="top" secondItem="LDu-hS-JHn" secondAttribute="top" constant="22" id="eWA-bl-rdH"/>
+                                <constraint firstItem="8LD-Fd-uCE" firstAttribute="top" secondItem="LDu-hS-JHn" secondAttribute="top" id="gJb-0Y-847"/>
+                                <constraint firstItem="8LD-Fd-uCE" firstAttribute="trailing" secondItem="rVP-RZ-vX4" secondAttribute="trailing" id="m5b-z1-ssH"/>
+                                <constraint firstAttribute="bottom" secondItem="rVP-RZ-vX4" secondAttribute="bottom" id="xK3-tH-apY"/>
+                            </constraints>
+                        </view>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ime-5j-coY">
                             <connections>
                                 <segue destination="m9h-SI-dz5" kind="show" identifier="addSubCategory" id="JIA-nG-xpd"/>
@@ -1113,6 +1189,8 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="tableView" destination="N4v-tt-2vb" id="C23-MA-1my"/>
+                        <outlet property="titleLabel" destination="8LD-Fd-uCE" id="p5I-yN-75n"/>
+                        <outlet property="totalAmount" destination="rVP-RZ-vX4" id="8SB-wd-X0o"/>
                         <segue destination="PDa-Lg-jOL" kind="show" identifier="setBudget" id="la3-4M-usk"/>
                     </connections>
                 </viewController>
@@ -1120,7 +1198,7 @@
             </objects>
             <point key="canvasLocation" x="2483" y="1165"/>
         </scene>
-        <!--Title-->
+        <!--Add-->
         <scene sceneID="0zw-b7-cGQ">
             <objects>
                 <viewController id="m9h-SI-dz5" customClass="AddBudgetCGViewController" customModule="budget" customModuleProvider="target" sceneMemberID="viewController">
@@ -1212,7 +1290,7 @@
                             <constraint firstItem="VKW-Dy-keS" firstAttribute="top" secondItem="ndV-yM-bEu" secondAttribute="bottom" constant="8" symbolic="YES" id="zgd-Ig-Rup"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="fHN-oz-iwP">
+                    <navigationItem key="navigationItem" title="Add" id="fHN-oz-iwP">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="AS5-9h-yQ0">
                             <connections>
                                 <action selector="cancel:" destination="m9h-SI-dz5" id="mgB-K6-tpX"/>
@@ -1333,6 +1411,18 @@
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qyp-GJ-KQY">
+                                <rect key="frame" x="249" y="476" width="55" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Qyp-GJ-KQY" secondAttribute="height" multiplier="1:1" id="MFm-gX-zL8"/>
+                                    <constraint firstAttribute="height" constant="55" id="Xs3-jQ-N5d"/>
+                                    <constraint firstAttribute="width" constant="55" id="Zaw-hF-cOd"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="delete"/>
+                                <connections>
+                                    <action selector="deleteExpense:" destination="kZa-3P-UXW" eventType="touchUpInside" id="tP3-Ml-mRt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1356,10 +1446,12 @@
                             <constraint firstItem="Htr-Ga-a9f" firstAttribute="top" secondItem="dze-sM-gVe" secondAttribute="bottom" constant="8" symbolic="YES" id="mCX-BN-wsa"/>
                             <constraint firstItem="hL5-Ec-TYj" firstAttribute="leading" secondItem="sw1-4a-MTY" secondAttribute="leading" id="owO-36-67T"/>
                             <constraint firstItem="Yxs-1A-80v" firstAttribute="top" secondItem="sw1-4a-MTY" secondAttribute="bottom" constant="8" symbolic="YES" id="q0U-9i-gt7"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Qyp-GJ-KQY" secondAttribute="trailing" id="qw6-dY-Vk9"/>
                             <constraint firstItem="B4f-QH-UvZ" firstAttribute="top" secondItem="k5U-bF-bnr" secondAttribute="bottom" constant="8" symbolic="YES" id="rIv-uO-ebC"/>
                             <constraint firstItem="k5U-bF-bnr" firstAttribute="centerX" secondItem="wLu-hC-4sc" secondAttribute="centerX" id="rxK-eJ-2Ja"/>
                             <constraint firstItem="7Di-pu-Bwv" firstAttribute="leading" secondItem="Fqf-8q-d9c" secondAttribute="leadingMargin" constant="96" id="tTH-Cu-Pn6"/>
                             <constraint firstItem="Htr-Ga-a9f" firstAttribute="centerX" secondItem="Fqf-8q-d9c" secondAttribute="centerX" id="ubv-pU-vSK"/>
+                            <constraint firstItem="k5U-bF-bnr" firstAttribute="top" secondItem="Qyp-GJ-KQY" secondAttribute="bottom" constant="8" id="vCj-ga-sQM"/>
                             <constraint firstItem="sSt-DA-yv6" firstAttribute="leading" secondItem="Fqf-8q-d9c" secondAttribute="leadingMargin" constant="90" id="vJ0-WO-EaY"/>
                             <constraint firstItem="7Di-pu-Bwv" firstAttribute="top" secondItem="hL5-Ec-TYj" secondAttribute="bottom" constant="8" symbolic="YES" id="xBh-J6-qjG"/>
                             <constraint firstItem="wLu-hC-4sc" firstAttribute="top" secondItem="ujR-5P-kGS" secondAttribute="bottom" constant="8" symbolic="YES" id="xKj-JL-A5c"/>
@@ -1387,6 +1479,7 @@
                         <outlet property="amount" destination="Yxs-1A-80v" id="KHR-OV-Asp"/>
                         <outlet property="category" destination="sSt-DA-yv6" id="y0A-hC-HjM"/>
                         <outlet property="dateValue" destination="7Di-pu-Bwv" id="JQq-i5-hEo"/>
+                        <outlet property="deleteExpenseButton" destination="Qyp-GJ-KQY" id="IJs-Me-O8K"/>
                         <outlet property="missing" destination="k5U-bF-bnr" id="u2L-Gr-Gwb"/>
                         <outlet property="note" destination="wLu-hC-4sc" id="DsO-OE-n6g"/>
                         <segue destination="Fbh-7Y-0n5" kind="show" identifier="pickDate" id="FPP-Zd-6Ca"/>
@@ -1394,6 +1487,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KA6-XP-l3S" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="vyH-Nu-pcl"/>
             </objects>
             <point key="canvasLocation" x="2436" y="-306"/>
         </scene>
@@ -1877,12 +1971,12 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="IVx-tJ-cid"/>
-        <segue reference="rxT-Kq-Ui6"/>
-        <segue reference="MIH-f8-SUb"/>
-        <segue reference="uHg-lh-ava"/>
-        <segue reference="DM0-rh-VpF"/>
-        <segue reference="u5g-mR-znT"/>
+        <segue reference="fEM-OY-Hyi"/>
+        <segue reference="Vax-Si-0IU"/>
         <segue reference="4bb-iU-kYY"/>
+        <segue reference="rxT-Kq-Ui6"/>
+        <segue reference="FPP-Zd-6Ca"/>
         <segue reference="MQw-lE-v7I"/>
+        <segue reference="MIH-f8-SUb"/>
     </inferredMetricsTieBreakers>
 </document>

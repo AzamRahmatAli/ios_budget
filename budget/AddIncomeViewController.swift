@@ -35,12 +35,19 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
                 account.text = acount.name
                 
             }
+            self.title = "Update Income"
             
-            
+        }
+        else{
+            deleteExpenseButton.hidden = true
         }
 
     }
 
+    @IBAction func deleteExpense(sender: UIButton) {
+        managedObjectContext!.deleteObject(incomeData!)
+         Helper.saveChanges(managedObjectContext!, viewController: self)
+    }
     @IBOutlet weak var category: UITextField!
     
     @IBOutlet weak var account: UITextField!
@@ -55,6 +62,7 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
     
     @IBOutlet weak var missing: UILabel!
     
+    @IBOutlet weak var deleteExpenseButton: UIButton!
     
     var incomeDate : NSDate? = NSDate()
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext

@@ -64,7 +64,7 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
             subCategory.text = accountData!.name
             Helper.bankIcon =  accountData!.icon!
             
-            
+            self.title = "Update Account"
             
         }
         else

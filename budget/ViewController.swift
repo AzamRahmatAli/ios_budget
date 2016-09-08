@@ -16,6 +16,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var percentageText: UILabel!
     @IBOutlet weak var percentage: UILabel!
+    @IBOutlet weak var currentMonth: UILabel!
     let images : [UIImage] = [UIImage(named : "expenses")!, UIImage(named : "income")!, UIImage(named : "budget")!, UIImage(named : "accounts")!]
     let ctgNames : [String] = ["Expenses","Income", "Budget", "Accounts"]
     
@@ -45,7 +46,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: myBtn), animated: true)
             
             
-            
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "MMMM yyyy"
+            currentMonth.text = dateFormatter.stringFromDate(NSDate())
             
             /*menuButton.addTarget(self.revealViewController(), action: "revealToggle:", forControlEvents: UIControlEvents.TouchUpInside)
              

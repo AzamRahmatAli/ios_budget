@@ -26,6 +26,7 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
     @IBOutlet weak var note: UITextField!
     
     @IBOutlet weak var payFrom: UITextField!
+    @IBOutlet weak var deleteExpenseButton: UIButton!
     var dateValue = NSDate()
     var updateExpens = false
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
@@ -69,9 +70,21 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
 
                 
             }
-            
+            self.title = "Update Expense"
+        }
+        else
+        {
+            deleteExpenseButton.hidden = true
         }
     }
+    @IBAction func deleteExpense(sender: UIButton) {
+        
+         managedObjectContext!.deleteObject(expenseData!)
+        Helper.saveChanges(managedObjectContext!, viewController: self)
+        
+    }
+    
+   
        func ResizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
      let size = image.size
      

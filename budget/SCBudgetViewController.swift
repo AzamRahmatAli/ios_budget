@@ -22,6 +22,12 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var totalAmount: UILabel!
+    
+    override func viewDidLoad() {
+        self.titleLabel.text = category
+    }
     
     override func viewWillAppear(animated: Bool) {
         UpdateView()
