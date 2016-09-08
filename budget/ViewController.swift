@@ -99,10 +99,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                    
                     
                     totalExpenses += Float(element.amount ?? "0") ?? 0.0
-                    if (element.account != nil)
-                    {
-                        expensesInAccountsTotal += totalExpenses
-                    }
+                    
+                    expensesInAccountsTotal += totalExpenses
+                    
 
                    
                     
@@ -117,7 +116,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             
             cell.price.text = totalExpenses.asLocaleCurrency
-            cell.price.textColor = UIColor.orangeColor()
+            cell.price.textColor = UIColor(red: 254/255, green: 129/255, blue: 0, alpha: 1)
 
             
         }
@@ -136,10 +135,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 {
                     
                     totalIncome += Float(element.amount ?? "0") ?? 0.0
-                    if (element.amount != nil)
-                    {
-                        incomeInAccountsTotal += totalIncome
-                    }
+                    
+                    incomeInAccountsTotal += totalIncome
+                    
                     
                     
                 }
@@ -150,7 +148,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print("error : ", error)
             }
             cell.price.text = totalIncome.asLocaleCurrency
-            cell.price.textColor = UIColor.blueColor()
+            cell.price.textColor = UIColor(red: 38/255, green: 151/255, blue: 213/255, alpha: 1)
             
         }else if indexPath.row == 2
         {
@@ -183,7 +181,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             cell.price.text = totalBudget.asLocaleCurrency
 
-            cell.price.textColor = UIColor.greenColor()
+            cell.price.textColor = UIColor(red: 50/255, green: 195/255, blue: 0, alpha: 1)
             
         }else if indexPath.row == 3
         {
@@ -228,7 +226,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 percentage.text =  pt > 100 ? (String(100) + "%+") : (String(pt) + "%")
                 
             }
-            cell.price.textColor = UIColor.purpleColor()
+            cell.price.textColor = UIColor(red: 69/255, green: 68/255, blue: 205/255, alpha: 1)
             
             
         }

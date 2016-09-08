@@ -164,6 +164,13 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
             {
                 cell.leftDown.text = expenses.asLocaleCurrency
                 cell.rightDown.text = (budget - expenses).asLocaleCurrency
+                if (budget - expenses) >= 0
+                {
+                cell.rightDown.textColor = UIColor(red: 37/255, green: 162/255, blue: 77/255, alpha: 1)
+                }
+                else{
+                    cell.rightDown.textColor = UIColor.redColor()
+                }
             }
             
         }
@@ -172,6 +179,13 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.rightUp.text = Float(0).asLocaleCurrency
             cell.leftDown.text = expenses.asLocaleCurrency
             cell.rightDown.text = (0.0 - expenses).asLocaleCurrency
+            if (0.0 - expenses) >= 0
+            {
+                cell.rightDown.textColor = UIColor(red: 37/255, green: 162/255, blue: 77/255, alpha: 1)
+            }
+            else{
+                cell.rightDown.textColor = UIColor.redColor()
+            }
         }
         return cell
         
