@@ -933,7 +933,7 @@
             </objects>
             <point key="canvasLocation" x="2057" y="1165"/>
         </scene>
-        <!--Aug 2016-->
+        <!--Income View Controller-->
         <scene sceneID="iZf-qf-UYJ">
             <objects>
                 <viewController id="qpj-1g-0ZE" customClass="IncomeViewController" customModule="budget" customModuleProvider="target" sceneMemberID="viewController">
@@ -1016,27 +1016,64 @@
                             <constraint firstItem="99U-qF-6SA" firstAttribute="leading" secondItem="YlJ-FX-htP" secondAttribute="leading" id="y9g-59-63h"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Aug 2016" id="yAr-eW-P2P">
+                    <navigationItem key="navigationItem" id="yAr-eW-P2P">
+                        <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title="Back" id="ZCX-t2-DcV"/>
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="BTg-g8-Oty">
-                                <connections>
-                                    <action selector="addExpense:" destination="qpj-1g-0ZE" id="gbf-6Z-rIm"/>
-                                    <segue destination="kZa-3P-UXW" kind="show" identifier="addIncome" id="bTl-4j-IZF"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="    " id="ny5-ss-1TZ"/>
-                            <barButtonItem systemItem="fastForward" id="HSK-lJ-ein">
-                                <connections>
-                                    <action selector="nextMonth:" destination="qpj-1g-0ZE" id="h93-N8-kKU"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="rewind" id="VBV-I2-HNp">
-                                <connections>
-                                    <action selector="prevMonth:" destination="qpj-1g-0ZE" id="V5k-Uy-OnF"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <view key="titleView" contentMode="scaleToFill" id="Jr0-9a-Ioa">
+                            <rect key="frame" x="69" y="2" width="182" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGa-b9-SnK">
+                                    <rect key="frame" x="48" y="0.0" width="86" height="27"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eMn-PI-sbL">
+                                    <rect key="frame" x="48" y="27" width="86" height="13"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="13" id="3rn-Qf-WdU"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPh-RR-Nqk">
+                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="ukI-UV-rsA"/>
+                                    </constraints>
+                                    <state key="normal" image="prevMonth"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OYS-CQ-oPY">
+                                    <rect key="frame" x="142" y="0.0" width="40" height="40"/>
+                                    <state key="normal" image="nextMonth"/>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="OYS-CQ-oPY" firstAttribute="leading" secondItem="eMn-PI-sbL" secondAttribute="trailing" constant="8" symbolic="YES" id="5kp-ww-h1V"/>
+                                <constraint firstItem="uPh-RR-Nqk" firstAttribute="leading" secondItem="Jr0-9a-Ioa" secondAttribute="leading" id="AxV-jm-G2X"/>
+                                <constraint firstItem="uPh-RR-Nqk" firstAttribute="bottom" secondItem="eMn-PI-sbL" secondAttribute="bottom" id="JkM-BU-o9T"/>
+                                <constraint firstItem="ZGa-b9-SnK" firstAttribute="top" secondItem="OYS-CQ-oPY" secondAttribute="top" id="NDP-fD-e6J"/>
+                                <constraint firstAttribute="trailing" secondItem="OYS-CQ-oPY" secondAttribute="trailing" id="PHb-TJ-2Q5"/>
+                                <constraint firstItem="uPh-RR-Nqk" firstAttribute="top" secondItem="ZGa-b9-SnK" secondAttribute="top" id="QcS-y0-TWL"/>
+                                <constraint firstItem="OYS-CQ-oPY" firstAttribute="leading" secondItem="ZGa-b9-SnK" secondAttribute="trailing" constant="8" symbolic="YES" id="Uen-L4-l2u"/>
+                                <constraint firstAttribute="bottom" secondItem="uPh-RR-Nqk" secondAttribute="bottom" id="WhT-pc-r88"/>
+                                <constraint firstItem="uPh-RR-Nqk" firstAttribute="top" secondItem="Jr0-9a-Ioa" secondAttribute="top" id="XLN-9i-A1b"/>
+                                <constraint firstItem="ZGa-b9-SnK" firstAttribute="centerX" secondItem="Jr0-9a-Ioa" secondAttribute="centerX" id="dh9-1v-xUK"/>
+                                <constraint firstItem="eMn-PI-sbL" firstAttribute="bottom" secondItem="OYS-CQ-oPY" secondAttribute="bottom" id="fIj-8o-14e"/>
+                                <constraint firstItem="ZGa-b9-SnK" firstAttribute="leading" secondItem="eMn-PI-sbL" secondAttribute="leading" id="npa-N9-Wh5"/>
+                                <constraint firstItem="eMn-PI-sbL" firstAttribute="top" secondItem="ZGa-b9-SnK" secondAttribute="bottom" id="tg1-oX-ObL"/>
+                                <constraint firstItem="ZGa-b9-SnK" firstAttribute="leading" secondItem="uPh-RR-Nqk" secondAttribute="trailing" constant="8" symbolic="YES" id="voC-Ba-p8d"/>
+                            </constraints>
+                        </view>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="BTg-g8-Oty">
+                            <connections>
+                                <action selector="addExpense:" destination="qpj-1g-0ZE" id="gbf-6Z-rIm"/>
+                                <segue destination="kZa-3P-UXW" kind="show" identifier="addIncome" id="bTl-4j-IZF"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
@@ -1046,7 +1083,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5AL-ad-DkQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2005" y="-306"/>
+            <point key="canvasLocation" x="2032" y="-271"/>
         </scene>
         <!--Budget View Controller-->
         <scene sceneID="akY-zo-A5X">
@@ -1968,6 +2005,8 @@
         <image name="Camera" width="217" height="285"/>
         <image name="bank" width="128" height="128"/>
         <image name="delete" width="128" height="128"/>
+        <image name="nextMonth" width="128" height="128"/>
+        <image name="prevMonth" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="IVx-tJ-cid"/>
