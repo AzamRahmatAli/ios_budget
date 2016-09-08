@@ -76,7 +76,22 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
         {
             deleteExpenseButton.hidden = true
         }
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(AddExpenseViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
+        
     }
+    
+    
+    
+    
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
+    
+    
     @IBAction func deleteExpense(sender: UIButton) {
         
          managedObjectContext!.deleteObject(expenseData!)
