@@ -39,6 +39,8 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var titleMonth: UILabel!
+    @IBOutlet weak var totalExpenses: UILabel!
     @IBAction func addExpense(sender: AnyObject) {
         self.performSegueWithIdentifier("addExpense", sender: nil)
         
@@ -245,7 +247,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let dateString = dayTimePeriodFormatter.stringFromDate(expenseMonthDate)
         
-        self.title =  dateString
+        self.titleMonth.text =  dateString
         expenseData = [:]
         
         

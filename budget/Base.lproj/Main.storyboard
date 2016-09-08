@@ -171,7 +171,7 @@
             </objects>
             <point key="canvasLocation" x="1464" y="329"/>
         </scene>
-        <!--Aug 2016-->
+        <!--Expense View Controller-->
         <scene sceneID="bAg-Eg-RrO">
             <objects>
                 <viewController id="FOZ-Vs-VV6" customClass="ExpenseViewController" customModule="budget" customModuleProvider="target" sceneMemberID="viewController">
@@ -261,8 +261,64 @@
                             <constraint firstItem="vct-9n-1Ly" firstAttribute="bottom" secondItem="Sx1-lr-bmn" secondAttribute="top" id="tnd-06-DWk"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Aug 2016" id="dNk-dB-0Zu">
+                    <navigationItem key="navigationItem" id="dNk-dB-0Zu">
+                        <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title="Back" id="8e2-TX-vRU"/>
+                        <view key="titleView" contentMode="scaleToFill" id="14t-wu-wuc">
+                            <rect key="frame" x="69" y="2" width="182" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expenses" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="ofz-M6-gjR">
+                                    <rect key="frame" x="48" y="0.0" width="86" height="27"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xRf-K1-3w8">
+                                    <rect key="frame" x="142" y="0.0" width="40" height="40"/>
+                                    <state key="normal" image="nextMonth"/>
+                                    <connections>
+                                        <action selector="nextMonth:" destination="FOZ-Vs-VV6" eventType="touchUpInside" id="Ezs-y4-nUc"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TkZ-Al-MEE">
+                                    <rect key="frame" x="48" y="27" width="86" height="13"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="13" id="ENS-AK-xk5"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X27-f1-eYT">
+                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="Tlu-Mk-arC"/>
+                                    </constraints>
+                                    <state key="normal" image="prevMonth"/>
+                                    <connections>
+                                        <action selector="prevMonth:" destination="FOZ-Vs-VV6" eventType="touchUpInside" id="3UW-uX-oTB"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="xRf-K1-3w8" secondAttribute="trailing" id="3O1-WZ-o4i"/>
+                                <constraint firstItem="X27-f1-eYT" firstAttribute="top" secondItem="ofz-M6-gjR" secondAttribute="top" id="Dob-Mn-CZh"/>
+                                <constraint firstItem="xRf-K1-3w8" firstAttribute="leading" secondItem="ofz-M6-gjR" secondAttribute="trailing" constant="8" symbolic="YES" id="HGZ-HY-QGg"/>
+                                <constraint firstItem="X27-f1-eYT" firstAttribute="leading" secondItem="14t-wu-wuc" secondAttribute="leading" id="I9a-wT-fH0"/>
+                                <constraint firstItem="X27-f1-eYT" firstAttribute="top" secondItem="14t-wu-wuc" secondAttribute="top" id="NTS-cd-mLa"/>
+                                <constraint firstItem="TkZ-Al-MEE" firstAttribute="bottom" secondItem="xRf-K1-3w8" secondAttribute="bottom" id="RJW-gr-UJK"/>
+                                <constraint firstItem="TkZ-Al-MEE" firstAttribute="top" secondItem="ofz-M6-gjR" secondAttribute="bottom" id="Xxu-p8-LN1"/>
+                                <constraint firstItem="X27-f1-eYT" firstAttribute="bottom" secondItem="TkZ-Al-MEE" secondAttribute="bottom" id="Y03-ob-RXE"/>
+                                <constraint firstItem="ofz-M6-gjR" firstAttribute="top" secondItem="xRf-K1-3w8" secondAttribute="top" id="aak-T8-STZ"/>
+                                <constraint firstItem="ofz-M6-gjR" firstAttribute="centerX" secondItem="14t-wu-wuc" secondAttribute="centerX" id="fkc-xj-5GJ"/>
+                                <constraint firstItem="ofz-M6-gjR" firstAttribute="leading" secondItem="TkZ-Al-MEE" secondAttribute="leading" id="gDZ-2y-xA0"/>
+                                <constraint firstItem="xRf-K1-3w8" firstAttribute="leading" secondItem="TkZ-Al-MEE" secondAttribute="trailing" constant="8" symbolic="YES" id="jPO-WK-sDS"/>
+                                <constraint firstAttribute="bottom" secondItem="X27-f1-eYT" secondAttribute="bottom" id="pDJ-jt-GF5"/>
+                                <constraint firstItem="ofz-M6-gjR" firstAttribute="leading" secondItem="X27-f1-eYT" secondAttribute="trailing" constant="8" symbolic="YES" id="xsh-Uq-Eeq"/>
+                            </constraints>
+                        </view>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="0vY-kx-LkB">
                                 <connections>
@@ -270,28 +326,20 @@
                                     <segue destination="dzr-U8-tqR" kind="show" identifier="addExpense" id="MIH-f8-SUb"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="    " id="Bfh-eK-x4V"/>
-                            <barButtonItem systemItem="fastForward" id="cyN-Hb-wMZ">
-                                <connections>
-                                    <action selector="nextMonth:" destination="FOZ-Vs-VV6" id="F58-xF-m9i"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="rewind" id="b6c-PA-c3k">
-                                <connections>
-                                    <action selector="prevMonth:" destination="FOZ-Vs-VV6" id="6TC-Kv-uZE"/>
-                                </connections>
-                            </barButtonItem>
+                            <barButtonItem id="Bfh-eK-x4V"/>
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="tableView" destination="vct-9n-1Ly" id="2Ut-fj-iAO"/>
+                        <outlet property="titleMonth" destination="ofz-M6-gjR" id="Zb0-w0-fa6"/>
+                        <outlet property="totalExpenses" destination="TkZ-Al-MEE" id="wpt-4c-NrA"/>
                         <segue destination="dzr-U8-tqR" kind="show" identifier="updateExpense" id="oy1-0M-y6T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DkJ-6g-bQ7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1995" y="329"/>
+            <point key="canvasLocation" x="1943" y="329"/>
         </scene>
         <!--Add Expense-->
         <scene sceneID="HM9-uX-YnB">
@@ -535,6 +583,8 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cbe-ib-14K">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.20000000000000001" green="0.51764705882352946" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -617,6 +667,29 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BY2-AY-40N" id="2I6-g8-gmX">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="193"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_logo" translatesAutoresizingMaskIntoConstraints="NO" id="JBH-3q-9gx">
+                                                    <rect key="frame" x="49" y="22" width="196" height="121"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyBudget" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bzf-M0-1bQ">
+                                                    <rect key="frame" x="49" y="151" width="196" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="h81-Lu-rcy"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="JBH-3q-9gx" firstAttribute="top" secondItem="2I6-g8-gmX" secondAttribute="topMargin" constant="14" id="0N9-zu-B7h"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="JBH-3q-9gx" secondAttribute="trailing" constant="67" id="1K8-ce-nDe"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="bzf-M0-1bQ" secondAttribute="bottom" constant="13" id="IvG-t8-kMS"/>
+                                                <constraint firstItem="JBH-3q-9gx" firstAttribute="trailing" secondItem="bzf-M0-1bQ" secondAttribute="trailing" id="KMT-Vl-plg"/>
+                                                <constraint firstItem="JBH-3q-9gx" firstAttribute="leading" secondItem="2I6-g8-gmX" secondAttribute="leadingMargin" constant="41" id="cGk-Ij-RlS"/>
+                                                <constraint firstItem="JBH-3q-9gx" firstAttribute="leading" secondItem="bzf-M0-1bQ" secondAttribute="leading" id="vT8-cv-fJ3"/>
+                                                <constraint firstItem="bzf-M0-1bQ" firstAttribute="top" secondItem="JBH-3q-9gx" secondAttribute="bottom" constant="8" symbolic="YES" id="z7L-vR-tTc"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="reuseIdentifier" textLabel="Ert-aH-AjF" rowHeight="53" style="IBUITableViewCellStyleDefault" id="fOI-hI-3ic">
@@ -907,7 +980,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="hvc-fi-VTB" firstAttribute="leading" secondItem="aqA-qh-LDs" secondAttribute="leading" id="BYn-JO-0JR"/>
                                 <constraint firstItem="hvc-fi-VTB" firstAttribute="leading" secondItem="RhA-JN-JaQ" secondAttribute="leadingMargin" id="DyR-Xj-Vy1"/>
@@ -1023,13 +1096,30 @@
                             <rect key="frame" x="69" y="2" width="182" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGa-b9-SnK">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Income" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="ZGa-b9-SnK">
                                     <rect key="frame" x="48" y="0.0" width="86" height="27"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eMn-PI-sbL">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OYS-CQ-oPY">
+                                    <rect key="frame" x="142" y="0.0" width="40" height="40"/>
+                                    <state key="normal" image="nextMonth"/>
+                                    <connections>
+                                        <action selector="nextMonth:" destination="qpj-1g-0ZE" eventType="touchUpInside" id="Ce0-Ql-y35"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPh-RR-Nqk">
+                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="ukI-UV-rsA"/>
+                                    </constraints>
+                                    <state key="normal" image="prevMonth"/>
+                                    <connections>
+                                        <action selector="prevMonth:" destination="qpj-1g-0ZE" eventType="touchUpInside" id="XWJ-Dd-imR"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eMn-PI-sbL">
                                     <rect key="frame" x="48" y="27" width="86" height="13"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="13" id="3rn-Qf-WdU"/>
@@ -1038,17 +1128,6 @@
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPh-RR-Nqk">
-                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="40" id="ukI-UV-rsA"/>
-                                    </constraints>
-                                    <state key="normal" image="prevMonth"/>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OYS-CQ-oPY">
-                                    <rect key="frame" x="142" y="0.0" width="40" height="40"/>
-                                    <state key="normal" image="nextMonth"/>
-                                </button>
                             </subviews>
                             <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
@@ -1078,6 +1157,8 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="tableView" destination="99U-qF-6SA" id="1pb-Gk-62R"/>
+                        <outlet property="titleMonth" destination="ZGa-b9-SnK" id="Mds-Wm-lhd"/>
+                        <outlet property="totalIncome" destination="eMn-PI-sbL" id="wrR-2J-ceU"/>
                         <segue destination="kZa-3P-UXW" kind="show" identifier="updateIncome" id="rxT-Kq-Ui6"/>
                     </connections>
                 </viewController>
@@ -2005,6 +2086,7 @@
         <image name="Camera" width="217" height="285"/>
         <image name="bank" width="128" height="128"/>
         <image name="delete" width="128" height="128"/>
+        <image name="home_logo" width="272" height="332"/>
         <image name="nextMonth" width="128" height="128"/>
         <image name="prevMonth" width="128" height="128"/>
     </resources>
