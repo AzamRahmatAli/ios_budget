@@ -204,5 +204,11 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         }
         }
     }
-    
+    override func willMoveToParentViewController(parent: UIViewController?) {
+        if parent == nil {
+            if Helper.pickCategory        {
+                Helper.pickCategory  = false
+            }
+        }
+    }
 }

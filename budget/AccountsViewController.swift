@@ -108,7 +108,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         return header
     }
     
-    
+   
     
     
     
@@ -303,7 +303,13 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         
     }
-    
+    override func willMoveToParentViewController(parent: UIViewController?) {
+        if parent == nil {
+            if Helper.pickAccount        {
+                Helper.pickAccount = false
+            }
+        }
+    }
     
     
 }

@@ -26,6 +26,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var totalExpenses : Float = 0.0
     var totalIncome : Float = 0.0
     var totalBudget : Float = 0.0
+    var ExpenceAsPercentage : CGFloat = 0.0
     
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
@@ -218,13 +219,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             {
             available.text = (totalIncome -  totalExpenses).asLocaleCurrency
                 percentageText.text = "Expenses as % of Income"
-                percentage.text = String(Int((totalExpenses / totalIncome * 100))) +  "%"
+                let pt = Int((totalExpenses / totalIncome * 100))
+                percentage.text =  pt > 100 ? (String(100) + "%+") : (String(pt) + "%")
+                ExpenceAsPercentage = pt > 100 ? CGFloat(100) : CGFloat(pt)
             }
             else{
                 available.text = (totalBudget -  totalExpenses).asLocaleCurrency
                 percentageText.text = "Expenses as % of Budget"
                 let pt = Int((totalExpenses / totalBudget * 100))
                 percentage.text =  pt > 100 ? (String(100) + "%+") : (String(pt) + "%")
+                 ExpenceAsPercentage = pt > 100 ? CGFloat(100) : CGFloat(pt)
                 
             }
             cell.price.textColor = UIColor(red: 69/255, green: 68/255, blue: 205/255, alpha: 1)
@@ -286,15 +290,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
      func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let center = needle.center
+        
         if indexPath.row == 3 {
             UIView.animateWithDuration(4.0, animations: {
-               self.needle.center = center
-                self.needle.transform = CGAffineTransformMakeRotation(-(CGFloat(self.totalIncome)))
-                self.needle.center = center
+               self.needle.layer.anchorPoint = CGPointMake(0.5, 0.54)
+                let ValueToMinus = 24 *  (self.ExpenceAsPercentage / 100)
+                let angle = (self.ExpenceAsPercentage  / 100 ) * CGFloat(2 * M_PI) - ( ValueToMinus  / 100 ) * CGFloat(2 * M_PI)
+                self.needle.transform = CGAffineTransformMakeRotation(angle)
+               print(angle,CGFloat(2 * M_PI))
+               
             })
         }
-        self.needle.center = center
+       
     }
 
     
