@@ -14,6 +14,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var available: UILabel!
     
+    @IBOutlet weak var needle: UIImageView!
     @IBOutlet weak var percentageText: UILabel!
     @IBOutlet weak var percentage: UILabel!
     @IBOutlet weak var currentMonth: UILabel!
@@ -39,7 +40,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             let myBtn: UIButton = UIButton()
             myBtn.setImage(UIImage(named: "menu"), forState: .Normal)
-            myBtn.frame = CGRectMake(0, 0, 40, 40)
+            myBtn.frame = CGRectMake(0, 0, 50, 50)
             myBtn.backgroundColor = UIColor.clearColor()
             // myBtn.addTarget(self, action: "rightRevealToggle:", forControlEvents: .TouchUpInside)
             myBtn.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -279,9 +280,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         expensesInAccountsTotal = 0
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         tableView.reloadData()
+        
+       
+
     }
     
-    
+     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if indexPath.row == 3 {
+            UIView.animateWithDuration(4.0, animations: {
+                self.needle.transform = CGAffineTransformMakeRotation(-(CGFloat(self.totalIncome)))
+            })
+        }
+    }
+
     
     
     

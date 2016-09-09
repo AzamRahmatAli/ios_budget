@@ -87,8 +87,9 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
             if amount.text == "0"
             {
             amount.text = ""
-            return true
+            
             }
+            return true
         }else{
             Helper.pickAccount = true
             self.performSegueWithIdentifier("pickAccount", sender: nil)
