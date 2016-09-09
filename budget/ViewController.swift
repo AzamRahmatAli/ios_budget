@@ -286,12 +286,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
      func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        
+        let center = needle.center
         if indexPath.row == 3 {
             UIView.animateWithDuration(4.0, animations: {
+               self.needle.center = center
                 self.needle.transform = CGAffineTransformMakeRotation(-(CGFloat(self.totalIncome)))
+                self.needle.center = center
             })
         }
+        self.needle.center = center
     }
 
     
