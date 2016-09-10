@@ -52,6 +52,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             dateFormatter.dateFormat = "MMMM yyyy"
             currentMonth.text = dateFormatter.stringFromDate(NSDate())
             
+           
+            
             /*menuButton.addTarget(self.revealViewController(), action: "revealToggle:", forControlEvents: UIControlEvents.TouchUpInside)
              
              */
@@ -219,14 +221,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             {
             available.text = (totalIncome -  totalExpenses).asLocaleCurrency
                 percentageText.text = "Expenses as % of Income"
-                let pt = Int((totalExpenses / totalIncome * 100))
+                var pt = 0
+                if totalIncome != 0
+                {
+                 pt = Int((totalExpenses / totalIncome) * 100)
+                }else if totalExpenses > 0
+                {
+                    pt = 100
+                }
                 percentage.text =  pt > 100 ? (String(100) + "%+") : (String(pt) + "%")
                 ExpenceAsPercentage = pt > 100 ? CGFloat(100) : CGFloat(pt)
             }
             else{
                 available.text = (totalBudget -  totalExpenses).asLocaleCurrency
                 percentageText.text = "Expenses as % of Budget"
-                let pt = Int((totalExpenses / totalBudget * 100))
+                var pt = 0
+                if totalBudget != 0
+                {
+                    pt = Int((totalExpenses / totalBudget) * 100)
+                }else if totalExpenses > 0
+                {
+                    pt = 100
+                }
                 percentage.text =  pt > 100 ? (String(100) + "%+") : (String(pt) + "%")
                  ExpenceAsPercentage = pt > 100 ? CGFloat(100) : CGFloat(pt)
                 
@@ -289,13 +305,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+     print(self.view.frame.size.height)
+        return self.view.frame.size.height /  13.7
+    }
      func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if indexPath.row == 3 {
             UIView.animateWithDuration(4.0, animations: {
                self.needle.layer.anchorPoint = CGPointMake(0.5, 0.54)
-                let ValueToMinus = 24 *  (self.ExpenceAsPercentage / 100)
-                let angle = (self.ExpenceAsPercentage  / 100 ) * CGFloat(2 * M_PI) - ( ValueToMinus  / 100 ) * CGFloat(2 * M_PI)
+                let ValueToMinus = (self.ExpenceAsPercentage < 30 ) ? ((self.ExpenceAsPercentage + 9)/100) * 24 : (self.ExpenceAsPercentage/100) * 24
+                
+                let angle = ((self.ExpenceAsPercentage - ValueToMinus)  / 100 ) * CGFloat(2 * M_PI)
                 self.needle.transform = CGAffineTransformMakeRotation(angle)
                print(angle,CGFloat(2 * M_PI))
                
