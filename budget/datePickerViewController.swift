@@ -14,6 +14,12 @@ class datePickerViewController: UIViewController {
     @IBOutlet weak var currentDate: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "dd MMM yyyy"
+        
+        
+        let selectedDate = dateFormatter.stringFromDate(NSDate())
+        currentDate.text = selectedDate
 
         // Do any additional setup after loading the view.
     }

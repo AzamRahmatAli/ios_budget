@@ -14,6 +14,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var available: UILabel!
     
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var needle: UIImageView!
     @IBOutlet weak var percentageText: UILabel!
     @IBOutlet weak var percentage: UILabel!
@@ -33,6 +34,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(((self.view.frame.height  - 480 ) + 24 ) / 2)
+        bottomConstraint.constant = ((self.view.frame.height  - 480 ) + 24 ) / 2
+       
         // Do any additional setup after loading the view, typically from a nib.
         if  self.revealViewController() != nil {
             //  menuButton.target = self.revealViewController()
@@ -60,8 +64,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
     }
-    
-    
+   /* override func viewDidLayoutSubviews(){
+         tableView.frame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, (self.view.frame.size.height /  13.7) * 4)
+       // tableView.reloadData()
+    }
+    override func viewDidAppear(animated: Bool) {
+        tableView.frame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, (self.view.frame.size.height /  13.7) * 4)
+    }
+    */
     @IBOutlet weak var tableView: UITableView!
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -305,10 +315,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     }
     
+    
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
      print(self.view.frame.size.height)
-        return self.view.frame.size.height /  13.7
+        //return self.tableView.frame.size.height /  13.7
+        return self.tableView.frame.size.height /  4.2
     }
+    
+    
+    
+    
+    
      func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if indexPath.row == 3 {
