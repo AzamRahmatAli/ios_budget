@@ -253,16 +253,18 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
             
             accountData = queryResult
             calculatedAmount = [[Float]](count: accountData.count , repeatedValue: [])
+            var totalAmount : Float = 0
             for element in accountData
             {
                 if let accounts = element.account?.allObjects as? [AccountTable]
                     {
-                           //dataForSection = accounts
+                           dataForSection = accounts //using in calculateCurrentAmountAfterExpenses
                         for account in accounts{
                          
                             if let amount = calculateCurrentAmountAfterExpenses(Float(account.amount ?? "0") ?? 0.0, row:  j)
                             {
                             calculatedAmount[i].append(amount)
+                                totalAmount += amount
                         }
                             j += 1
                         }
@@ -270,6 +272,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
                 }
                 i += 1
             }
+            accountTotalLabel.text = totalAmount.asLocaleCurrency
          
             
             

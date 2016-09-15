@@ -89,17 +89,21 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
                     expenseData = queryResult
             var totalAmount : Float = 0
-          /*  for element in expenseData! as [CategoryTable]
+           for element in expenseData!
             {
                 
              
+                let subcategory = element.subcategory!.allObjects as! [SubCategoryTable]
                
-                    totalAmount += Float(element.subcategory.amount ?? "0" ) ?? 0.0
-                
+                for element in subcategory{
+                    if let price = Float(element.amount ?? "0")
+                    {
+                        totalAmount += price
+                    }
                     
-               
-                
-            }*/
+                }
+
+            }
             
             budgetTotalLabel.text = totalAmount.asLocaleCurrency
                 
