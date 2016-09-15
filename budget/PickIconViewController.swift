@@ -45,14 +45,13 @@ class PickIconViewController: UIViewController , UICollectionViewDelegate, UICol
      // Pass the selected object to the new view controller.
      }
      */
-    let images = ["bank","Food","Fuel","Gas","groceries","Restaurant","home","dashboard"]
+    let images = ["bank","credit","doller","eur","pound","yen","home","car", "money","wallet"]
     var selectedImage = ""
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        
         
         
         selectedImage = images[indexPath.row]
@@ -72,6 +71,7 @@ class PickIconViewController: UIViewController , UICollectionViewDelegate, UICol
         
         
         cell.img?.image = UIImage(named: images[indexPath.row])
+        cell.img?.tintColor = UIColor.brownColor()
         return cell
     }
     

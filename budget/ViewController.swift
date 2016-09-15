@@ -331,7 +331,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
      func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if indexPath.row == 3 {
-            UIView.animateWithDuration(4.0, animations: {
+            UIView.animateWithDuration(1.0, animations: {
                self.needle.layer.anchorPoint = CGPointMake(0.5, 0.54)
                 let ValueToMinus = (self.ExpenceAsPercentage < 30 ) ? ((self.ExpenceAsPercentage + 9)/100) * 24 : (self.ExpenceAsPercentage/100) * 24
                 

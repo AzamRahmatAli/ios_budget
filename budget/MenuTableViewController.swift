@@ -10,10 +10,11 @@ import UIKit
 
 class MenuTableViewController: UITableViewController {
 
+    @IBOutlet weak var cellAsButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-      
+      cellAsButton.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), forControlEvents: UIControlEvents.TouchUpInside)
     }
     /*override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
@@ -41,10 +42,7 @@ class MenuTableViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-       
-        
-         if(indexPath.row == 2)
+        if(indexPath.row == 2)
         {
             Helper.performUIUpdatesOnMain
                 {
