@@ -2,7 +2,7 @@
 //  ExpenseTable+CoreDataProperties.swift
 //  budget
 //
-//  Created by Azam Rahmat on 8/31/16.
+//  Created by Azam Rahmat on 9/15/16.
 //  Copyright © 2016 Brainload Technologies. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -19,6 +19,6 @@ extension ExpenseTable {
     @NSManaged var note: String?
     @NSManaged var reciept: NSData?
     @NSManaged var account: AccountTable?
-    @NSManaged var category: SubCategoryTable?
+    @NSManaged var subCategory: SubCategoryTable?
 
 }

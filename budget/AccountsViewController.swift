@@ -20,7 +20,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     
     
     
-    var expenseMonthDate = NSDate()
+  
     
     var accountData : [AccountTypeTable] = []
     var calculatedAmount = [[Float]]()
@@ -38,6 +38,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var accountTotalLabel: UILabel!
     @IBAction func addExpense(sender: AnyObject) {
         self.performSegueWithIdentifier("addAccount", sender: nil)
         
@@ -164,15 +165,15 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     
     override func viewWillAppear(animated: Bool) {
         
-        expenseMonthDate = NSDate()
-        updateMonthlyExpenseView(expenseMonthDate)
+        
+        updateMonthlyExpenseView()
         
         
         
     }
     
     
-    func calculateCurrentAmount(amount : Float, row : Int) -> Float?
+    func calculateCurrentAmountAfterExpenses(amount : Float, row : Int) -> Float?
     {
         var total = amount
         if let incomes =  dataForSection[row].income?.allObjects as? [IncomeTable]
@@ -239,7 +240,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
     }
     
-    func updateMonthlyExpenseView(expenseMonthDate : NSDate)
+    func updateMonthlyExpenseView( )
     {
         var i = 0, j = 0
         
@@ -256,10 +257,10 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
             {
                 if let accounts = element.account?.allObjects as? [AccountTable]
                     {
-                           dataForSection = accounts
+                           //dataForSection = accounts
                         for account in accounts{
                          
-                            if let amount = calculateCurrentAmount(Float(account.amount ?? "0") ?? 0.0, row:  j)
+                            if let amount = calculateCurrentAmountAfterExpenses(Float(account.amount ?? "0") ?? 0.0, row:  j)
                             {
                             calculatedAmount[i].append(amount)
                         }

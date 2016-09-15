@@ -39,9 +39,9 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var expenseTotalLabel: UILabel!
     @IBOutlet weak var titleMonth: UILabel!
-    @IBOutlet weak var totalExpenses: UILabel!
-    @IBAction func addExpense(sender: AnyObject) {
+      @IBAction func addExpense(sender: AnyObject) {
         self.performSegueWithIdentifier("addExpense", sender: nil)
         
         
@@ -192,7 +192,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = tableView.dequeueReusableCellWithIdentifier("cellparent", forIndexPath: indexPath) as! ParentTableViewCell
         
         
-        cell.subCatg.text = expenseDataForSection![indexPath.row].category!.name
+        cell.subCatg.text = expenseDataForSection![indexPath.row].subCategory!.name
         //Helper.currency + expenseDataForSection![indexPath.row].amount!
         let amount = Float(expenseDataForSection![indexPath.row].amount!)
         cell.categoryAmount.text = amount?.asLocaleCurrency
@@ -202,7 +202,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
         let note = expenseDataForSection![indexPath.row].note ?? ""
         
         cell.leftDown.text = date! + " " + note
-        if let img = expenseDataForSection![indexPath.row].category?.icon where img != ""
+        if let img = expenseDataForSection![indexPath.row].subCategory?.icon where img != ""
         {
             cell.img.image = UIImage(named: img)
             
@@ -263,24 +263,27 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             print(startDate! ,  endDate!)
             let queryResult = try managedObjectContext?.executeFetchRequest(request) as! [ExpenseTable]
-            
+            var totalAmount : Float = 0
             for element in queryResult
             {
-                print(components.year ,  components.month)
-                let category = element.category!.category!.name
+               
+                let category = element.subCategory!.category!.name
                 if (expenseData![category!] == nil)
                 {
                     expenseData![category!] = [element]
+                    totalAmount = Float(element.amount ?? "0" ) ?? 0.0
                 }
                 else{
-                    
+                    totalAmount += Float(element.amount ?? "0" ) ?? 0.0
                     var temp = expenseData![category!]! as! [ExpenseTable]
-                    print(temp.count)
+                  
                     temp.append(element)
                     expenseData![category!] = temp
                 }
                 
             }
+           
+            expenseTotalLabel.text = totalAmount.asLocaleCurrency
             
         }
         catch let error {

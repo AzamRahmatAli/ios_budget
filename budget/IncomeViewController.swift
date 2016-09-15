@@ -35,9 +35,10 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var expenseDataForSection : [IncomeTable]?
     
     
+    @IBOutlet weak var incomeTotalLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleMonth: UILabel!
-    @IBOutlet weak var totalIncome: UILabel!
+
     
     @IBAction func addExpense(sender: AnyObject) {
         self.performSegueWithIdentifier("addincome", sender: nil)
@@ -245,17 +246,18 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             print(startDate! ,  endDate!)
             let queryResult = try managedObjectContext?.executeFetchRequest(request) as! [IncomeTable]
-            
+             var totalAmount : Float = 0
             for element in queryResult
             {
-                print(components.year ,  components.month)
-                
+               
                 if (expenseData![element.category!] == nil)
                 {
                     expenseData![element.category!] = [element]
+                    totalAmount = Float(element.amount ?? "0" ) ?? 0.0
+
                 }
                 else{
-                    
+                    totalAmount += Float(element.amount ?? "0" ) ?? 0.0
                   expenseData![element.category!]?.append(element)
                    
                     
@@ -263,7 +265,7 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
                 
             }
-            
+            incomeTotalLabel.text = totalAmount.asLocaleCurrency
         }
         catch let error {
             print("error : ", error)

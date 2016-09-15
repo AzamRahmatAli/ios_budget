@@ -45,6 +45,9 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
         
         dateValue.delegate = self
         amount.delegate = self
+        
+        
+        icon.image = UIImage(named: "bank")
         //subCategory.delegate = self
         
         

@@ -24,6 +24,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var totalAmount: UILabel!
+    @IBOutlet weak var budgetTotalLabel: UILabel!
     
     override func viewDidLoad() {
         self.titleLabel.text = category
@@ -51,6 +52,19 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
             
             expenseData = queryResult
             
+            var totalAmount : Float = 0
+              for element in expenseData
+             {
+             
+             
+             
+             totalAmount += Float(element.amount ?? "0" ) ?? 0.0
+             
+             
+             
+             
+             }
+            budgetTotalLabel.text = totalAmount.asLocaleCurrency
         }
         catch let error {
             print("error : ", error)

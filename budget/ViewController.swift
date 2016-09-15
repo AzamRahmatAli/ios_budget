@@ -232,17 +232,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             available.text = (totalIncome -  totalExpenses).asLocaleCurrency
                 percentageText.text = "Expenses as % of Income"
                 var pt = 0
-                if totalIncome != 0
+                if totalIncome != 0 // to solve infinity problem
                 {
                  pt = Int((totalExpenses / totalIncome) * 100)
                 }else if totalExpenses > 0
                 {
-                    pt = 100
+                    pt = 101 // to solve 100+ problem
                 }
                 percentage.text =  pt > 100 ? (String(100) + "%+") : (String(pt) + "%")
                 ExpenceAsPercentage = pt > 100 ? CGFloat(100) : CGFloat(pt)
             }
             else{
+                
                 available.text = (totalBudget -  totalExpenses).asLocaleCurrency
                 percentageText.text = "Expenses as % of Budget"
                 var pt = 0

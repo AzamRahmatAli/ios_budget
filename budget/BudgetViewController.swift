@@ -23,6 +23,7 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var budgetTotalLabel: UILabel!
     
     
     
@@ -87,7 +88,20 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
             
                     expenseData = queryResult
+            var totalAmount : Float = 0
+          /*  for element in expenseData! as [CategoryTable]
+            {
                 
+             
+               
+                    totalAmount += Float(element.subcategory.amount ?? "0" ) ?? 0.0
+                
+                    
+               
+                
+            }*/
+            
+            budgetTotalLabel.text = totalAmount.asLocaleCurrency
                 
             
             

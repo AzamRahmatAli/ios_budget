@@ -52,9 +52,9 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
         if updateExpens
         {
             
-            category.text = expenseData!.category?.category!.name
+            category.text = expenseData!.subCategory?.category!.name
             amount.text = expenseData!.amount
-            subCategory.text =  expenseData!.category?.name
+            subCategory.text =  expenseData!.subCategory?.name
             
             dateValue = expenseData!.createdAt!
             note.text = expenseData!.note
@@ -243,7 +243,7 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
                
                 if let category = Helper.pickedSubCaregory
                 {
-                    entity.category = category
+                    entity.subCategory = category
                     Helper.pickedSubCaregory = nil
                 }
                 
@@ -284,7 +284,7 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
                  }else{
                  missing.text = "Enter Amount"
                  }*/
-                entity.category = Helper.pickedSubCaregory
+                entity.subCategory = Helper.pickedSubCaregory
                 entity.amount =  (amount.text != "") ? amount.text : "0"
                 
                 entity.createdAt = dateValue
@@ -357,6 +357,15 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
             
             
         }
+        else if !Helper.accountPicked
+        {
+            
+            
+            Helper.pickCategory = false
+            
+            
+        }
+
         
         expnseDate.text = Helper.getFormattedDate(dateValue)
         

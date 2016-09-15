@@ -292,7 +292,7 @@
                             <rect key="frame" x="69" y="2" width="182" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expenses" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="ofz-M6-gjR">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expenses" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="ofz-M6-gjR">
                                     <rect key="frame" x="48" y="0.0" width="86" height="27"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -305,15 +305,6 @@
                                         <action selector="nextMonth:" destination="FOZ-Vs-VV6" eventType="touchUpInside" id="Ezs-y4-nUc"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TkZ-Al-MEE">
-                                    <rect key="frame" x="48" y="27" width="86" height="13"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="13" id="ENS-AK-xk5"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X27-f1-eYT">
                                     <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                     <constraints>
@@ -324,6 +315,15 @@
                                         <action selector="prevMonth:" destination="FOZ-Vs-VV6" eventType="touchUpInside" id="3UW-uX-oTB"/>
                                     </connections>
                                 </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TkZ-Al-MEE">
+                                    <rect key="frame" x="48" y="27" width="86" height="13"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="13" id="ENS-AK-xk5"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -355,9 +355,9 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="expenseTotalLabel" destination="TkZ-Al-MEE" id="9Wx-Ke-ftV"/>
                         <outlet property="tableView" destination="vct-9n-1Ly" id="2Ut-fj-iAO"/>
                         <outlet property="titleMonth" destination="ofz-M6-gjR" id="Zb0-w0-fa6"/>
-                        <outlet property="totalExpenses" destination="TkZ-Al-MEE" id="wpt-4c-NrA"/>
                         <segue destination="dzr-U8-tqR" kind="show" identifier="updateExpense" id="oy1-0M-y6T"/>
                     </connections>
                 </viewController>
@@ -991,7 +991,7 @@
                             <rect key="frame" x="77" y="2" width="166" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Budget" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hvc-fi-VTB">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Budget" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="hvc-fi-VTB">
                                     <rect key="frame" x="8" y="0.0" width="150" height="26"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1023,6 +1023,7 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="budgetTotalLabel" destination="aqA-qh-LDs" id="TdZ-G2-akR"/>
                         <outlet property="tableView" destination="v3q-jv-loz" id="RlM-8a-20T"/>
                     </connections>
                 </viewController>
@@ -1120,7 +1121,7 @@
                             <rect key="frame" x="69" y="2" width="182" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Income" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="ZGa-b9-SnK">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Income" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="ZGa-b9-SnK">
                                     <rect key="frame" x="48" y="0.0" width="86" height="27"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1180,9 +1181,9 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="incomeTotalLabel" destination="eMn-PI-sbL" id="hUd-mu-Ike"/>
                         <outlet property="tableView" destination="99U-qF-6SA" id="1pb-Gk-62R"/>
                         <outlet property="titleMonth" destination="ZGa-b9-SnK" id="Mds-Wm-lhd"/>
-                        <outlet property="totalIncome" destination="eMn-PI-sbL" id="wrR-2J-ceU"/>
                         <segue destination="kZa-3P-UXW" kind="show" identifier="updateIncome" id="rxT-Kq-Ui6"/>
                     </connections>
                 </viewController>
@@ -1330,9 +1331,9 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="budgetTotalLabel" destination="rVP-RZ-vX4" id="IU5-7R-ESg"/>
                         <outlet property="tableView" destination="N4v-tt-2vb" id="C23-MA-1my"/>
                         <outlet property="titleLabel" destination="8LD-Fd-uCE" id="p5I-yN-75n"/>
-                        <outlet property="totalAmount" destination="rVP-RZ-vX4" id="8SB-wd-X0o"/>
                         <segue destination="PDa-Lg-jOL" kind="show" identifier="setBudget" id="la3-4M-usk"/>
                     </connections>
                 </viewController>
@@ -1707,7 +1708,7 @@
             </objects>
             <point key="canvasLocation" x="2964" y="360"/>
         </scene>
-        <!--Accounts-->
+        <!--Accounts View Controller-->
         <scene sceneID="YPN-WK-9Us">
             <objects>
                 <viewController id="FLn-43-NNw" customClass="AccountsViewController" customModule="budget" customModuleProvider="target" sceneMemberID="viewController">
@@ -1742,21 +1743,20 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bank" translatesAutoresizingMaskIntoConstraints="NO" id="mZe-fX-s19">
-                                                    <rect key="frame" x="8" y="17" width="22" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="22" id="0Ag-Ua-38F"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home/Rent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IpV-Mb-fqL">
                                                     <rect key="frame" x="38" y="8" width="111" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="111" id="gYO-aO-TN2"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" red="0.16078431372549021" green="0.43529411764705883" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mZe-fX-s19">
+                                                    <rect key="frame" x="8" y="17" width="22" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="22" id="0Ag-Ua-38F"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="cDY-l5-0sg" firstAttribute="baseline" secondItem="IpV-Mb-fqL" secondAttribute="firstBaseline" id="8hA-Or-xf8"/>
@@ -1796,19 +1796,49 @@
                             <constraint firstItem="0cG-7g-z1f" firstAttribute="top" secondItem="diu-w0-vhK" secondAttribute="bottom" constant="-64" id="gUA-dh-Hft"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Accounts" id="9qr-5k-cgV">
+                    <navigationItem key="navigationItem" id="9qr-5k-cgV">
+                        <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title="Back" id="5we-YW-q6q"/>
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="QYs-Gc-Bhs">
-                                <connections>
-                                    <action selector="addExpense:" destination="FLn-43-NNw" id="z04-pc-mqc"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="    " id="LJg-dK-J1d"/>
-                        </rightBarButtonItems>
+                        <view key="titleView" contentMode="scaleToFill" id="7gU-j5-JtS">
+                            <rect key="frame" x="69" y="2" width="182" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Accounts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="iso-gY-SkS">
+                                    <rect key="frame" x="8" y="0.0" width="166" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QMC-eK-8j4">
+                                    <rect key="frame" x="8" y="27" width="166" height="13"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="13" id="v4x-eV-aRP"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="iso-gY-SkS" firstAttribute="leading" secondItem="QMC-eK-8j4" secondAttribute="leading" id="2b9-dx-qDH"/>
+                                <constraint firstItem="iso-gY-SkS" firstAttribute="trailing" secondItem="QMC-eK-8j4" secondAttribute="trailing" id="3cz-WW-gcc"/>
+                                <constraint firstItem="iso-gY-SkS" firstAttribute="top" secondItem="7gU-j5-JtS" secondAttribute="top" id="FC4-iZ-pzA"/>
+                                <constraint firstAttribute="bottom" secondItem="QMC-eK-8j4" secondAttribute="bottom" id="JNX-93-3JW"/>
+                                <constraint firstItem="QMC-eK-8j4" firstAttribute="top" secondItem="iso-gY-SkS" secondAttribute="bottom" constant="6" id="jND-H8-g7k"/>
+                                <constraint firstItem="iso-gY-SkS" firstAttribute="leading" secondItem="7gU-j5-JtS" secondAttribute="leadingMargin" id="o0G-pf-Big"/>
+                                <constraint firstItem="iso-gY-SkS" firstAttribute="trailing" secondItem="7gU-j5-JtS" secondAttribute="trailingMargin" id="oon-9a-brr"/>
+                            </constraints>
+                        </view>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="QYs-Gc-Bhs">
+                            <connections>
+                                <action selector="addExpense:" destination="FLn-43-NNw" id="z04-pc-mqc"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="accountTotalLabel" destination="QMC-eK-8j4" id="WYa-ZU-xWx"/>
                         <outlet property="tableView" destination="0cG-7g-z1f" id="kbK-gE-LNN"/>
                         <segue destination="lQ8-HK-Rlz" kind="show" identifier="addAccount" id="hsH-l5-Qe9"/>
                         <segue destination="lQ8-HK-Rlz" kind="show" identifier="updateAccount" id="4bb-iU-kYY"/>
@@ -1816,7 +1846,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rei-eW-sl7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2527" y="666"/>
+            <point key="canvasLocation" x="2158" y="732"/>
         </scene>
         <!--Add Account-->
         <scene sceneID="8I2-bt-XHD">
@@ -1883,16 +1913,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bank" translatesAutoresizingMaskIntoConstraints="NO" id="eLb-AA-Mty">
-                                <rect key="frame" x="20" y="101" width="66" height="39"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="66" id="HPo-yA-oHb"/>
-                                </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="nWg-HN-YAz" appends="YES" id="AMt-ep-CER"/>
-                                </connections>
-                            </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="17 Aug 2016" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1oK-oV-FOK">
                                 <rect key="frame" x="20" y="232" width="96" height="30"/>
                                 <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
@@ -1923,6 +1943,16 @@
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="fjF-pR-Ikp" appends="YES" id="KdD-aE-hgW"/>
+                                </connections>
+                            </imageView>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eLb-AA-Mty">
+                                <rect key="frame" x="20" y="101" width="66" height="39"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="66" id="HPo-yA-oHb"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="nWg-HN-YAz" appends="YES" id="AMt-ep-CER"/>
                                 </connections>
                             </imageView>
                         </subviews>
@@ -2003,7 +2033,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3016" y="647"/>
+            <point key="canvasLocation" x="2778" y="765"/>
         </scene>
         <!--Assign Icon-->
         <scene sceneID="PLP-F0-ucl">
@@ -2108,7 +2138,6 @@
     </scenes>
     <resources>
         <image name="Camera" width="217" height="285"/>
-        <image name="bank" width="128" height="128"/>
         <image name="delete" width="128" height="128"/>
         <image name="home_logo" width="272" height="332"/>
         <image name="meter" width="2570" height="2570"/>
@@ -2119,11 +2148,11 @@
     <inferredMetricsTieBreakers>
         <segue reference="IVx-tJ-cid"/>
         <segue reference="Vax-Si-0IU"/>
-        <segue reference="fEM-OY-Hyi"/>
-        <segue reference="JIA-nG-xpd"/>
         <segue reference="rxT-Kq-Ui6"/>
-        <segue reference="FPP-Zd-6Ca"/>
+        <segue reference="CDC-Zr-p0D"/>
+        <segue reference="hsH-l5-Qe9"/>
+        <segue reference="lxu-3I-7YJ"/>
         <segue reference="MIH-f8-SUb"/>
-        <segue reference="4bb-iU-kYY"/>
+        <segue reference="MQw-lE-v7I"/>
     </inferredMetricsTieBreakers>
 </document>
