@@ -174,10 +174,12 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.leftUp.text = ctgName
        
         cell.img.image = UIImage(named: expenseData![index].icon!)
+        cell.viewInCell.backgroundColor = Helper.colors[indexPath.row % 5]
         
         if let budget = getBudgetForCategory(ctgName!,row: indexPath.row)
         {
         cell.rightUp.text = budget.asLocaleCurrency
+            
             if let expenses = getExpensesForCategory(indexPath.row)
             {
                 cell.leftDown.text = expenses.asLocaleCurrency
@@ -191,7 +193,7 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
             }
             
-        }
+        }//if budget is not set
         else if let expenses = getExpensesForCategory(indexPath.row)
         {
             cell.rightUp.text = Float(0).asLocaleCurrency

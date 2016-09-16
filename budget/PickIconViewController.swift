@@ -71,7 +71,7 @@ class PickIconViewController: UIViewController , UICollectionViewDelegate, UICol
         
         
         cell.img?.image = UIImage(named: images[indexPath.row])
-        cell.img?.tintColor = UIColor.brownColor()
+        cell.img?.tintColor = Helper.colors[indexPath.row % 5]
         return cell
     }
     

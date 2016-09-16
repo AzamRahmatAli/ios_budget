@@ -28,6 +28,18 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     var accountDate : NSDate? = NSDate()
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
+    @IBAction func info(sender: UIButton) {
+        let alertController = UIAlertController(title: "Account Type", message: "Enter one of Checking, Savings, Credit, Debit, Cash, etc", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+            print("OK")
+        }
+       
+        alertController.addAction(okAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+        
+    }
     @IBAction func deleteAccount(sender: UITapGestureRecognizer) {
         let accountTypeName = accountData?.accountType?.name
         
@@ -48,6 +60,7 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
         
         
         icon.image = UIImage(named: "bank")
+         icon.tintColor = Helper.colors[0]
         //subCategory.delegate = self
         
         

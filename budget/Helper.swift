@@ -28,6 +28,12 @@ struct  Helper {
     static var currency : String? = nil
     static var currencySymbol : String? = nil
     
+    static let colors: [UIColor] = [UIColor(red: 38/255, green: 151/255, blue: 213/255, alpha: 1),UIColor(red: 254/255, green: 129/255, blue: 0, alpha: 1),UIColor(red: 50/255, green: 195/255, blue: 0, alpha: 1),UIColor(red: 255/255, green: 33/255, blue: 67/255, alpha: 1),UIColor(red: 69/255, green: 68/255, blue: 205/255, alpha: 1)]
+    
+    
+    
+    
+    
     static func getFormattedDate( date : NSDate ) -> String
     {
         let dateFormatter = NSDateFormatter()
@@ -70,6 +76,8 @@ struct  Helper {
             updates()
         }
     }
+    
+    
     
 }
 

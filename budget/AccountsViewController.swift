@@ -219,6 +219,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         if let image = dataForSection[indexPath.row].icon
         {
         cell.img.image = UIImage(named: image)
+        cell.img?.tintColor = Helper.colors[(indexPath.row +  indexPath.section ) % 5]
         }
         
         return cell

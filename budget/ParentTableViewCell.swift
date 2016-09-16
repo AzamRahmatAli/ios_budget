@@ -32,6 +32,7 @@ class ParentTableViewCell: UITableViewCell{
     @IBOutlet weak var img: UIImageView!
     
     
+    @IBOutlet weak var viewInCell: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
         
