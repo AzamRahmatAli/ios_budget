@@ -15,8 +15,10 @@ class CustomCollectionViewCell: UICollectionViewCell {
         
         didSet {
             //self.alpha = self.selected ? 1.0 : 0.5
+            
             self.layer.borderWidth = self.selected ? 2.0 : 0.0
             self.layer.borderColor = UIColor.grayColor().CGColor
+            
         }
     }
 }
