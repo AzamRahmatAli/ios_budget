@@ -77,9 +77,38 @@ struct  Helper {
         }
     }
     
+    static let units = [
+        Unit(name: "Home/Rent", image: "home",sname: ["Mortgage", "Mortgage-2nd","Rent", "Association fee", "Property tax"],simage: ["home", "home","home", "home", "home"]),
+        
+        Unit(name: "Utilities", image: "Utilities",sname: ["Electricity", "Gas/Heating","Telephone", "CellPhone", "Internet", "Cable/Dish", "Water", "Garbage"],simage: ["Utilities", "Gas","Telephone", "CellPhone", "Internet", "Cable", "Water", "Garbage"]),
+        
+        Unit(name: "Food/Groceries", image: "Food",sname: ["Groceries", "Restaurant/Fast food"], simage: ["Groceries", "Restaurant"]),
+        
+        Unit(name: "Departmental", image: "Departmental",sname: ["Clothing", "Personal Items", "Kids/Toys", "Books/Magazines"], simage: ["Clothing", "Departmental", "Kids", "Books"]),
+        
+        Unit(name: "Entertainment", image: "Entertainment",sname: ["Movies", "DVD rental", "Music"],simage: ["Movies", "DVD", "Entertainment"]),
+        
+        Unit(name: "Car/Auto", image: "car",sname: ["Gasoline", "Auto Loan", "Oil Change"],simage: ["car", "Auto", "Auto"]),
+        
+        Unit(name: "Insurance/Medical", image: "Insurance",sname: ["Insurance - Auto", "Insurance - Home", "Insurance - Medical", "Medical Expenses/Co-pay"],simage: ["Auto", "home", "Insurance", "Medical"]),
+        
+        Unit(name: "Misc/One-time", image: "Misc",sname: ["Air tickets", "Hotel/Lodging", "Gifts/Charity"],simage: ["Air", "Hotel", "Gifts"])
+    ]
+    
+}
+
+struct Unit {
+    let name: String
+    let image: String
+    let sname: [String]
+    let simage: [String]
     
     
 }
+
+
+
+
 
 struct Currency {
     

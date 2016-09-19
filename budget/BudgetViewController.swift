@@ -174,6 +174,7 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.leftUp.text = ctgName
        
         cell.img.image = UIImage(named: expenseData![index].icon!)
+        cell.img.tintColor = UIColor.whiteColor()
         cell.viewInCell.backgroundColor = Helper.colors[indexPath.row % 5]
         
         if let budget = getBudgetForCategory(ctgName!,row: indexPath.row)
@@ -235,7 +236,7 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let dvc = segue.destinationViewController as! SCBudgetViewController
         let index = path.row
         
-        dvc.category = expenseData![index].name!
+        dvc.category = expenseData![index]
     }
 
     }

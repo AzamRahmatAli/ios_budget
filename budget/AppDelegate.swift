@@ -44,28 +44,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             
             //let Category = ["Utilities", "Food"]
-            let SubCategories : [String:[String]] = ["Utilities":["Fuel", "Gas"], "Food":["Restaurant"]]
+          
             
             
-            let managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
-            for  key in SubCategories.keys
+            
+            for  key in Helper.units
             {
-                for  value in SubCategories[key]!
+                for  (index, value) in key.sname.enumerate()
                 {
-            if let expense = NSEntityDescription.insertNewObjectForEntityForName("SubCategoryTable", inManagedObjectContext: managedObjectContext!) as? SubCategoryTable
+            if let expense = NSEntityDescription.insertNewObjectForEntityForName("SubCategoryTable", inManagedObjectContext: managedObjectContext) as? SubCategoryTable
             {
-                
+                print(value)
               
                 expense.name = value
                 
-                //xpense.subCategory = value
-                //expense.createdAt = NSDate()
-                expense.category = CategoryTable.category(key, inManagedObjectContext: managedObjectContext!)
-                expense.icon = value
+              
+                expense.icon = key.simage[index]
                 expense.createdAt = NSDate()
                
-                
-                print(expense)
+                expense.category = CategoryTable.category(key.name, image: key.image,  inManagedObjectContext: managedObjectContext)
+               
               
                 do{
                     try self.managedObjectContext.save()

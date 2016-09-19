@@ -99,6 +99,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if indexPath.row == 0
         {
+            
             request = NSFetchRequest(entityName: "ExpenseTable")
             request.predicate = predicate
             do{
@@ -113,10 +114,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                    
                     
                     totalExpenses += Float(element.amount ?? "0") ?? 0.0
-                    
+                    if (element.account != nil)
+                    {
                     expensesInAccountsTotal += totalExpenses
                     
-
+                    }
                    
                     
                         
@@ -130,7 +132,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             
             cell.price.text = totalExpenses.asLocaleCurrency
-            cell.price.textColor = UIColor(red: 254/255, green: 129/255, blue: 0, alpha: 1)
+            let color = UIColor(red: 254/255, green: 129/255, blue: 0, alpha: 1)
+            cell.price.textColor = color
+            cell.img.image = UIImage(named: "wallet")
+            cell.img.tintColor = UIColor.whiteColor()
+            cell.viewInCell.backgroundColor = color
 
             
         }
@@ -162,7 +168,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print("error : ", error)
             }
             cell.price.text = totalIncome.asLocaleCurrency
-            cell.price.textColor = UIColor(red: 38/255, green: 151/255, blue: 213/255, alpha: 1)
+            
+            let color = UIColor(red: 38/255, green: 151/255, blue: 213/255, alpha: 1)
+            cell.price.textColor = color
+            cell.img.image = UIImage(named: "money")
+            cell.img.tintColor = UIColor.whiteColor()
+            cell.viewInCell.backgroundColor = color
             
         }else if indexPath.row == 2
         {
@@ -195,7 +206,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             cell.price.text = totalBudget.asLocaleCurrency
 
-            cell.price.textColor = UIColor(red: 50/255, green: 195/255, blue: 0, alpha: 1)
+            
+            let color = UIColor(red: 50/255, green: 195/255, blue: 0, alpha: 1)
+            cell.price.textColor = color
+            cell.img.image = UIImage(named: "folder")
+            cell.img.tintColor = UIColor.whiteColor()
+            cell.viewInCell.backgroundColor = color
             
         }else if indexPath.row == 3
         {
@@ -258,8 +274,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                  ExpenceAsPercentage = pt > 100 ? CGFloat(100) : CGFloat(pt)
                 
             }
-            cell.price.textColor = UIColor(red: 69/255, green: 68/255, blue: 205/255, alpha: 1)
             
+            let color = UIColor(red: 69/255, green: 68/255, blue: 205/255, alpha: 1)
+            cell.price.textColor = color
+            cell.img.image = UIImage(named: "account")
+            cell.img.tintColor = UIColor.whiteColor()
+            cell.viewInCell.backgroundColor = color
             
         }
         

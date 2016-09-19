@@ -18,7 +18,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     var expenseData = [SubCategoryTable]()
-    var category = ""
+    var category : CategoryTable? 
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -27,7 +27,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var budgetTotalLabel: UILabel!
     
     override func viewDidLoad() {
-        self.titleLabel.text = category
+        self.titleLabel.text = category!.name
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -43,7 +43,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         
         do{
             
-            let predicate = NSPredicate(format: "category.name == %@", category)
+            let predicate = NSPredicate(format: "category.name == %@", category!.name!)
             let request = NSFetchRequest(entityName: "SubCategoryTable")
             request.predicate = predicate
             
@@ -146,6 +146,10 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         return nil
     }
 
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+       
+        return 46.0
+    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -155,7 +159,9 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
        
         
         cell.leftUp.text = expenseData[indexPath.row].name
-        
+        cell.img.tintColor = Helper.colors[indexPath.row % 5]
+        cell.img.tintColor = UIColor.whiteColor()
+        cell.viewInCell.backgroundColor = Helper.colors[indexPath.row % 5]
         if let budget = getBudgetForCategory(indexPath.row)
         {
             cell.rightUp.text = budget.asLocaleCurrency
@@ -218,11 +224,11 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         }
         }
     }
-    override func willMoveToParentViewController(parent: UIViewController?) {
+   /* override func willMoveToParentViewController(parent: UIViewController?) {
         if parent == nil {
             if Helper.pickCategory        {
                 Helper.pickCategory  = false
             }
         }
-    }
+    }*/
 }

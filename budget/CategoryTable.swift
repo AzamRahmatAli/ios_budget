@@ -13,7 +13,7 @@ import CoreData
 class CategoryTable: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
-    class func category(name : String, inManagedObjectContext context: NSManagedObjectContext) -> CategoryTable?
+    class func category(name : String, image : String, inManagedObjectContext context: NSManagedObjectContext) -> CategoryTable?
         
     {
         let request  = NSFetchRequest(entityName : "CategoryTable")
@@ -25,7 +25,7 @@ class CategoryTable: NSManagedObject {
          }else if let category = NSEntityDescription.insertNewObjectForEntityForName("CategoryTable", inManagedObjectContext: context) as? CategoryTable
          {
             category.name = name
-            category.icon = name
+            category.icon = image
             
             
             return category

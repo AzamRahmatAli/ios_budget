@@ -45,7 +45,7 @@ class PickIconViewController: UIViewController , UICollectionViewDelegate, UICol
      // Pass the selected object to the new view controller.
      }
      */
-    let images = ["bank","credit","doller","eur","pound","yen","home","car", "money","wallet"]
+    let images = ["bank","credit","doller","eur","pound","yen","home","Auto", "money","wallet"]
     var selectedImage = ""
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count

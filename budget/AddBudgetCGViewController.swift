@@ -16,7 +16,7 @@ class AddBudgetCGViewController: UIViewController, UICollectionViewDelegate, UIC
     
     var addCategory = false
     var addSubCategory = false
-    var category = ""
+    var category : CategoryTable?
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -49,7 +49,7 @@ class AddBudgetCGViewController: UIViewController, UICollectionViewDelegate, UIC
                             budget.name = name.text
                             
                             budget.icon = selectedImage
-                            budget.category = CategoryTable.category(category, inManagedObjectContext: managedObjectContext!)
+                            budget.category = CategoryTable.category(category!.name!, image: category!.icon!, inManagedObjectContext: managedObjectContext!)
                         
                             do{
                                 try self.managedObjectContext?.save()

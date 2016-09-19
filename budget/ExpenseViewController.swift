@@ -205,7 +205,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let img = expenseDataForSection![indexPath.row].subCategory?.icon where img != ""
         {
             cell.img.image = UIImage(named: img)
-            
+            cell.img?.tintColor = Helper.colors[(indexPath.row +  indexPath.section ) % 5]
         }
  
         return cell
