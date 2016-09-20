@@ -34,5 +34,19 @@ class CategoryTable: NSManagedObject {
         
         return nil
     }
+    class func categoryByOnlyName(name : String , inManagedObjectContext context: NSManagedObjectContext) -> CategoryTable?
+        
+    {
+        let request  = NSFetchRequest(entityName : "CategoryTable")
+        request.predicate = NSPredicate(format: "name = %@", name)
+        if let category = (try? context.executeFetchRequest(request))?.first as? CategoryTable
+        {
+            return category
+            
+        }
+        
+        
+        return nil
+    }
 
 }

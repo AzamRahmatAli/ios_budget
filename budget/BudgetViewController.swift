@@ -24,7 +24,7 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var budgetTotalLabel: UILabel!
-    
+    @IBOutlet weak var edit: UIButton!
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -38,25 +38,59 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return true
     }
     func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
+        return false
     }
     func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
         //return true
     }
-   
-    @IBAction func edit(sender: AnyObject) {
-       
-        if(self.tableView.editing)
+    @IBAction func showEditing(sender: UIButton)
+    {
+        if(self.tableView.editing == true)
         {
-             tableView.setEditing(!tableView.editing, animated: false)
-            self.navigationItem.rightBarButtonItem?.title = "Edit"
+            self.tableView.editing = false
+           self.edit?.setTitle("Edit", forState: UIControlState.Normal)
         }
         else
         {
-             tableView.setEditing(!tableView.editing, animated: true)
-            self.navigationItem.rightBarButtonItem?.title = "Done"
+            self.tableView.editing = true
+             self.edit?.setTitle("Done", forState: UIControlState.Normal)
+           
         }
     }
+    
+    
+    
+     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            let request = NSFetchRequest(entityName: "SubCategoryTable")
+            
+            
+            request.predicate = NSPredicate(format: "category.name == %@", expenseData![indexPath.row].name!)
+            if managedObjectContext!.countForFetchRequest( request , error: nil) < 1
+            {
+                if let category = CategoryTable.categoryByOnlyName(expenseData![indexPath.row].name!, inManagedObjectContext: managedObjectContext!)
+                {
+                    managedObjectContext!.deleteObject(category)
+                }
+                expenseData!.removeAtIndex(indexPath.row)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            }
+            else{
+                
+            }
+
+            
+            
+            
+            
+            
+            
+
+        }
+    }
+   
+    
     override func viewWillAppear(animated: Bool) {
         if Helper.categoryPicked
         {
