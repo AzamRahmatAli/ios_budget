@@ -14,5 +14,40 @@ class SubCategoryTable: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
    
+    class func subCategory(name : String , inManagedObjectContext context: NSManagedObjectContext) -> SubCategoryTable?
+        
+    {
+        let request  = NSFetchRequest(entityName : "SubCategoryTable")
+        request.predicate = NSPredicate(format: "name = %@", name)
+        if let category = (try? context.executeFetchRequest(request))?.first as? SubCategoryTable
+        {
+            
+            return category
+            
+        }
+        
+        return nil
+    }
     
+    class func subcategory(name : String, image : String, categoryName : String, inManagedObjectContext context: NSManagedObjectContext) -> SubCategoryTable?
+        
+    {
+        let request  = NSFetchRequest(entityName : "SubCategoryTable")
+        request.predicate = NSPredicate(format: "name = %@ AND category.name == %@", name, categoryName)
+        if let category = (try? context.executeFetchRequest(request))?.first as? SubCategoryTable
+        {
+            return category
+            
+        }else if let category = NSEntityDescription.insertNewObjectForEntityForName("CategoryTable", inManagedObjectContext: context) as? SubCategoryTable
+        {
+            category.name = name
+            category.icon = image
+            
+            category.category = CategoryTable.categoryByOnlyName(categoryName, inManagedObjectContext: context)
+            return category
+        }
+        
+        
+        return nil
+    }
 }

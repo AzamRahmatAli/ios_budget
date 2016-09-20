@@ -18,12 +18,14 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     var expenseData = [SubCategoryTable]()
-    var category : CategoryTable? 
+    var category : CategoryTable?
+    var available : Float = 0
     
+     @IBOutlet weak var edit: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var totalAmount: UILabel!
+    @IBOutlet weak var totalAmountAvailable: UILabel!
     @IBOutlet weak var budgetTotalLabel: UILabel!
     
     override func viewDidLoad() {
@@ -31,6 +33,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func viewWillAppear(animated: Bool) {
+        available = 0
         UpdateView()
     }
     
@@ -56,12 +59,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
               for element in expenseData
              {
              
-             
-             
              totalAmount += Float(element.amount ?? "0" ) ?? 0.0
-             
-             
-             
              
              }
             budgetTotalLabel.text = totalAmount.asLocaleCurrency
@@ -96,15 +94,51 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
             Helper.categoryPicked = true
             navigationController?.popViewControllerAnimated(true)
         }
-        else
-        {
-            self.performSegueWithIdentifier("setBudget", sender: nil)
+        else if (self.tableView.editing) {
+            
+            performSegueWithIdentifier("updateSubcategory", sender: nil)
         }
+        else{
+            
+            
+             self.performSegueWithIdentifier("setBudget", sender: nil)
+            
+        }
+        
         
         
     }
     
-    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "addSubCategory") {
+            let dvc = segue.destinationViewController as! AddBudgetCGViewController
+            
+            dvc.addSubCategory = true
+            dvc.category = category
+            
+        }
+        else if (segue.identifier == "updateSubcategory") {
+            let dvc = segue.destinationViewController as! AddBudgetCGViewController
+            
+            dvc.addSubCategory = true
+            dvc.category = category
+            
+        }
+        
+        
+        else
+        {
+            let path = self.tableView.indexPathForSelectedRow!
+            let dvc = segue.destinationViewController as! SetBudgetViewController
+            
+            dvc.crntCategory = expenseData[path.row].category!.name!
+            dvc.crntSubCategory = expenseData[path.row].name!
+            if let amount = expenseData[path.row].amount
+            {
+                dvc.crntAmount = amount
+            }
+        }
+    }
     
     func getExpensesForCategory(row : Int) -> Float?
     {
@@ -178,7 +212,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
             
-        }
+        }//if budget is not set
         else if let expenses = getExpensesForCategory(indexPath.row)
         {
             cell.rightUp.text = Float(0).asLocaleCurrency
@@ -202,28 +236,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-       if (segue.identifier == "addSubCategory") {
-        let dvc = segue.destinationViewController as! AddBudgetCGViewController
-        
-        dvc.addSubCategory = true
-        dvc.category = category
-
-        }
-      
-        else
-       {
-        let path = self.tableView.indexPathForSelectedRow!
-        let dvc = segue.destinationViewController as! SetBudgetViewController
-        
-        dvc.crntCategory = expenseData[path.row].category!.name!
-        dvc.crntSubCategory = expenseData[path.row].name!
-        if let amount = expenseData[path.row].amount
-        {
-            dvc.crntAmount = amount
-        }
-        }
-    }
+   
    /* override func willMoveToParentViewController(parent: UIViewController?) {
         if parent == nil {
             if Helper.pickCategory        {
@@ -231,4 +244,78 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
     }*/
+    
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
+    }
+    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        //return true
+    }
+    @IBAction func showEditing(sender: UIButton)
+    {
+        if(self.tableView.editing == true)
+        {
+            self.tableView.editing = false
+            self.edit?.setTitle("Edit", forState: UIControlState.Normal)
+        }
+        else
+        {
+            self.tableView.editing = true
+            self.tableView.allowsSelectionDuringEditing = true;
+            self.edit?.setTitle("Done", forState: UIControlState.Normal)
+            
+        }
+    }
+    
+    
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            let request = NSFetchRequest(entityName: "SubCategoryTable")
+            
+            
+            request.predicate = NSPredicate(format: "name == %@", expenseData[indexPath.row].name!)
+            
+                if let category = SubCategoryTable.subCategory(expenseData[indexPath.row].name!, inManagedObjectContext: managedObjectContext!)
+                {
+                    if category.expense?.count < 1{
+                        
+                    managedObjectContext!.deleteObject(category)
+                    expenseData.removeAtIndex(indexPath.row)
+                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+                        
+                    }
+                    else
+                    {
+                        let alertController = UIAlertController(title: "Delete not allowed", message: "Expense entries exist. Delete them first", preferredStyle: UIAlertControllerStyle.Alert)
+                        
+                        
+                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+                            print("OK")
+                        }
+                        
+                        alertController.addAction(okAction)
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                    }
+
+
+                }
+                    
+            
+            
+            
+            
+            
+            
+            
+            
+        }
+    }
+    
+
 }

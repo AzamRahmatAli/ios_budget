@@ -48,11 +48,14 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if(self.tableView.editing == true)
         {
             self.tableView.editing = false
+           
            self.edit?.setTitle("Edit", forState: UIControlState.Normal)
+            
         }
         else
         {
             self.tableView.editing = true
+            self.tableView.allowsSelectionDuringEditing = true;
              self.edit?.setTitle("Done", forState: UIControlState.Normal)
            
         }
@@ -77,15 +80,18 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
             }
             else{
+                let alertController = UIAlertController(title: "Delete not allowed", message: "Delete the subcategories first", preferredStyle: UIAlertControllerStyle.Alert)
                 
+                
+                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+                    print("OK")
+                }
+                
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
             }
 
-            
-            
-            
-            
-            
-            
+          
 
         }
     }
@@ -248,9 +254,16 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.indexPathForSelectedRow!
+        if (self.tableView.editing) {
+
+        performSegueWithIdentifier("updateCategory", sender: nil)
+        }
+        else{
+            
         
+        performSegueWithIdentifier("subcategory", sender: nil)
         
-        
+        }
     }
 
 
@@ -263,7 +276,14 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
             dvc.addCategory = true
        
         }
-      
+       else  if (segue.identifier == "updateCategory") {
+            
+            let dvc = segue.destinationViewController as! AddBudgetCGViewController
+            dvc.addCategory = true
+            
+        }
+        
+        
         else
         {
             let path = self.tableView.indexPathForSelectedRow!
