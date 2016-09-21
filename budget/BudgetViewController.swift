@@ -34,68 +34,7 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-        //return true
-    }
-    @IBAction func showEditing(sender: UIButton)
-    {
-        if(self.tableView.editing == true)
-        {
-            self.tableView.editing = false
-           
-           self.edit?.setTitle("Edit", forState: UIControlState.Normal)
-            
-        }
-        else
-        {
-            self.tableView.editing = true
-            self.tableView.allowsSelectionDuringEditing = true;
-             self.edit?.setTitle("Done", forState: UIControlState.Normal)
-           
-        }
-    }
     
-    
-    
-     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-        if editingStyle == UITableViewCellEditingStyle.Delete {
-            let request = NSFetchRequest(entityName: "SubCategoryTable")
-            
-            
-            request.predicate = NSPredicate(format: "category.name == %@", expenseData![indexPath.row].name!)
-            if managedObjectContext!.countForFetchRequest( request , error: nil) < 1
-            {
-                if let category = CategoryTable.categoryByOnlyName(expenseData![indexPath.row].name!, inManagedObjectContext: managedObjectContext!)
-                {
-                    managedObjectContext!.deleteObject(category)
-                }
-                expenseData!.removeAtIndex(indexPath.row)
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-            }
-            else{
-                let alertController = UIAlertController(title: "Delete not allowed", message: "Delete the subcategories first", preferredStyle: UIAlertControllerStyle.Alert)
-                
-                
-                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
-                    print("OK")
-                }
-                
-                alertController.addAction(okAction)
-                self.presentViewController(alertController, animated: true, completion: nil)
-            }
-
-          
-
-        }
-    }
-   
     
     override func viewWillAppear(animated: Bool) {
         if Helper.categoryPicked
@@ -277,9 +216,11 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
        
         }
        else  if (segue.identifier == "updateCategory") {
-            
+             let path = self.tableView.indexPathForSelectedRow!
             let dvc = segue.destinationViewController as! AddBudgetCGViewController
             dvc.addCategory = true
+            dvc.update = true
+            dvc.category = expenseData![path.row]
             
         }
         
@@ -294,5 +235,70 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     }
+    
+    
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return self.tableView.editing
+    }
+    func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
+    }
+    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        //return true
+    }
+    @IBAction func showEditing(sender: UIButton)
+    {
+        if(self.tableView.editing == true)
+        {
+            self.tableView.editing = false
+            
+            self.edit?.setTitle("Edit", forState: UIControlState.Normal)
+            
+        }
+        else
+        {
+            self.tableView.editing = true
+            self.tableView.allowsSelectionDuringEditing = true;
+            self.edit?.setTitle("Done", forState: UIControlState.Normal)
+            
+        }
+    }
+    
+    
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            let request = NSFetchRequest(entityName: "SubCategoryTable")
+            
+            
+            request.predicate = NSPredicate(format: "category.name == %@", expenseData![indexPath.row].name!)
+            if managedObjectContext!.countForFetchRequest( request , error: nil) < 1
+            {
+                if let category = CategoryTable.categoryByOnlyName(expenseData![indexPath.row].name!, inManagedObjectContext: managedObjectContext!)
+                {
+                    managedObjectContext!.deleteObject(category)
+                }
+                expenseData!.removeAtIndex(indexPath.row)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            }
+            else{
+                let alertController = UIAlertController(title: "Delete not allowed", message: "Delete the subcategories first", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                
+                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+                    print("OK")
+                }
+                
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+            }
+            
+            
+            
+        }
+    }
+
     
 }

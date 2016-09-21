@@ -81,65 +81,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.indexPathForSelectedRow!
-        
-        if Helper.pickCategory
-        {
-            
-            Helper.pickedSubCaregory = expenseData[indexPath.row]
-            
-            Helper.pickCategory = false
-            Helper.categoryPicked = true
-            navigationController?.popViewControllerAnimated(true)
-        }
-        else if (self.tableView.editing) {
-            
-            performSegueWithIdentifier("updateSubcategory", sender: nil)
-        }
-        else{
-            
-            
-             self.performSegueWithIdentifier("setBudget", sender: nil)
-            
-        }
-        
-        
-        
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "addSubCategory") {
-            let dvc = segue.destinationViewController as! AddBudgetCGViewController
-            
-            dvc.addSubCategory = true
-            dvc.category = category
-            
-        }
-        else if (segue.identifier == "updateSubcategory") {
-            let dvc = segue.destinationViewController as! AddBudgetCGViewController
-            
-            dvc.addSubCategory = true
-            dvc.category = category
-            
-        }
-        
-        
-        else
-        {
-            let path = self.tableView.indexPathForSelectedRow!
-            let dvc = segue.destinationViewController as! SetBudgetViewController
-            
-            dvc.crntCategory = expenseData[path.row].category!.name!
-            dvc.crntSubCategory = expenseData[path.row].name!
-            if let amount = expenseData[path.row].amount
-            {
-                dvc.crntAmount = amount
-            }
-        }
-    }
-    
+
     func getExpensesForCategory(row : Int) -> Float?
     {
        // if expenseData[row].expense != nil{
@@ -246,8 +188,69 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
     }*/
     
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.indexPathForSelectedRow!
+        
+        if Helper.pickCategory
+        {
+            
+            Helper.pickedSubCaregory = expenseData[indexPath.row]
+            
+            Helper.pickCategory = false
+            Helper.categoryPicked = true
+            navigationController?.popViewControllerAnimated(true)
+        }
+        else if (self.tableView.editing) {
+            
+            performSegueWithIdentifier("updateSubcategory", sender: nil)
+        }
+        else {
+            
+            
+            self.performSegueWithIdentifier("setBudget", sender: nil)
+            
+        }
+        
+        
+        
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if (segue.identifier == "addSubCategory") {
+            let dvc = segue.destinationViewController as! AddBudgetCGViewController
+            
+            dvc.addSubCategory = true
+            dvc.category = category
+            
+        }
+        else if (segue.identifier == "updateSubcategory") {
+            let dvc = segue.destinationViewController as! AddBudgetCGViewController
+            let path = self.tableView.indexPathForSelectedRow!
+            dvc.addSubCategory = true
+            dvc.update = true
+            dvc.category = category
+            dvc.subcategory = expenseData[path.row]
+            
+        }
+            
+            
+        else if (segue.identifier == "setBudget")
+        {
+            let path = self.tableView.indexPathForSelectedRow!
+            let dvc = segue.destinationViewController as! SetBudgetViewController
+            
+            dvc.crntCategory = expenseData[path.row].category!.name!
+            dvc.crntSubCategory = expenseData[path.row].name!
+            if let amount = expenseData[path.row].amount
+            {
+                dvc.crntAmount = amount
+            }
+        }
+    }
+    
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
+        return self.tableView.editing
     }
     func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return false
@@ -276,12 +279,8 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if editingStyle == UITableViewCellEditingStyle.Delete {
-            let request = NSFetchRequest(entityName: "SubCategoryTable")
             
-            
-            request.predicate = NSPredicate(format: "name == %@", expenseData[indexPath.row].name!)
-            
-                if let category = SubCategoryTable.subCategory(expenseData[indexPath.row].name!, inManagedObjectContext: managedObjectContext!)
+                if let category = SubCategoryTable.subCategory(expenseData[indexPath.row].name!,categoryName: category!.name!, inManagedObjectContext: managedObjectContext!)
                 {
                     if category.expense?.count < 1{
                         

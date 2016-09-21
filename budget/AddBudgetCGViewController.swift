@@ -12,7 +12,7 @@ import CoreData
 
 class AddBudgetCGViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    
+    var subcategory : SubCategoryTable?
     var update = false
     var addCategory = false
     var addSubCategory = false
@@ -20,8 +20,9 @@ class AddBudgetCGViewController: UIViewController, UICollectionViewDelegate, UIC
     let images = (1...100).map{ i in
         "image" + String(i)
     }
+      var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     var selectedImage = ""
-    var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
+  
     @IBOutlet weak var name: UITextField!
     
     
@@ -30,7 +31,14 @@ class AddBudgetCGViewController: UIViewController, UICollectionViewDelegate, UIC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if update && addCategory{
+            name.text = category!.name!
+            selectedImage = category!.icon!
+        }
+        else if update{
+            name.text = subcategory!.name!
+            selectedImage = subcategory!.icon!
+        }
         
         
     }
@@ -49,28 +57,41 @@ class AddBudgetCGViewController: UIViewController, UICollectionViewDelegate, UIC
             {
                 
                // if let budget = NSEntityDescription.insertNewObjectForEntityForName("SubCategoryTable", inManagedObjectContext: managedObjectContext!) as? SubCategoryTable
-                if let _ = SubCategoryTable.subcategory(<#T##name: String##String#>, image: <#T##String#>, categoryName: <#T##String#>, inManagedObjectContext: <#T##NSManagedObjectContext#>)
+                if update{
+                    if let subCtg = SubCategoryTable.subCategory(subcategory!.name!, categoryName : category!.name!,inManagedObjectContext: managedObjectContext!)
+                    {
+                        subCtg.name = name.text
+                        subCtg.icon = selectedImage
+                    }
+                }
+                else
                 {
-                    
-                    
-                    
-                    
-                    
+                    let _ = SubCategoryTable.subcategory(name.text!, image: selectedImage, categoryName: category!.name!, inManagedObjectContext: managedObjectContext!)
                 }
                     
-                   
+            }
                 else if addCategory  {
                     
                     
                     
                     //if let budget = NSEntityDescription.insertNewObjectForEntityForName("CategoryTable", inManagedObjectContext: managedObjectContext!) as? CategoryTable
-                    if let _ = CategoryTable.category(name.text!, image: selectedImage, inManagedObjectContext: <#T##NSManagedObjectContext#>)
+                    
+                    if update {
+                        if let ctg = CategoryTable.categoryByOnlyName(category!.name!, inManagedObjectContext: managedObjectContext!)
+                        {
+                        ctg.name = name.text
+                        ctg.icon = selectedImage
+                        }
+                    }
+                    else
                     {
                         
-                        
+                        let _ = CategoryTable.category(name.text!, image: selectedImage, inManagedObjectContext: managedObjectContext!)
                     }
                 }
-            }
+            
+        
+        
             do{
                 try self.managedObjectContext?.save()
                 navigationController?.popViewControllerAnimated(true)

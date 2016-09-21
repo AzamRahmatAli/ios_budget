@@ -20,6 +20,7 @@ class CategoryTable: NSManagedObject {
          request.predicate = NSPredicate(format: "name = %@", name)
          if let category = (try? context.executeFetchRequest(request))?.first as? CategoryTable
          {
+        //if user add same category name
          return category
          
          }else if let category = NSEntityDescription.insertNewObjectForEntityForName("CategoryTable", inManagedObjectContext: context) as? CategoryTable

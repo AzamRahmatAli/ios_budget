@@ -2322,13 +2322,13 @@
         <image name="prevMonth" width="144" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="u5g-mR-znT"/>
+        <segue reference="oy1-0M-y6T"/>
         <segue reference="aKh-Cl-C3P"/>
         <segue reference="rxT-Kq-Ui6"/>
         <segue reference="CDC-Zr-p0D"/>
         <segue reference="hsH-l5-Qe9"/>
         <segue reference="lxu-3I-7YJ"/>
-        <segue reference="oy1-0M-y6T"/>
-        <segue reference="u5g-mR-znT"/>
-        <segue reference="uKc-4G-tJG"/>
+        <segue reference="JIA-nG-xpd"/>
     </inferredMetricsTieBreakers>
 </document>

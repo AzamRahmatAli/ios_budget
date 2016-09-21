@@ -14,11 +14,11 @@ class SubCategoryTable: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
    
-    class func subCategory(name : String , inManagedObjectContext context: NSManagedObjectContext) -> SubCategoryTable?
+    class func subCategory(name : String , categoryName : String, inManagedObjectContext context: NSManagedObjectContext) -> SubCategoryTable?
         
     {
         let request  = NSFetchRequest(entityName : "SubCategoryTable")
-        request.predicate = NSPredicate(format: "name = %@", name)
+        request.predicate = NSPredicate(format: "name = %@ AND category.name == %@", name, categoryName)
         if let category = (try? context.executeFetchRequest(request))?.first as? SubCategoryTable
         {
             
@@ -36,9 +36,10 @@ class SubCategoryTable: NSManagedObject {
         request.predicate = NSPredicate(format: "name = %@ AND category.name == %@", name, categoryName)
         if let category = (try? context.executeFetchRequest(request))?.first as? SubCategoryTable
         {
+             //if user add same subcategory name
             return category
             
-        }else if let category = NSEntityDescription.insertNewObjectForEntityForName("CategoryTable", inManagedObjectContext: context) as? SubCategoryTable
+        }else if let category = NSEntityDescription.insertNewObjectForEntityForName("SubCategoryTable", inManagedObjectContext: context) as? SubCategoryTable
         {
             category.name = name
             category.icon = image
