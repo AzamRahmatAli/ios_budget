@@ -193,7 +193,6 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
         if updateAccount
         {
             
-            
             if let entity =  managedObjectContext!.objectWithID(accountData!.objectID)  as? AccountTable
             {
                 
@@ -222,9 +221,15 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
             
         }
         
+             else   if let _ = AccountTable.account(accountData!.name!, type: accountData!.name!, inManagedObjectContext: managedObjectContext!)
+                {
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
         else if let entity = NSEntityDescription.insertNewObjectForEntityForName("AccountTable", inManagedObjectContext: managedObjectContext!) as? AccountTable
         {
             
+            
+     
             entity.amount = amount.text!
             entity.icon = Helper.bankIcon
             Helper.bankIcon = "bank"
@@ -233,6 +238,7 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
          entity.accountType = AccountTypeTable.accontType(category.text!, inManagedObjectContext: managedObjectContext!)
             
             print(entity)
+            
             
             
         
