@@ -51,7 +51,20 @@ class MenuTableViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if(indexPath.row == 2)
+        if(indexPath.row == 0)
+        {
+            clearCoreDataStore()
+            if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
+                let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.json")
+                do {
+                    let data = NSData(contentsOfURL : path) as NSData!
+                     let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+                    print(json)
+                }
+                catch {/* error handling here */}
+        }
+        }
+        else if(indexPath.row == 2)
         {
             Helper.performUIUpdatesOnMain
                 {
@@ -62,7 +75,7 @@ class MenuTableViewController: UITableViewController {
            
             }
         }
-        if(indexPath.row == 3)
+        else if(indexPath.row == 3)
         {
             
             do{
@@ -90,7 +103,7 @@ class MenuTableViewController: UITableViewController {
                 
                 fetchedData = try managedObjectContext?.executeFetchRequest(fetchRequest)
                 var sets  = [[String:AnyObject]]()
-                sets = [[:]]
+                sets = []
                 for element in (fetchedData! as! [CategoryTable])
 
                 {
@@ -102,7 +115,7 @@ class MenuTableViewController: UITableViewController {
                 
                 fetchRequest = NSFetchRequest(entityName: "AccountTable")
                 fetchedData = try managedObjectContext?.executeFetchRequest(fetchRequest)
-                sets  = [[:]]
+                sets  = []
                 for element in (fetchedData! as! [AccountTable])
                     
                 {
@@ -113,7 +126,7 @@ class MenuTableViewController: UITableViewController {
                 
                 fetchRequest = NSFetchRequest(entityName: "SubCategoryTable")
                 fetchedData = try managedObjectContext?.executeFetchRequest(fetchRequest)
-                sets  = [[:]]
+                sets  = []
                 for element in (fetchedData! as! [SubCategoryTable])
                     
                 {
@@ -124,7 +137,7 @@ class MenuTableViewController: UITableViewController {
                 
                 fetchRequest = NSFetchRequest(entityName: "IncomeTable")
                 fetchedData = try managedObjectContext?.executeFetchRequest(fetchRequest)
-                sets  = [[:]]
+                sets  = []
                 for element in (fetchedData! as! [IncomeTable])
                     
                 {
@@ -135,7 +148,7 @@ class MenuTableViewController: UITableViewController {
                 
                 fetchRequest = NSFetchRequest(entityName: "ExpenseTable")
                 fetchedData = try managedObjectContext?.executeFetchRequest(fetchRequest)
-                sets  = [[:]]
+                sets  = []
                 for element in (fetchedData! as! [ExpenseTable])
                     
                 {
@@ -146,10 +159,9 @@ class MenuTableViewController: UITableViewController {
                     a["category"] = element.subCategory!.category!.name!
                     sets.append(a)
                   
-
-                
                 }
                 dictionary["ExpenseTable"] =  sets
+                
                 
                 
                             /*let dataInArr:NSArray = ManagedParser.convertToArray(fetchedGuest);
@@ -157,24 +169,60 @@ class MenuTableViewController: UITableViewController {
                 
                 
                 let jsonData: NSData = try NSJSONSerialization.dataWithJSONObject(dictionary, options: NSJSONWritingOptions.PrettyPrinted)
-                
-                    print( NSString(data: jsonData, encoding: NSUTF8StringEncoding)! as String)
-                
+                let cdata = NSString(data: jsonData, encoding: NSUTF8StringEncoding)! as String
+                   // print(cdata)
+                if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
+                    let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.json")
+                /*if let file = NSFileHandle(forWritingAtPath:"datafile.json") {
+                    file.writeData(jsonData)
+                }*/
+                    //writing
+                    do {
+                        try cdata.writeToURL(path, atomically: false, encoding: NSUTF8StringEncoding)
+                    }
+                    catch {/* error handling here */}
+                }
+                               // let myEntities : [String] = Array(objectModel!.entitiesByName.keys)
+               // print(myEntities)
 
             }
             catch let error {
                 print("error : ", error)
             }
             
-            
-            
-    }
-      
-    }
+        }
+        }
+        
     
+      
+    
+    
+    func clearCoreDataStore() {
+        let objectModel : NSManagedObjectModel? =  (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectModel
 
+        let entities = objectModel!.entities
+        for entity in entities {
+            let fetchRequest = NSFetchRequest(entityName: entity.name!)
+            let deleteReqest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            do {
+                try managedObjectContext!.executeRequest(deleteReqest)
+               
+            } catch {
+                print(error)
+            }
+            
+        }
+        do {
+            try managedObjectContext!.save()
+            
+            
+        } catch {
+            print("error")
+        }
+    }
    
     }
+/*
 class ManagedParser: NSObject {
     static  var parsedObjs:NSMutableSet = NSMutableSet();
     
@@ -226,4 +274,4 @@ class ManagedParser: NSObject {
     } //F.E.
     
     
-} //CLS END
+} //CLS END*/
