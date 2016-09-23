@@ -59,7 +59,60 @@ class MenuTableViewController: UITableViewController {
                 do {
                     let data = NSData(contentsOfURL : path) as NSData!
                      let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+                    if let dic = json as? [String : AnyObject]
+                    {
+                        if let accountTypes = dic["AccountTypeTable"]
+                        {
+                            if let names = accountTypes as? [String]
+                            {
+                                for name in names{
+                                    
+                                    AccountTypeTable.accontType(name, inManagedObjectContext: managedObjectContext!)
+                                }
+                            }
+                        }
+                        
+                        if let records = dic["AccountTable"]
+                        {
+                            if let accounts =  records  as? [[String : AnyObject]]
+                            {
+                                for account in accounts{
+                                    
+                                    if let entity = NSEntityDescription.insertNewObjectForEntityForName("AccountTable", inManagedObjectContext: managedObjectContext!) as? AccountTable
+                                    {
+                                        
+                                        
+                                        
+                                        entity.amount = account["amount"] as? String
+                                        entity.icon = account["icon"] as? String
+                                        
+                                        entity.name = account["name"] as? String
+                                        let dateString = account["createdat"] as? String
+                                        let dateFormatter = NSDateFormatter()
+                                        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss +zzzz"
+                                        //        dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
+                                        let dateObj = dateFormatter.dateFromString(dateString!)
+                                        print(dateObj)
+                                        entity.createdAt = dateObj
+                                        entity.accountType = AccountTypeTable.accontType((account["accounttype"] as!String), inManagedObjectContext: managedObjectContext!)
+                                        
+                                     
+                                        
+                                       
+                                    }
+                                }
+                            }
+                        }
+                    }
                     print(json)
+                    do {
+                        try managedObjectContext!.save()
+                        
+                        
+                    } catch {
+                        print("error")
+                    }
+
                 }
                 catch {/* error handling here */}
         }

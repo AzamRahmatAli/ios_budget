@@ -221,7 +221,7 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
             
         }
         
-             else   if let _ = AccountTable.account(accountData!.name!, type: accountData!.name!, inManagedObjectContext: managedObjectContext!)
+             else   if let _ = AccountTable.account(category.text!, type: category.text!, inManagedObjectContext: managedObjectContext!)
                 {
                     self.navigationController?.popViewControllerAnimated(true)
                 }
@@ -230,7 +230,7 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
             
             
      
-            entity.amount = amount.text!
+            entity.amount = (amount.text != "") ? amount.text : "0"
             entity.icon = Helper.bankIcon
             Helper.bankIcon = "bank"
             entity.name = subCategory.text
