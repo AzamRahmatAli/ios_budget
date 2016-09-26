@@ -15,7 +15,180 @@ class MenuTableViewController: UITableViewController {
 
     @IBOutlet weak var cellAsButton: UIButton!
     
-    
+    func coreDataCleared()
+    {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss +zzzz"
+        
+        if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
+            let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.json")
+            do {
+                let data = NSData(contentsOfURL : path) as NSData!
+                let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+                if let dic = json as? [String : AnyObject]
+                {
+                    if let accountTypes = dic["AccountTypeTable"]
+                    {
+                        if let names = accountTypes as? [String]
+                        {
+                            for name in names{
+                                
+                                AccountTypeTable.accontType(name, inManagedObjectContext: managedObjectContext!)
+                            }
+                        }
+                    }
+                    
+                    if let records = dic["AccountTable"]
+                    {
+                        if let accounts =  records  as? [[String : String]]
+                        {
+                            for account in accounts{
+                                
+                                if let entity = NSEntityDescription.insertNewObjectForEntityForName("AccountTable", inManagedObjectContext: managedObjectContext!) as? AccountTable
+                                {
+                                    
+                                    
+                                    
+                                    entity.amount = account["amount"]
+                                    entity.icon = account["icon"]
+                                    
+                                    entity.name = account["name"]
+                                    let dateString = account["createdat"]
+                                    
+                                    //        dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
+                                    let dateObj = dateFormatter.dateFromString(dateString!)
+                                    print(dateObj)
+                                    entity.createdAt = dateObj
+                                    entity.accountType = AccountTypeTable.accontType(account["accounttype"]!, inManagedObjectContext: managedObjectContext!)
+                                    
+                                    
+                                    
+                                    
+                                }
+                            }
+                        }
+                    }
+                    if let records = dic["CategoryTable"]
+                    {
+                        if let data =  records  as? [[String : String]]
+                        {
+                            for element in data{
+                                
+                                if let entity = NSEntityDescription.insertNewObjectForEntityForName("CategoryTable", inManagedObjectContext: managedObjectContext!) as? CategoryTable
+                                {
+                                    
+                                    entity.name = element["name"]
+                                    entity.icon = element["icon"]
+                                    
+                                    
+                                }
+                            }
+                        }
+                    }
+                    if let records = dic["SubCategoryTable"]
+                    {
+                        if let data =  records  as? [[String : String]]
+                        {
+                            for element in data{
+                                
+                                if let entity = NSEntityDescription.insertNewObjectForEntityForName("SubCategoryTable", inManagedObjectContext: managedObjectContext!) as? SubCategoryTable
+                                {
+                                    
+                                    entity.name = element["name"]
+                                    entity.icon = element["icon"]
+                                    if element["amount"] != ""
+                                    {
+                                        entity.amount = element["amount"]
+                                    }
+                                    
+                                    entity.category = CategoryTable.categoryByOnlyName(element["category"]!, inManagedObjectContext: managedObjectContext!)
+                                }
+                            }
+                        }
+                    }
+                    if let records = dic["IncomeTable"]
+                    {
+                        if let data =  records  as? [[String : String]]
+                        {
+                            for element in data{
+                                
+                                if let entity = NSEntityDescription.insertNewObjectForEntityForName("IncomeTable", inManagedObjectContext: managedObjectContext!) as? IncomeTable
+                                {
+                                    
+                                    entity.category = element["name"]
+                                    entity.note = element["note"]
+                                    if element["amount"] != ""
+                                    {
+                                        entity.amount = element["amount"]
+                                    }
+                                    let dateString = element["createdat"]
+                                    
+                                    let dateObj = dateFormatter.dateFromString(dateString!)
+                                    
+                                    entity.createdAt = dateObj
+                                    if element["accountname"] != ""
+                                    {
+                                        
+                                        
+                                        entity.account = AccountTable.account(element["accountname"]!, type: element["accounttype"]!, inManagedObjectContext: managedObjectContext!)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if let records = dic["ExpenseTable"]
+                    {
+                        if let data =  records  as? [[String : String]]
+                        {
+                            for element in data{
+                                
+                                if let entity = NSEntityDescription.insertNewObjectForEntityForName("ExpenseTable", inManagedObjectContext: managedObjectContext!) as? ExpenseTable
+                                {
+                                    if element["reciept"] != ""
+                                    {
+                                    //entity.reciept = element["reciept"]
+                                    }
+                                    entity.note = element["note"]
+                                    if element["amount"] != ""
+                                    {
+                                        entity.amount = element["amount"]
+                                    }
+                                    let dateString = element["createdat"]
+                                    
+                                    let dateObj = dateFormatter.dateFromString(dateString!)
+                                    
+                                    entity.createdAt = dateObj
+                                    if element["accountname"] != ""
+                                    {
+                                        
+                                        
+                                        entity.account = AccountTable.account(element["accountname"]!, type: element["accounttype"]!, inManagedObjectContext: managedObjectContext!)
+                                    }
+                                  
+                                        
+                                        entity.subCategory = SubCategoryTable.subCategory(element["subcategory"]!, categoryName: element["category"]!, inManagedObjectContext: managedObjectContext!)
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                
+                print(json)
+                do {
+                    try managedObjectContext!.save()
+                    
+                    
+                } catch {
+                    print("error")
+                }
+                
+            }
+            catch {/* error handling here */}
+        }
+
+    }
     
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
@@ -54,69 +227,7 @@ class MenuTableViewController: UITableViewController {
         if(indexPath.row == 0)
         {
             clearCoreDataStore()
-            if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
-                let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.json")
-                do {
-                    let data = NSData(contentsOfURL : path) as NSData!
-                     let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
-                    if let dic = json as? [String : AnyObject]
-                    {
-                        if let accountTypes = dic["AccountTypeTable"]
-                        {
-                            if let names = accountTypes as? [String]
-                            {
-                                for name in names{
-                                    
-                                    AccountTypeTable.accontType(name, inManagedObjectContext: managedObjectContext!)
-                                }
-                            }
-                        }
-                        
-                        if let records = dic["AccountTable"]
-                        {
-                            if let accounts =  records  as? [[String : AnyObject]]
-                            {
-                                for account in accounts{
-                                    
-                                    if let entity = NSEntityDescription.insertNewObjectForEntityForName("AccountTable", inManagedObjectContext: managedObjectContext!) as? AccountTable
-                                    {
-                                        
-                                        
-                                        
-                                        entity.amount = account["amount"] as? String
-                                        entity.icon = account["icon"] as? String
-                                        
-                                        entity.name = account["name"] as? String
-                                        let dateString = account["createdat"] as? String
-                                        let dateFormatter = NSDateFormatter()
-                                        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss +zzzz"
-                                        //        dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
-                                        let dateObj = dateFormatter.dateFromString(dateString!)
-                                        print(dateObj)
-                                        entity.createdAt = dateObj
-                                        entity.accountType = AccountTypeTable.accontType((account["accounttype"] as!String), inManagedObjectContext: managedObjectContext!)
-                                        
-                                     
-                                        
-                                       
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    print(json)
-                    do {
-                        try managedObjectContext!.save()
-                        
-                        
-                    } catch {
-                        print("error")
-                    }
-
-                }
-                catch {/* error handling here */}
-        }
-        }
+                   }
         else if(indexPath.row == 2)
         {
             Helper.performUIUpdatesOnMain
@@ -146,8 +257,6 @@ class MenuTableViewController: UITableViewController {
                  }
                 var dictionary : [String : AnyObject] = ["AccountTypeTable" : names]
                 
-                
-               
                 
                 
                 fetchRequest = NSFetchRequest(entityName: "CategoryTable")
@@ -183,7 +292,7 @@ class MenuTableViewController: UITableViewController {
                 for element in (fetchedData! as! [SubCategoryTable])
                     
                 {
-                    sets.append(["name" :element.name!, "amount" :element.amount ?? "" , "icon" :element.icon! , "createdat" : String(element.createdAt ), "category": element.category!.name!])
+                    sets.append(["name" :element.name!, "amount" :element.amount ?? "" , "icon" :element.icon! , "category": element.category!.name!])
                 }
                 dictionary["SubCategoryTable"] =  sets
 
@@ -207,7 +316,7 @@ class MenuTableViewController: UITableViewController {
                 {
                     var a : [String : AnyObject] = ["amount" :element.amount! , "note" :element.note!, "reciept" :/*element.reciept ??*/ "", "createdat" : String(element.createdAt!)]
                     a["accountname"] = element.account?.name ?? ""
-                    a["accountType"] =  element.account?.accountType?.name ?? ""
+                    a["accounttype"] =  element.account?.accountType?.name ?? ""
                     a["subcategory"] = element.subCategory!.name!
                     a["category"] = element.subCategory!.category!.name!
                     sets.append(a)
@@ -232,6 +341,7 @@ class MenuTableViewController: UITableViewController {
                     //writing
                     do {
                         try cdata.writeToURL(path, atomically: false, encoding: NSUTF8StringEncoding)
+                        print(cdata)
                     }
                     catch {/* error handling here */}
                 }
@@ -267,12 +377,13 @@ class MenuTableViewController: UITableViewController {
         }
         do {
             try managedObjectContext!.save()
-            
+            coreDataCleared()
             
         } catch {
             print("error")
         }
     }
+   
    
     }
 /*

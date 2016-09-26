@@ -279,9 +279,18 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 if let category = CategoryTable.categoryByOnlyName(expenseData![indexPath.row].name!, inManagedObjectContext: managedObjectContext!)
                 {
                     managedObjectContext!.deleteObject(category)
-                }
+                    do {
+                        try managedObjectContext!.save()
+                        
+                        
+                    } catch {
+                        print("error")
+                    }
+                
                 expenseData!.removeAtIndex(indexPath.row)
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+                }
+              
             }
             else{
                 let alertController = UIAlertController(title: "Delete not allowed", message: "Delete the subcategories first", preferredStyle: UIAlertControllerStyle.Alert)

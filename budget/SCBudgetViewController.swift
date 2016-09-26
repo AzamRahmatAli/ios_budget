@@ -285,9 +285,16 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
                     if category.expense?.count < 1{
                         
                     managedObjectContext!.deleteObject(category)
+                        do {
+                            try managedObjectContext!.save()
+                            
+                            
+                        } catch {
+                            print("error")
+                        }
                     expenseData.removeAtIndex(indexPath.row)
                     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-                        
+                       
                     }
                     else
                     {

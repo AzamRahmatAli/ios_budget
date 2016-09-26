@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
               
                 expense.icon = key.simage[index]
-                expense.createdAt = NSDate()
+               
                
                 expense.category = CategoryTable.category(key.name, image: key.image,  inManagedObjectContext: managedObjectContext)
                

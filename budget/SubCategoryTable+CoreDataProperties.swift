@@ -2,7 +2,7 @@
 //  SubCategoryTable+CoreDataProperties.swift
 //  budget
 //
-//  Created by Azam Rahmat on 8/29/16.
+//  Created by Azam Rahmat on 9/26/16.
 //  Copyright © 2016 Brainload Technologies. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -15,10 +15,8 @@ import CoreData
 extension SubCategoryTable {
 
     @NSManaged var amount: String?
-    @NSManaged var createdAt: NSDate?
     @NSManaged var icon: String?
     @NSManaged var name: String?
-    @NSManaged var note: String?
     @NSManaged var category: CategoryTable?
     @NSManaged var expense: NSSet?
 

@@ -35,10 +35,8 @@
     </entity>
     <entity name="SubCategoryTable" representedClassName=".SubCategoryTable" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="String" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CategoryTable" inverseName="subcategory" inverseEntity="CategoryTable" syncable="YES"/>
         <relationship name="expense" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ExpenseTable" inverseName="subCategory" inverseEntity="ExpenseTable" syncable="YES"/>
     </entity>
@@ -48,6 +46,6 @@
         <element name="CategoryTable" positionX="432" positionY="18" width="128" height="88"/>
         <element name="ExpenseTable" positionX="-36" positionY="71" width="128" height="133"/>
         <element name="IncomeTable" positionX="-36" positionY="222" width="128" height="120"/>
-        <element name="SubCategoryTable" positionX="234" positionY="-63" width="128" height="150"/>
+        <element name="SubCategoryTable" positionX="234" positionY="-63" width="128" height="118"/>
     </elements>
 </model>
