@@ -241,117 +241,17 @@ class MenuTableViewController: UITableViewController {
         }
         else if(indexPath.row == 3)
         {
+            Helper.performUIUpdatesOnMain
+                {
+                    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                    
+                    let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("emailBackup") as! UINavigationController
+                    self.presentViewController(nextViewController, animated:true, completion:nil)
+                    
+            }
+
             
-            do{
-                var fetchRequest = NSFetchRequest(entityName: "AccountTypeTable")
-                
-                
-               
-                var fetchedData : [AnyObject]? = try managedObjectContext?.executeFetchRequest(fetchRequest)
-                var names : [String] = []
-                
-                for element in (fetchedData! as! [AccountTypeTable])
-
-                 {
-                 names.append(element.name!)
-                 }
-                var dictionary : [String : AnyObject] = ["AccountTypeTable" : names]
-                
-                
-                
-                fetchRequest = NSFetchRequest(entityName: "CategoryTable")
-                
-                
-                
-                fetchedData = try managedObjectContext?.executeFetchRequest(fetchRequest)
-                var sets  = [[String:AnyObject]]()
-                sets = []
-                for element in (fetchedData! as! [CategoryTable])
-
-                {
-                    sets.append(["name" :element.name!, "icon" :element.icon!])
-                }
-                dictionary["CategoryTable"] =  sets
-                
-                
-                
-                fetchRequest = NSFetchRequest(entityName: "AccountTable")
-                fetchedData = try managedObjectContext?.executeFetchRequest(fetchRequest)
-                sets  = []
-                for element in (fetchedData! as! [AccountTable])
-                    
-                {
-                    sets.append(["name" :element.name!, "amount" :element.amount! , "icon" :element.icon! , "createdat" : String(element.createdAt!), "accounttype": element.accountType!.name!])
-                }
-                dictionary["AccountTable"] =  sets
-                
-                
-                fetchRequest = NSFetchRequest(entityName: "SubCategoryTable")
-                fetchedData = try managedObjectContext?.executeFetchRequest(fetchRequest)
-                sets  = []
-                for element in (fetchedData! as! [SubCategoryTable])
-                    
-                {
-                    sets.append(["name" :element.name!, "amount" :element.amount ?? "" , "icon" :element.icon! , "category": element.category!.name!])
-                }
-                dictionary["SubCategoryTable"] =  sets
-
-                
-                fetchRequest = NSFetchRequest(entityName: "IncomeTable")
-                fetchedData = try managedObjectContext?.executeFetchRequest(fetchRequest)
-                sets  = []
-                for element in (fetchedData! as! [IncomeTable])
-                    
-                {
-                    sets.append(["name" :element.category!, "amount" :element.amount! , "note" :element.note! , "createdat" : String(element.createdAt!), "accountname" : element.account?.name ?? "", "accounttype" : element.account?.accountType?.name ?? ""])
-                }
-                dictionary["IncomeTable"] =  sets
-                
-                
-                fetchRequest = NSFetchRequest(entityName: "ExpenseTable")
-                fetchedData = try managedObjectContext?.executeFetchRequest(fetchRequest)
-                sets  = []
-                for element in (fetchedData! as! [ExpenseTable])
-                    
-                {
-                    var a : [String : AnyObject] = ["amount" :element.amount! , "note" :element.note!, "reciept" :/*element.reciept ??*/ "", "createdat" : String(element.createdAt!)]
-                    a["accountname"] = element.account?.name ?? ""
-                    a["accounttype"] =  element.account?.accountType?.name ?? ""
-                    a["subcategory"] = element.subCategory!.name!
-                    a["category"] = element.subCategory!.category!.name!
-                    sets.append(a)
-                  
-                }
-                dictionary["ExpenseTable"] =  sets
-                
-                
-                
-                            /*let dataInArr:NSArray = ManagedParser.convertToArray(fetchedGuest);
-             NSLog("dataInArr \(dataInArr)");*/
-                
-                
-                let jsonData: NSData = try NSJSONSerialization.dataWithJSONObject(dictionary, options: NSJSONWritingOptions.PrettyPrinted)
-                let cdata = NSString(data: jsonData, encoding: NSUTF8StringEncoding)! as String
-                   // print(cdata)
-                if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
-                    let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.json")
-                /*if let file = NSFileHandle(forWritingAtPath:"datafile.json") {
-                    file.writeData(jsonData)
-                }*/
-                    //writing
-                    do {
-                        try cdata.writeToURL(path, atomically: false, encoding: NSUTF8StringEncoding)
-                        print(cdata)
-                    }
-                    catch {/* error handling here */}
-                }
-                               // let myEntities : [String] = Array(objectModel!.entitiesByName.keys)
-               // print(myEntities)
-
-            }
-            catch let error {
-                print("error : ", error)
-            }
+            
             
         }
         }

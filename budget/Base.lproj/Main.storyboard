@@ -679,7 +679,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NiP-Ad-Ha4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1504" y="1053"/>
+            <point key="canvasLocation" x="2316" y="1053"/>
         </scene>
         <!--Menu Table View Controller-->
         <scene sceneID="foP-Kl-YXs">
@@ -846,6 +846,53 @@
             </objects>
             <point key="canvasLocation" x="599" y="747"/>
         </scene>
+        <!--Email Backup View Controller-->
+        <scene sceneID="aAg-SN-XAv">
+            <objects>
+                <viewController id="r3S-TD-ILv" customClass="EmailBackupViewController" customModule="budget" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DAA-Sd-G0Y"/>
+                        <viewControllerLayoutGuide type="bottom" id="jtP-Gd-sqe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Glq-bt-xfb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xeb-Ip-XWd">
+                                <rect key="frame" x="20" y="250" width="280" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aO0-Ol-dhK">
+                                <rect key="frame" x="122" y="288" width="76" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="76" id="lUN-CC-GOP"/>
+                                </constraints>
+                                <state key="normal" title="Submit"/>
+                                <connections>
+                                    <action selector="sendMessage" destination="r3S-TD-ILv" eventType="touchUpInside" id="cvG-O1-JVf"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="xeb-Ip-XWd" firstAttribute="centerX" secondItem="aO0-Ol-dhK" secondAttribute="centerX" id="2wg-46-cgC"/>
+                            <constraint firstItem="aO0-Ol-dhK" firstAttribute="top" secondItem="xeb-Ip-XWd" secondAttribute="bottom" constant="8" symbolic="YES" id="99u-mH-k7c"/>
+                            <constraint firstItem="xeb-Ip-XWd" firstAttribute="centerX" secondItem="Glq-bt-xfb" secondAttribute="centerX" id="Drl-jD-aXh"/>
+                            <constraint firstItem="xeb-Ip-XWd" firstAttribute="top" secondItem="DAA-Sd-G0Y" secondAttribute="bottom" constant="186" id="hHy-xy-8SE"/>
+                            <constraint firstItem="xeb-Ip-XWd" firstAttribute="leading" secondItem="Glq-bt-xfb" secondAttribute="leadingMargin" constant="4" id="ywF-DY-e7V"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="R0c-oH-WDf"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="email" destination="xeb-Ip-XWd" id="wQx-LG-5VG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SRU-UU-gTG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1509" y="1153"/>
+        </scene>
         <!--Reveal View Controller-->
         <scene sceneID="skh-3g-b8q">
             <objects>
@@ -943,7 +990,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AHo-Ef-5vs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3377" y="1097"/>
+            <point key="canvasLocation" x="4189" y="1097"/>
         </scene>
         <!--Budget View Controller-->
         <scene sceneID="IIA-zK-hcK">
@@ -1142,7 +1189,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ITF-Wh-Cna" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2005" y="1189"/>
+            <point key="canvasLocation" x="2817" y="1189"/>
         </scene>
         <!--Income View Controller-->
         <scene sceneID="iZf-qf-UYJ">
@@ -1502,7 +1549,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S1z-GC-xxX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2483" y="1164"/>
+            <point key="canvasLocation" x="3295" y="1164"/>
         </scene>
         <!--Add-->
         <scene sceneID="0zw-b7-cGQ">
@@ -1615,7 +1662,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mbF-8C-bxX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3021" y="1268"/>
+            <point key="canvasLocation" x="3833" y="1268"/>
         </scene>
         <!--Add Income-->
         <scene sceneID="mOH-Sa-XCd">
@@ -2011,7 +2058,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rei-eW-sl7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2158" y="732"/>
+            <point key="canvasLocation" x="2970" y="732"/>
         </scene>
         <!--Add Account-->
         <scene sceneID="8I2-bt-XHD">
@@ -2206,7 +2253,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2778" y="765"/>
+            <point key="canvasLocation" x="3590" y="765"/>
         </scene>
         <!--Assign Icon-->
         <scene sceneID="PLP-F0-ucl">
@@ -2287,7 +2334,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RnH-fS-Q5a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3441" y="1106"/>
+            <point key="canvasLocation" x="4253" y="1106"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="RyY-XX-Waz">
@@ -2306,7 +2353,26 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rFe-vw-pAK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1025" y="1009"/>
+            <point key="canvasLocation" x="1837" y="1009"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="iVT-U3-ck7">
+            <objects>
+                <navigationController storyboardIdentifier="emailBackup" automaticallyAdjustsScrollViewInsets="NO" id="yU4-Zl-uua" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="X8O-jA-psR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="r3S-TD-ILv" kind="relationship" relationship="rootViewController" id="get-wQ-nYx"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Txg-Nj-XPx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1103" y="1153"/>
         </scene>
     </scenes>
     <resources>

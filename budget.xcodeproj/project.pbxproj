@@ -33,6 +33,7 @@
 		F7D2AE601D618714007D6646 /* AccountTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D2AE5E1D618714007D6646 /* AccountTable.swift */; };
 		F7D2AE621D618A6A007D6646 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D2AE611D618A6A007D6646 /* AccountsViewController.swift */; };
 		F7D2AE641D618B93007D6646 /* AddAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D2AE631D618B93007D6646 /* AddAccountViewController.swift */; };
+		F7D79ADA1D9A3102008ECF6D /* EmailBackupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D79AD91D9A3102008ECF6D /* EmailBackupViewController.swift */; };
 		F7DAE27A1D5DA10200AAA94F /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DAE2791D5DA10200AAA94F /* Helper.swift */; };
 		F7E31EE71D54717B005110BB /* IncomeTable+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E31EE51D54717B005110BB /* IncomeTable+CoreDataProperties.swift */; };
 		F7E31EE81D54717B005110BB /* IncomeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E31EE61D54717B005110BB /* IncomeTable.swift */; };
@@ -80,6 +81,7 @@
 		F7D2AE5E1D618714007D6646 /* AccountTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTable.swift; sourceTree = "<group>"; };
 		F7D2AE611D618A6A007D6646 /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		F7D2AE631D618B93007D6646 /* AddAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAccountViewController.swift; sourceTree = "<group>"; };
+		F7D79AD91D9A3102008ECF6D /* EmailBackupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailBackupViewController.swift; sourceTree = "<group>"; };
 		F7DAE2791D5DA10200AAA94F /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		F7E31EE51D54717B005110BB /* IncomeTable+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IncomeTable+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F7E31EE61D54717B005110BB /* IncomeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomeTable.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				F7C3A39B1D66C93D004FA6B0 /* AddBudgetCGViewController.swift */,
 				F7B8A9931D799568009AA030 /* PickIconViewController.swift */,
 				F7C073B01D7EBEC60019EF10 /* CurrencyPickerTableViewController.swift */,
+				F7D79AD91D9A3102008ECF6D /* EmailBackupViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				F7A52B071D41FDC400033146 /* MenuTableViewController.swift in Sources */,
 				F7C7AF601D7448FF003FE534 /* CategoryTable.swift in Sources */,
 				F7EFEE681D4B1ED1004695C0 /* ExpenseTable.swift in Sources */,
+				F7D79ADA1D9A3102008ECF6D /* EmailBackupViewController.swift in Sources */,
 				F7A52B051D41F15F00033146 /* SWRevealViewController.m in Sources */,
 				F7C7AF641D744D50003FE534 /* SubCategoryTable+CoreDataProperties.swift in Sources */,
 				F7C3A39C1D66C93D004FA6B0 /* AddBudgetCGViewController.swift in Sources */,
