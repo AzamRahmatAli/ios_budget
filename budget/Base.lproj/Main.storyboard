@@ -859,34 +859,69 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xeb-Ip-XWd">
-                                <rect key="frame" x="20" y="250" width="280" height="30"/>
+                                <rect key="frame" x="20" y="183" width="280" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aO0-Ol-dhK">
-                                <rect key="frame" x="122" y="288" width="76" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="76" id="lUN-CC-GOP"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aO0-Ol-dhK">
+                                <rect key="frame" x="122" y="221" width="76" height="30"/>
                                 <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="sendMessage" destination="r3S-TD-ILv" eventType="touchUpInside" id="cvG-O1-JVf"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To restore the data, please follow the instructions in the email." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Px-Ed-5wu">
+                                <rect key="frame" x="39" y="368" width="243" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="KX3-KD-EGH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tqn-Tm-N3T">
+                                <rect key="frame" x="20" y="154" width="280" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="6Y2-Qf-ruF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To get a backup of the  application data sent to you by email, enter the email and press submit." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPi-gU-cAU">
+                                <rect key="frame" x="39" y="283" width="243" height="77"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="77" id="Bvm-Qb-pDs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="xeb-Ip-XWd" firstAttribute="centerX" secondItem="aO0-Ol-dhK" secondAttribute="centerX" id="2wg-46-cgC"/>
-                            <constraint firstItem="aO0-Ol-dhK" firstAttribute="top" secondItem="xeb-Ip-XWd" secondAttribute="bottom" constant="8" symbolic="YES" id="99u-mH-k7c"/>
-                            <constraint firstItem="xeb-Ip-XWd" firstAttribute="centerX" secondItem="Glq-bt-xfb" secondAttribute="centerX" id="Drl-jD-aXh"/>
-                            <constraint firstItem="xeb-Ip-XWd" firstAttribute="top" secondItem="DAA-Sd-G0Y" secondAttribute="bottom" constant="186" id="hHy-xy-8SE"/>
-                            <constraint firstItem="xeb-Ip-XWd" firstAttribute="leading" secondItem="Glq-bt-xfb" secondAttribute="leadingMargin" constant="4" id="ywF-DY-e7V"/>
+                            <constraint firstItem="cPi-gU-cAU" firstAttribute="leading" secondItem="0Px-Ed-5wu" secondAttribute="leading" id="4es-VM-EM7"/>
+                            <constraint firstItem="xeb-Ip-XWd" firstAttribute="centerX" secondItem="aO0-Ol-dhK" secondAttribute="centerX" id="AZp-uX-IXl"/>
+                            <constraint firstItem="aO0-Ol-dhK" firstAttribute="top" secondItem="xeb-Ip-XWd" secondAttribute="bottom" constant="8" symbolic="YES" id="CWx-r6-3XG"/>
+                            <constraint firstItem="tqn-Tm-N3T" firstAttribute="trailing" secondItem="xeb-Ip-XWd" secondAttribute="trailing" id="UTX-Iy-3du"/>
+                            <constraint firstItem="cPi-gU-cAU" firstAttribute="centerX" secondItem="aO0-Ol-dhK" secondAttribute="centerX" id="X8R-Cd-Jx9"/>
+                            <constraint firstItem="cPi-gU-cAU" firstAttribute="trailing" secondItem="0Px-Ed-5wu" secondAttribute="trailing" id="eto-zy-mUM"/>
+                            <constraint firstItem="tqn-Tm-N3T" firstAttribute="leading" secondItem="xeb-Ip-XWd" secondAttribute="leading" id="psS-dH-BmW"/>
+                            <constraint firstItem="tqn-Tm-N3T" firstAttribute="centerX" secondItem="Glq-bt-xfb" secondAttribute="centerX" id="rkb-fs-8EP"/>
+                            <constraint firstItem="tqn-Tm-N3T" firstAttribute="leading" secondItem="Glq-bt-xfb" secondAttribute="leadingMargin" constant="4" id="s8F-dJ-gbe"/>
+                            <constraint firstItem="cPi-gU-cAU" firstAttribute="top" secondItem="aO0-Ol-dhK" secondAttribute="bottom" constant="32" id="tE6-de-Jia"/>
+                            <constraint firstItem="xeb-Ip-XWd" firstAttribute="top" secondItem="tqn-Tm-N3T" secondAttribute="bottom" constant="8" symbolic="YES" id="tef-6A-GDR"/>
+                            <constraint firstItem="tqn-Tm-N3T" firstAttribute="top" secondItem="DAA-Sd-G0Y" secondAttribute="bottom" constant="90" id="ttO-tp-nWG"/>
+                            <constraint firstItem="cPi-gU-cAU" firstAttribute="leading" secondItem="Glq-bt-xfb" secondAttribute="leadingMargin" constant="23" id="uwt-mz-cgH"/>
+                            <constraint firstItem="0Px-Ed-5wu" firstAttribute="top" secondItem="cPi-gU-cAU" secondAttribute="bottom" constant="8" symbolic="YES" id="zul-H6-uJK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="R0c-oH-WDf"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="email" destination="xeb-Ip-XWd" id="wQx-LG-5VG"/>
+                        <outlet property="hideMeLabel" destination="0Px-Ed-5wu" id="PAX-Ta-Mb1"/>
+                        <outlet property="responseLabel" destination="cPi-gU-cAU" id="kKR-ph-Yl2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SRU-UU-gTG" userLabel="First Responder" sceneMemberID="firstResponder"/>

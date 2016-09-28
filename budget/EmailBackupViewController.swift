@@ -12,7 +12,9 @@ import CoreData
 
 class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDelegate {
     
+    @IBOutlet weak var responseLabel: UILabel!
     
+    @IBOutlet weak var hideMeLabel: UILabel!
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,6 +144,11 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
             let mailComposeViewController = configuredMailComposeViewController()
             if MFMailComposeViewController.canSendMail() {
                 self.presentViewController(mailComposeViewController, animated: true, completion: nil)
+                
+                
+                    
+                
+                
             } else {
                 self.showSendMailErrorAlert()
             }
@@ -152,7 +159,7 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
         else
         {
             
-            showAlert("Message body is empty")
+            showAlert("Enter a email Address")
         }
     }
     /*if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
@@ -174,19 +181,19 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
         mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
         
         let date = String(NSDate()).componentsSeparatedByString(" ").first!
-            
+        
         mailComposerVC.setSubject("MyBudget Backup \(date)")
         
         mailComposerVC.setToRecipients([email.text!])
         
-        mailComposerVC.setMessageBody("message", isHTML: false)
+        mailComposerVC.setMessageBody("Open this email on your iPhone/iPad. \n\n Tap the attachment below to restore.", isHTML: false)
         if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
             
             let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.json")
             
             print("File path loaded.")
             
-           if let data = NSData(contentsOfURL : path)
+            if let data = NSData(contentsOfURL : path)
             {
                 print("File data loaded.")
                 mailComposerVC.addAttachmentData(data, mimeType: "text/json", fileName: "datafile")
@@ -195,11 +202,19 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
         }
         
         return mailComposerVC
+        
+        
     }
     
     func showSendMailErrorAlert() {
-        let sendMailErrorAlert = UIAlertView(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", delegate: self, cancelButtonTitle: "OK")
-        sendMailErrorAlert.show()
+        
+        
+        _ = UIAlertController(title: "Could Not Send Email", message:  "Your device could not send e-mail.  Please check e-mail configuration and try again.", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        
+        _ = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+            print("OK")
+        }
     }
     
     // MARK: MFMailComposeViewControllerDelegate
@@ -228,7 +243,7 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
         
         // Initialize Actions
         let yesAction = UIAlertAction(title: "OK", style: .Default) { (action) -> Void in
-            print("The user is okay.")
+            print("")
         }
         
         
