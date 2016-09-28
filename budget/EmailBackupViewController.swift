@@ -221,7 +221,15 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
     
     
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        hideMeLabel.hidden = true
         controller.dismissViewControllerAnimated(true, completion: nil)
+        if result == MFMailComposeResultSent
+        {
+            
+            responseLabel.text = "Email backup: sent"
+        }else{
+            responseLabel.text = "Email backup: cancelled"
+        }
     }
     @IBAction func goBack(sender: UIBarButtonItem) {
         
