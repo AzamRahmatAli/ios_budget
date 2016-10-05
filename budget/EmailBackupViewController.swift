@@ -16,120 +16,7 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
     
     @IBOutlet weak var hideMeLabel: UILabel!
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        /*do{
-            var fetchRequest = NSFetchRequest(entityName: "AccountTypeTable")
-            
-            
-            
-            var fetchedData : [AnyObject]? = try managedObjectContext?.executeFetchRequest(fetchRequest)
-            var names : [String] = []
-            
-            for element in (fetchedData! as! [AccountTypeTable])
-                
-            {
-                names.append(element.name!)
-            }
-            var dictionary : [String : AnyObject] = ["AccountTypeTable" : names]
-            
-            
-            
-            fetchRequest = NSFetchRequest(entityName: "CategoryTable")
-            
-            
-            
-            fetchedData = try managedObjectContext?.executeFetchRequest(fetchRequest)
-            var sets  = [[String:AnyObject]]()
-            sets = []
-            for element in (fetchedData! as! [CategoryTable])
-                
-            {
-                sets.append(["name" :element.name!, "icon" :element.icon!])
-            }
-            dictionary["CategoryTable"] =  sets
-            
-            
-            
-            fetchRequest = NSFetchRequest(entityName: "AccountTable")
-            fetchedData = try managedObjectContext?.executeFetchRequest(fetchRequest)
-            sets  = []
-            for element in (fetchedData! as! [AccountTable])
-                
-            {
-                sets.append(["name" :element.name!, "amount" :element.amount! , "icon" :element.icon! , "createdat" : String(element.createdAt!), "accounttype": element.accountType!.name!])
-            }
-            dictionary["AccountTable"] =  sets
-            
-            
-            fetchRequest = NSFetchRequest(entityName: "SubCategoryTable")
-            fetchedData = try managedObjectContext?.executeFetchRequest(fetchRequest)
-            sets  = []
-            for element in (fetchedData! as! [SubCategoryTable])
-                
-            {
-                sets.append(["name" :element.name!, "amount" :element.amount ?? "" , "icon" :element.icon! , "category": element.category!.name!])
-            }
-            dictionary["SubCategoryTable"] =  sets
-            
-            
-            fetchRequest = NSFetchRequest(entityName: "IncomeTable")
-            fetchedData = try managedObjectContext?.executeFetchRequest(fetchRequest)
-            sets  = []
-            for element in (fetchedData! as! [IncomeTable])
-                
-            {
-                sets.append(["name" :element.category!, "amount" :element.amount! , "note" :element.note! , "createdat" : String(element.createdAt!), "accountname" : element.account?.name ?? "", "accounttype" : element.account?.accountType?.name ?? ""])
-            }
-            dictionary["IncomeTable"] =  sets
-            
-            
-            fetchRequest = NSFetchRequest(entityName: "ExpenseTable")
-            fetchedData = try managedObjectContext?.executeFetchRequest(fetchRequest)
-            sets  = []
-            for element in (fetchedData! as! [ExpenseTable])
-                
-            {
-                var a : [String : AnyObject] = ["amount" :element.amount! , "note" :element.note!, "reciept" :/*element.reciept ??*/ "", "createdat" : String(element.createdAt!)]
-                a["accountname"] = element.account?.name ?? ""
-                a["accounttype"] =  element.account?.accountType?.name ?? ""
-                a["subcategory"] = element.subCategory!.name!
-                a["category"] = element.subCategory!.category!.name!
-                sets.append(a)
-                
-            }
-            dictionary["ExpenseTable"] =  sets
-            
-            
-            
-            /*let dataInArr:NSArray = ManagedParser.convertToArray(fetchedGuest);
-             NSLog("dataInArr \(dataInArr)");*/
-            
-            
-            let jsonData: NSData = try NSJSONSerialization.dataWithJSONObject(dictionary, options: NSJSONWritingOptions.PrettyPrinted)
-            let cdata = NSString(data: jsonData, encoding: NSUTF8StringEncoding)! as String
-            // print(cdata)
-            if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
-                let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.json")
-                /*if let file = NSFileHandle(forWritingAtPath:"datafile.json") {
-                 file.writeData(jsonData)
-                 }*/
-                //writing
-                do {
-                    try cdata.writeToURL(path, atomically: false, encoding: NSUTF8StringEncoding)
-                    print(cdata)
-                }
-                catch {/* error handling here */}
-            }
-            // let myEntities : [String] = Array(objectModel!.entitiesByName.keys)
-            // print(myEntities)
-            
-        }
-        catch let error {
-            print("error : ", error)
-        }*/
-        // Do any additional setup after loading the view.
-    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -139,7 +26,7 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
     @IBOutlet weak var email: UITextField!
     @IBAction func sendMessage()
     {
-        if email.text! != ""
+       /* if email.text! != ""
         {
             let mailComposeViewController = configuredMailComposeViewController()
             if MFMailComposeViewController.canSendMail() {
@@ -160,7 +47,72 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
         {
             
             showAlert("Enter a email Address")
-        }
+        }*/
+        
+        saveDocument()
+    }
+    
+    
+    
+    class MyDocument: UIDocument {
+        
+        var userText: String? = "Some Sample Text"
+    }
+    
+    
+    func  saveDocument() {
+        
+        document!.userText = email.text
+        
+        document?.saveToURL(ubiquityURL!,
+                            forSaveOperation: .ForOverwriting,
+                            completionHandler: {(success: Bool) -> Void in
+                                if success {
+                                    print("Save overwrite OK")
+                                } else {
+                                    print("Save overwrite failed")
+                                }
+        })
+    }
+
+    
+    var document: MyDocument?
+    var documentURL: NSURL?
+    var ubiquityURL: NSURL?
+    var metaDataQuery: NSMetadataQuery?
+    
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let filemgr = NSFileManager.defaultManager()
+        
+        ubiquityURL =
+            filemgr.URLForUbiquityContainerIdentifier(
+                nil)!.URLByAppendingPathComponent("Documents")
+        
+        ubiquityURL =
+            ubiquityURL?.URLByAppendingPathComponent("savefile.txt")
+        
+        metaDataQuery = NSMetadataQuery()
+        
+        metaDataQuery?.predicate =
+            NSPredicate(format: "%K like 'savefile.txt'",
+                        NSMetadataItemFSNameKey)
+        metaDataQuery?.searchScopes =
+            [NSMetadataQueryUbiquitousDocumentsScope]
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         selector: #selector(EmailBackupViewController.metadataQueryDidFinishGathering(_:)),
+                                                         name: NSMetadataQueryDidFinishGatheringNotification,
+                                                         object: metaDataQuery!)
+        
+        metaDataQuery!.startQuery()
+        
+        
+        
+        
     }
     /*if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
      let filePath = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.json")
@@ -176,6 +128,10 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
      }
      }
      */
+    
+    
+    
+    
     func configuredMailComposeViewController() -> MFMailComposeViewController {
         let mailComposerVC = MFMailComposeViewController()
         mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
@@ -263,6 +219,58 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
         // Present Alert Controller
         self.presentViewController(alertController, animated: true, completion: nil)
     }
+    
+    
+    
+    
+    
+    
+    func metadataQueryDidFinishGathering(notification: NSNotification) -> Void
+    {
+        let query: NSMetadataQuery = notification.object as! NSMetadataQuery
+        
+        query.disableUpdates()
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self,
+                                                            name: NSMetadataQueryDidFinishGatheringNotification,
+                                                            object: query)
+        
+        query.stopQuery()
+        
+        let results = query.results
+        
+        if query.resultCount == 1 {
+            let resultURL =
+                results[0].valueForAttribute(NSMetadataItemURLKey) as! NSURL
+        
+            document = MyDocument(fileURL: resultURL)
+            
+            document?.openWithCompletionHandler({(success: Bool) -> Void in
+                if success {
+                    print("iCloud file open OK")
+                    self.email.text = self.document?.userText
+                    self.ubiquityURL = resultURL
+                } else {
+                    print("iCloud file open failed")
+                }
+            })
+        } else {
+            document = MyDocument(fileURL: ubiquityURL!)
+            
+            document?.saveToURL(ubiquityURL!,
+                                forSaveOperation: .ForCreating,
+                                completionHandler: {(success: Bool) -> Void in
+                                    if success {
+                                        print("iCloud create OK")
+                                    } else {
+                                        print("iCloud create failed")
+                                    }
+            })
+        }
+    }
+    
+    
+    
     
     
 }

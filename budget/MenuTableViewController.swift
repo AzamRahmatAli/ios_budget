@@ -15,180 +15,7 @@ class MenuTableViewController: UITableViewController {
 
     @IBOutlet weak var cellAsButton: UIButton!
     
-    func coreDataCleared()
-    {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss +zzzz"
-        
-        if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
-            let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.json")
-            do {
-                let data = NSData(contentsOfURL : path) as NSData!
-                let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
-                if let dic = json as? [String : AnyObject]
-                {
-                    if let accountTypes = dic["AccountTypeTable"]
-                    {
-                        if let names = accountTypes as? [String]
-                        {
-                            for name in names{
-                                
-                                AccountTypeTable.accontType(name, inManagedObjectContext: managedObjectContext!)
-                            }
-                        }
-                    }
-                    
-                    if let records = dic["AccountTable"]
-                    {
-                        if let accounts =  records  as? [[String : String]]
-                        {
-                            for account in accounts{
-                                
-                                if let entity = NSEntityDescription.insertNewObjectForEntityForName("AccountTable", inManagedObjectContext: managedObjectContext!) as? AccountTable
-                                {
-                                    
-                                    
-                                    
-                                    entity.amount = account["amount"]
-                                    entity.icon = account["icon"]
-                                    
-                                    entity.name = account["name"]
-                                    let dateString = account["createdat"]
-                                    
-                                    //        dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
-                                    let dateObj = dateFormatter.dateFromString(dateString!)
-                                    print(dateObj)
-                                    entity.createdAt = dateObj
-                                    entity.accountType = AccountTypeTable.accontType(account["accounttype"]!, inManagedObjectContext: managedObjectContext!)
-                                    
-                                    
-                                    
-                                    
-                                }
-                            }
-                        }
-                    }
-                    if let records = dic["CategoryTable"]
-                    {
-                        if let data =  records  as? [[String : String]]
-                        {
-                            for element in data{
-                                
-                                if let entity = NSEntityDescription.insertNewObjectForEntityForName("CategoryTable", inManagedObjectContext: managedObjectContext!) as? CategoryTable
-                                {
-                                    
-                                    entity.name = element["name"]
-                                    entity.icon = element["icon"]
-                                    
-                                    
-                                }
-                            }
-                        }
-                    }
-                    if let records = dic["SubCategoryTable"]
-                    {
-                        if let data =  records  as? [[String : String]]
-                        {
-                            for element in data{
-                                
-                                if let entity = NSEntityDescription.insertNewObjectForEntityForName("SubCategoryTable", inManagedObjectContext: managedObjectContext!) as? SubCategoryTable
-                                {
-                                    
-                                    entity.name = element["name"]
-                                    entity.icon = element["icon"]
-                                    if element["amount"] != ""
-                                    {
-                                        entity.amount = element["amount"]
-                                    }
-                                    
-                                    entity.category = CategoryTable.categoryByOnlyName(element["category"]!, inManagedObjectContext: managedObjectContext!)
-                                }
-                            }
-                        }
-                    }
-                    if let records = dic["IncomeTable"]
-                    {
-                        if let data =  records  as? [[String : String]]
-                        {
-                            for element in data{
-                                
-                                if let entity = NSEntityDescription.insertNewObjectForEntityForName("IncomeTable", inManagedObjectContext: managedObjectContext!) as? IncomeTable
-                                {
-                                    
-                                    entity.category = element["name"]
-                                    entity.note = element["note"]
-                                    if element["amount"] != ""
-                                    {
-                                        entity.amount = element["amount"]
-                                    }
-                                    let dateString = element["createdat"]
-                                    
-                                    let dateObj = dateFormatter.dateFromString(dateString!)
-                                    
-                                    entity.createdAt = dateObj
-                                    if element["accountname"] != ""
-                                    {
-                                        
-                                        
-                                        entity.account = AccountTable.account(element["accountname"]!, type: element["accounttype"]!, inManagedObjectContext: managedObjectContext!)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    if let records = dic["ExpenseTable"]
-                    {
-                        if let data =  records  as? [[String : String]]
-                        {
-                            for element in data{
-                                
-                                if let entity = NSEntityDescription.insertNewObjectForEntityForName("ExpenseTable", inManagedObjectContext: managedObjectContext!) as? ExpenseTable
-                                {
-                                    if element["reciept"] != ""
-                                    {
-                                    //entity.reciept = element["reciept"]
-                                    }
-                                    entity.note = element["note"]
-                                    if element["amount"] != ""
-                                    {
-                                        entity.amount = element["amount"]
-                                    }
-                                    let dateString = element["createdat"]
-                                    
-                                    let dateObj = dateFormatter.dateFromString(dateString!)
-                                    
-                                    entity.createdAt = dateObj
-                                    if element["accountname"] != ""
-                                    {
-                                        
-                                        
-                                        entity.account = AccountTable.account(element["accountname"]!, type: element["accounttype"]!, inManagedObjectContext: managedObjectContext!)
-                                    }
-                                  
-                                        
-                                        entity.subCategory = SubCategoryTable.subCategory(element["subcategory"]!, categoryName: element["category"]!, inManagedObjectContext: managedObjectContext!)
-                                    
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                
-                print(json)
-                do {
-                    try managedObjectContext!.save()
-                    
-                    
-                } catch {
-                    print("error")
-                }
-                
-            }
-            catch {/* error handling here */}
-        }
-
-    }
+    
     
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
@@ -226,7 +53,7 @@ class MenuTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if(indexPath.row == 0)
         {
-            clearCoreDataStore()
+            
                    }
         else if(indexPath.row == 2)
         {
@@ -256,33 +83,10 @@ class MenuTableViewController: UITableViewController {
         }
         }
         
-    
-      
-    
-    
-    func clearCoreDataStore() {
-        let objectModel : NSManagedObjectModel? =  (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectModel
 
-        let entities = objectModel!.entities
-        for entity in entities {
-            let fetchRequest = NSFetchRequest(entityName: entity.name!)
-            let deleteReqest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-            do {
-                try managedObjectContext!.executeRequest(deleteReqest)
-               
-            } catch {
-                print(error)
-            }
-            
-        }
-        do {
-            try managedObjectContext!.save()
-            coreDataCleared()
-            
-        } catch {
-            print("error")
-        }
-    }
+    
+    
+   
    
    
     }

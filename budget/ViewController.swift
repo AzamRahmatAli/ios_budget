@@ -19,6 +19,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var percentageText: UILabel!
     @IBOutlet weak var percentage: UILabel!
     @IBOutlet weak var currentMonth: UILabel!
+    
+    
+    
+ 
+    
     let images : [UIImage] = [UIImage(named : "expenses")!, UIImage(named : "income")!, UIImage(named : "budget")!, UIImage(named : "accounts")!]
     let ctgNames : [String] = ["Expenses","Income", "Budget", "Accounts"]
     
@@ -32,9 +37,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
     
+ 
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(((self.view.frame.height  - 480 ) + 24 ) / 2)
+        
+        
+       // print(((self.view.frame.height  - 480 ) + 24 ) / 2)
         bottomConstraint.constant = ((self.view.frame.height  - 480 ) + 24 ) / 2
        
         // Do any additional setup after loading the view, typically from a nib.
