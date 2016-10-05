@@ -24,6 +24,10 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
     }
     
     @IBOutlet weak var email: UITextField!
+    @IBAction func cancel(sender: AnyObject) {
+        
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     @IBAction func sendMessage()
     {
        /* if email.text! != ""
@@ -49,10 +53,119 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
             showAlert("Enter a email Address")
         }*/
         
-        saveDocument()
+       // saveDocument()
+        
+        
+       
+        
+        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil)?.URLByAppendingPathComponent("myCloudTest")
+        
+        //is iCloud working?
+        if  iCloudDocumentsURL != nil {
+            
+            //Create the Directory if it doesn't exist
+            if (!NSFileManager.defaultManager().fileExistsAtPath(iCloudDocumentsURL!.path!, isDirectory: nil)) {
+                //This gets skipped after initial run saying directory exists, but still don't see it on iCloud
+                do
+                {
+                    
+                try NSFileManager.defaultManager().createDirectoryAtURL(iCloudDocumentsURL!, withIntermediateDirectories: true, attributes: nil)
+                }
+                catch let error as NSError {
+                    error.description
+                }
+            }
+        } else {
+            print("iCloud is NOT working!")
+            //  return
+        }
+        
+      
+        
+        //Set up directorys
+        let localDocumentsURL = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: .UserDomainMask).last
+        
+        //Add txt file to my local folder
+        let myTextString = NSString(string: "HELLO WORLD")
+        let myLocalFile = localDocumentsURL!.URLByAppendingPathComponent("myTextFile.txt")
+        do
+        {
+            
+            
+        try myTextString.writeToURL(myLocalFile, atomically: true, encoding: NSUTF8StringEncoding)
     }
-    
-    
+    catch
+    {
+        
+       
+            print("Error saving to local DIR")
+        
+    }
+        
+        
+        //If file exists on iCloud remove it
+        var isDir:ObjCBool = false
+        if (NSFileManager.defaultManager().fileExistsAtPath(iCloudDocumentsURL!.path!, isDirectory: &isDir)) {
+            do
+            {
+                
+           
+             try NSFileManager.defaultManager().removeItemAtURL(iCloudDocumentsURL!)
+            }
+                catch
+                {
+                    
+                }
+        }
+        do{
+            
+        
+        //copy from my local to iCloud
+        try NSFileManager.defaultManager().copyItemAtURL(localDocumentsURL!, toURL: iCloudDocumentsURL!)
+            
+        
+    }
+        catch
+        {
+             print("error?.localizedDescription");
+        }
+        
+        
+        
+        
+        
+        
+        
+      
+    }
+
+    func checkAndDownloadBackupFile(iCloudDocumentsURL : NSURL?) -> Bool{
+        if(iCloudDocumentsURL != nil){
+            let file = iCloudDocumentsURL!.URLByAppendingPathComponent("backup.file")
+            let filemanager = NSFileManager.defaultManager();
+            
+            if !filemanager.fileExistsAtPath(file.path!){
+                
+                if filemanager.isUbiquitousItemAtURL(file) {
+                    let alertView:UIAlertView = UIAlertView()
+                    alertView.title =  "Warning"
+                    alertView.message = "iCloud is currently busy syncing the backup files. Please try again in a few minutes."
+                    alertView.addButtonWithTitle("OK")
+                    alertView.show()
+                    
+                    do {
+                        try filemanager.startDownloadingUbiquitousItemAtURL(file)
+                    } catch{
+                        print("Error while loading Backup File \(error)")
+                    }
+                }
+                return false
+            } else{
+                return true
+            }
+        }
+        return true
+    }
     
     class MyDocument: UIDocument {
         
@@ -60,11 +173,11 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
     }
     
     
-    func  saveDocument() {
+    func  saveDocument(document : MyDocument) {
         
-        document!.userText = email.text
+        document.userText = email.text
         
-        document?.saveToURL(ubiquityURL!,
+        document.saveToURL(ubiquityURL!,
                             forSaveOperation: .ForOverwriting,
                             completionHandler: {(success: Bool) -> Void in
                                 if success {
@@ -76,7 +189,7 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
     }
 
     
-    var document: MyDocument?
+  
     var documentURL: NSURL?
     var ubiquityURL: NSURL?
     var metaDataQuery: NSMetadataQuery?
@@ -86,6 +199,28 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+       
+        
+        
+        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil) //?.URLByAppendingPathComponent("myCloudTest")
+        
+        let fileManager: NSFileManager = NSFileManager()
+        do{
+        
+        let fileList: NSArray = try fileManager.contentsOfDirectoryAtURL(iCloudDocumentsURL!, includingPropertiesForKeys: nil, options:[])
+        
+        let filesStr: NSMutableString = NSMutableString(string: "Files in iCloud folder \n")
+        print(filesStr)
+        for s in fileList {
+            
+            print(s)
+            checkAndDownloadBackupFile(s as? NSURL)
+        }
+        }
+        catch{
+            
+        }
+        /*
         let filemgr = NSFileManager.defaultManager()
         
         ubiquityURL =
@@ -109,7 +244,7 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
                                                          object: metaDataQuery!)
         
         metaDataQuery!.startQuery()
-        
+        */
         
         
         
@@ -243,21 +378,21 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
             let resultURL =
                 results[0].valueForAttribute(NSMetadataItemURLKey) as! NSURL
         
-            document = MyDocument(fileURL: resultURL)
+            let document = MyDocument(fileURL: resultURL)
             
-            document?.openWithCompletionHandler({(success: Bool) -> Void in
+            document.openWithCompletionHandler({(success: Bool) -> Void in
                 if success {
                     print("iCloud file open OK")
-                    self.email.text = self.document?.userText
+                    self.email.text = document.userText
                     self.ubiquityURL = resultURL
                 } else {
                     print("iCloud file open failed")
                 }
             })
         } else {
-            document = MyDocument(fileURL: ubiquityURL!)
+            let document = MyDocument(fileURL: ubiquityURL!)
             
-            document?.saveToURL(ubiquityURL!,
+            document.saveToURL(ubiquityURL!,
                                 forSaveOperation: .ForCreating,
                                 completionHandler: {(success: Bool) -> Void in
                                     if success {

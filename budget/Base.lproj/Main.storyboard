@@ -916,7 +916,13 @@
                             <constraint firstItem="0Px-Ed-5wu" firstAttribute="top" secondItem="cPi-gU-cAU" secondAttribute="bottom" constant="8" symbolic="YES" id="zul-H6-uJK"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="R0c-oH-WDf"/>
+                    <navigationItem key="navigationItem" id="R0c-oH-WDf">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="aCn-Uf-XmT">
+                            <connections>
+                                <action selector="cancel:" destination="r3S-TD-ILv" id="fUP-MV-2Ql"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="email" destination="xeb-Ip-XWd" id="wQx-LG-5VG"/>
