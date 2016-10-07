@@ -20,15 +20,13 @@ class BackupRestoreViewController: UIViewController {
         
         
         
-        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil) //?.URLByAppendingPathComponent("myCloudTest")
+        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil) //?.URLByAppendingPathComponent("BudgetBackup")
         
         let fileManager: NSFileManager = NSFileManager()
         do{
             
             let fileList: NSArray = try fileManager.contentsOfDirectoryAtURL(iCloudDocumentsURL!, includingPropertiesForKeys: nil, options:[])
-            
-            let filesStr: NSMutableString = NSMutableString(string: "Files in iCloud folder \n")
-            print(filesStr)
+           
             for s in fileList {
                 
                 print(s)
@@ -36,6 +34,7 @@ class BackupRestoreViewController: UIViewController {
                 {
                     print("file is uptodate")
                     Helper.clearCoreDataStore(s as! NSURL)
+                    //clearTempFolder((s as! NSURL))
                 }
                 
             }
@@ -43,13 +42,13 @@ class BackupRestoreViewController: UIViewController {
         catch{
             
         }
-
+        
     }
     @IBAction func sendMessage()
     {
       
         
-        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil)?.URLByAppendingPathComponent("myCloudTest")
+        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil)?.URLByAppendingPathComponent("BudgetBackup")
         
         //is iCloud working?
         if  iCloudDocumentsURL != nil {
@@ -103,9 +102,9 @@ class BackupRestoreViewController: UIViewController {
                 
                 try NSFileManager.defaultManager().removeItemAtURL(iCloudDocumentsURL!)
             }
-            catch
+            catch let error as NSError
             {
-                
+                print(error.localizedDescription);
             }
         }
         do{
@@ -129,14 +128,30 @@ class BackupRestoreViewController: UIViewController {
         
         
     }
-    
+    func clearTempFolder() {
+        
+        
+        // Create a FileManager instance
+        
+        let fileManager = NSFileManager.defaultManager()
+        
+        // Delete 'hello.swift' file
+        
+        do {
+            try fileManager.removeItemAtPath("datafile.json")
+        }
+        catch let error as NSError {
+            print("Ooops! Something went wrong: \(error)")
+        }
+    }
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    clearTempFolder()
         backupFile.hidden = true
-        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil) //?.URLByAppendingPathComponent("myCloudTest")
+        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil) //?.URLByAppendingPathComponent("BudgetBackup")
         
         let fileManager: NSFileManager = NSFileManager()
         do{
@@ -145,20 +160,29 @@ class BackupRestoreViewController: UIViewController {
             
             
             for s in fileList {
-                
+                if String(s).rangeOfString("BudgetBackup") != nil
+                {
                 print(s)
                 if checkAndDownloadBackupFile(s as? NSURL)
                 {
                     print("file is uptodate")
                   backupFile.text = "Backup file exist"
                     backupFile.hidden = false
-                }
+                    }
                 else
+                {
+                    backupFile.text = "Backup file not exist"
+                    backupFile.hidden = false
+                    }
+                }
+                else if backupFile.hidden
                 {
                     backupFile.text = "Backup file not exist"
                     backupFile.hidden = false
                 }
                 
+                
+            
             }
         }
         catch{
