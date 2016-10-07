@@ -97,13 +97,13 @@ struct  Helper {
         Unit(name: "Misc/One-time", image: "Misc",sname: ["Air tickets", "Hotel/Lodging", "Gifts/Charity"],simage: ["Air", "Hotel", "Gifts"])
     ]
     
-    static func coreDataCleared()
+    static func restoreBackup(dir : NSURL)
     {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss +zzzz"
         
-        if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
-            let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.json")
+        //if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
+            let path = dir.URLByAppendingPathComponent("datafile.json")
             do {
                 let data = NSData(contentsOfURL : path) as NSData!
                 let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
@@ -268,11 +268,11 @@ struct  Helper {
                 
             }
             catch {/* error handling here */}
-        }
+        
         
     }
     
-    static func doBackup()
+    static func doBackup() -> String?
     {
         do{
             var fetchRequest = NSFetchRequest(entityName: "AccountTypeTable")
@@ -365,7 +365,7 @@ struct  Helper {
             let jsonData: NSData = try NSJSONSerialization.dataWithJSONObject(dictionary, options: NSJSONWritingOptions.PrettyPrinted)
             let cdata = NSString(data: jsonData, encoding: NSUTF8StringEncoding)! as String
             // print(cdata)
-            if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
+            /*if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
                 let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.json")
                 /*if let file = NSFileHandle(forWritingAtPath:"datafile.json") {
                  file.writeData(jsonData)
@@ -376,7 +376,9 @@ struct  Helper {
                     
                 }
                 catch {/* error handling here */}
-            }
+            }*/
+            
+            return cdata
             // let myEntities : [String] = Array(objectModel!.entitiesByName.keys)
             // print(myEntities)
             
@@ -384,10 +386,11 @@ struct  Helper {
         catch let error {
             print("error : ", error)
         }
+        return nil
     }
     
     
-    static func clearCoreDataStore() {
+    static func clearCoreDataStore(dir : NSURL) {
         let objectModel : NSManagedObjectModel? =  (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectModel
         
         let entities = objectModel!.entities
@@ -404,7 +407,7 @@ struct  Helper {
         }
         do {
             try managedObjectContext!.save()
-            coreDataCleared()
+            restoreBackup(dir)
             
         } catch {
             print("error")

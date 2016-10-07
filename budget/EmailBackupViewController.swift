@@ -17,6 +17,8 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
     @IBOutlet weak var hideMeLabel: UILabel!
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
+    var nsurl : NSURL?
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -86,8 +88,8 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
         let localDocumentsURL = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: .UserDomainMask).last
         
         //Add txt file to my local folder
-        let myTextString = NSString(string: "HELLO WORLD")
-        let myLocalFile = localDocumentsURL!.URLByAppendingPathComponent("myTextFile.txt")
+        let myTextString = NSString(string: Helper.doBackup() ?? "")
+        let myLocalFile = localDocumentsURL!.URLByAppendingPathComponent("datafile.json")
         do
         {
             
@@ -125,9 +127,9 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
             
         
     }
-        catch
+        catch let error as NSError
         {
-             print("error?.localizedDescription");
+             print(error.localizedDescription);
         }
         
         
@@ -139,19 +141,101 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
       
     }
 
+    
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        
+        
+        
+        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil) //?.URLByAppendingPathComponent("myCloudTest")
+        
+        let fileManager: NSFileManager = NSFileManager()
+        do{
+            
+            let fileList: NSArray = try fileManager.contentsOfDirectoryAtURL(iCloudDocumentsURL!, includingPropertiesForKeys: nil, options:[])
+            
+            let filesStr: NSMutableString = NSMutableString(string: "Files in iCloud folder \n")
+            print(filesStr)
+            for s in fileList {
+                
+                print(s)
+                if checkAndDownloadBackupFile(s as? NSURL)
+                {
+                    print("file is uptodate")
+                    Helper.clearCoreDataStore(s as! NSURL)
+                }
+               
+            }
+        }
+        catch{
+            
+        }
+        /*
+         let filemgr = NSFileManager.defaultManager()
+         
+         ubiquityURL =
+         filemgr.URLForUbiquityContainerIdentifier(
+         nil)!.URLByAppendingPathComponent("Documents")
+         
+         ubiquityURL =
+         ubiquityURL?.URLByAppendingPathComponent("savefile.txt")
+         
+         metaDataQuery = NSMetadataQuery()
+         
+         metaDataQuery?.predicate =
+         NSPredicate(format: "%K like 'savefile.txt'",
+         NSMetadataItemFSNameKey)
+         metaDataQuery?.searchScopes =
+         [NSMetadataQueryUbiquitousDocumentsScope]
+         
+         NSNotificationCenter.defaultCenter().addObserver(self,
+         selector: #selector(EmailBackupViewController.metadataQueryDidFinishGathering(_:)),
+         name: NSMetadataQueryDidFinishGatheringNotification,
+         object: metaDataQuery!)
+         
+         metaDataQuery!.startQuery()
+         */
+        
+        
+        
+    }
+    /*if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
+     let filePath = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.json")
+     
+     
+     print("File path loaded.")
+     
+     if let fileData = NSData(contentsOfFile: filePath)
+     {
+     print("File data loaded.")
+     mailComposerVC.addAttachmentData(fileData, mimeType: "application/json", fileName: "datafile.json")
+     
+     }
+     }
+     */
+    
+    
+
+    
+    
     func checkAndDownloadBackupFile(iCloudDocumentsURL : NSURL?) -> Bool{
         if(iCloudDocumentsURL != nil){
-            let file = iCloudDocumentsURL!.URLByAppendingPathComponent("backup.file")
+            let file = iCloudDocumentsURL!.URLByAppendingPathComponent("datafile.json")
             let filemanager = NSFileManager.defaultManager();
             
             if !filemanager.fileExistsAtPath(file.path!){
                 
                 if filemanager.isUbiquitousItemAtURL(file) {
-                    let alertView:UIAlertView = UIAlertView()
-                    alertView.title =  "Warning"
-                    alertView.message = "iCloud is currently busy syncing the backup files. Please try again in a few minutes."
-                    alertView.addButtonWithTitle("OK")
-                    alertView.show()
+                   
+                    _ = UIAlertController(title: "Warning", message:  "iCloud is currently busy syncing the backup files. Please try again in a few minutes.", preferredStyle: UIAlertControllerStyle.Alert)
+                    
+                    
+                    _ = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+                        print("OK")
+                    }
                     
                     do {
                         try filemanager.startDownloadingUbiquitousItemAtURL(file)
@@ -193,76 +277,6 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
     var documentURL: NSURL?
     var ubiquityURL: NSURL?
     var metaDataQuery: NSMetadataQuery?
-    
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-       
-        
-        
-        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil) //?.URLByAppendingPathComponent("myCloudTest")
-        
-        let fileManager: NSFileManager = NSFileManager()
-        do{
-        
-        let fileList: NSArray = try fileManager.contentsOfDirectoryAtURL(iCloudDocumentsURL!, includingPropertiesForKeys: nil, options:[])
-        
-        let filesStr: NSMutableString = NSMutableString(string: "Files in iCloud folder \n")
-        print(filesStr)
-        for s in fileList {
-            
-            print(s)
-            checkAndDownloadBackupFile(s as? NSURL)
-        }
-        }
-        catch{
-            
-        }
-        /*
-        let filemgr = NSFileManager.defaultManager()
-        
-        ubiquityURL =
-            filemgr.URLForUbiquityContainerIdentifier(
-                nil)!.URLByAppendingPathComponent("Documents")
-        
-        ubiquityURL =
-            ubiquityURL?.URLByAppendingPathComponent("savefile.txt")
-        
-        metaDataQuery = NSMetadataQuery()
-        
-        metaDataQuery?.predicate =
-            NSPredicate(format: "%K like 'savefile.txt'",
-                        NSMetadataItemFSNameKey)
-        metaDataQuery?.searchScopes =
-            [NSMetadataQueryUbiquitousDocumentsScope]
-        
-        NSNotificationCenter.defaultCenter().addObserver(self,
-                                                         selector: #selector(EmailBackupViewController.metadataQueryDidFinishGathering(_:)),
-                                                         name: NSMetadataQueryDidFinishGatheringNotification,
-                                                         object: metaDataQuery!)
-        
-        metaDataQuery!.startQuery()
-        */
-        
-        
-        
-    }
-    /*if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
-     let filePath = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.json")
-     
-     
-     print("File path loaded.")
-     
-     if let fileData = NSData(contentsOfFile: filePath)
-     {
-     print("File data loaded.")
-     mailComposerVC.addAttachmentData(fileData, mimeType: "application/json", fileName: "datafile.json")
-     
-     }
-     }
-     */
     
     
     
