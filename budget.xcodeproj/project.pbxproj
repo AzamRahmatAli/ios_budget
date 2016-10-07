@@ -34,6 +34,7 @@
 		F7D2AE621D618A6A007D6646 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D2AE611D618A6A007D6646 /* AccountsViewController.swift */; };
 		F7D2AE641D618B93007D6646 /* AddAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D2AE631D618B93007D6646 /* AddAccountViewController.swift */; };
 		F7D79ADA1D9A3102008ECF6D /* EmailBackupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D79AD91D9A3102008ECF6D /* EmailBackupViewController.swift */; };
+		F7D9BD0C1DA78F5200E88667 /* BackupRestoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D9BD0B1DA78F5200E88667 /* BackupRestoreViewController.swift */; };
 		F7DAE27A1D5DA10200AAA94F /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DAE2791D5DA10200AAA94F /* Helper.swift */; };
 		F7E31EE71D54717B005110BB /* IncomeTable+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E31EE51D54717B005110BB /* IncomeTable+CoreDataProperties.swift */; };
 		F7E31EE81D54717B005110BB /* IncomeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E31EE61D54717B005110BB /* IncomeTable.swift */; };
@@ -82,6 +83,7 @@
 		F7D2AE611D618A6A007D6646 /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		F7D2AE631D618B93007D6646 /* AddAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAccountViewController.swift; sourceTree = "<group>"; };
 		F7D79AD91D9A3102008ECF6D /* EmailBackupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailBackupViewController.swift; sourceTree = "<group>"; };
+		F7D9BD0B1DA78F5200E88667 /* BackupRestoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupRestoreViewController.swift; sourceTree = "<group>"; };
 		F7DAE2791D5DA10200AAA94F /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		F7E31EE51D54717B005110BB /* IncomeTable+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IncomeTable+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F7E31EE61D54717B005110BB /* IncomeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomeTable.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				F7B8A9931D799568009AA030 /* PickIconViewController.swift */,
 				F7C073B01D7EBEC60019EF10 /* CurrencyPickerTableViewController.swift */,
 				F7D79AD91D9A3102008ECF6D /* EmailBackupViewController.swift */,
+				F7D9BD0B1DA78F5200E88667 /* BackupRestoreViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				F7D2AE5F1D618714007D6646 /* AccountTable+CoreDataProperties.swift in Sources */,
 				F77C7BE41D6717DB0046A789 /* CustomCollectionViewCell.swift in Sources */,
 				F7E31EEA1D549329005110BB /* AddIncomeViewController.swift in Sources */,
+				F7D9BD0C1DA78F5200E88667 /* BackupRestoreViewController.swift in Sources */,
 				F793B0FA1D40C974000960AC /* ViewController.swift in Sources */,
 				F7B8A9941D799568009AA030 /* PickIconViewController.swift in Sources */,
 				F70316FF1D5865BC00B5BC98 /* SetBudgetViewController.swift in Sources */,
