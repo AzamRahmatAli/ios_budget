@@ -89,7 +89,7 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
         
         //Add txt file to my local folder
         let myTextString = NSString(string: Helper.doBackup() ?? "")
-        let myLocalFile = localDocumentsURL!.URLByAppendingPathComponent("datafile.json")
+        let myLocalFile = localDocumentsURL!.URLByAppendingPathComponent("datafile.txt")
         do
         {
             
@@ -203,7 +203,7 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
         
     }
     /*if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
-     let filePath = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.json")
+     let filePath = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.txt")
      
      
      print("File path loaded.")
@@ -211,7 +211,7 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
      if let fileData = NSData(contentsOfFile: filePath)
      {
      print("File data loaded.")
-     mailComposerVC.addAttachmentData(fileData, mimeType: "application/json", fileName: "datafile.json")
+     mailComposerVC.addAttachmentData(fileData, mimeType: "application/json", fileName: "datafile.txt")
      
      }
      }
@@ -223,7 +223,7 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
     
     func checkAndDownloadBackupFile(iCloudDocumentsURL : NSURL?) -> Bool{
         if(iCloudDocumentsURL != nil){
-            let file = iCloudDocumentsURL!.URLByAppendingPathComponent("datafile.json")
+            let file = iCloudDocumentsURL!.URLByAppendingPathComponent("datafile.txt")
             let filemanager = NSFileManager.defaultManager();
             
             if !filemanager.fileExistsAtPath(file.path!){
@@ -294,7 +294,7 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
         mailComposerVC.setMessageBody("Open this email on your iPhone/iPad. \n\n Tap the attachment below to restore.", isHTML: false)
         if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
             
-            let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.json")
+            let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.txt")
             
             print("File path loaded.")
             

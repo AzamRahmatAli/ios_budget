@@ -225,7 +225,7 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         
-        else
+        else if let _ = self.tableView.indexPathForSelectedRow
         {
             let path = self.tableView.indexPathForSelectedRow!
         let dvc = segue.destinationViewController as! SCBudgetViewController

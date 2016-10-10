@@ -20,7 +20,7 @@ class BackupRestoreViewController: UIViewController {
         
         
         
-        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil) //?.URLByAppendingPathComponent("BudgetBackup")
+        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil) //?.URLByAppendingPathComponent("Documents")
         
         let fileManager: NSFileManager = NSFileManager()
         do{
@@ -48,7 +48,7 @@ class BackupRestoreViewController: UIViewController {
     {
       
         
-        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil)?.URLByAppendingPathComponent("BudgetBackup")
+        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil)?.URLByAppendingPathComponent("Documents")
         
         //is iCloud working?
         if  iCloudDocumentsURL != nil {
@@ -77,7 +77,7 @@ class BackupRestoreViewController: UIViewController {
         
         //Add txt file to my local folder
         let myTextString = NSString(string: Helper.doBackup() ?? "")
-        let myLocalFile = localDocumentsURL!.URLByAppendingPathComponent("datafile.json")
+        let myLocalFile = localDocumentsURL!.URLByAppendingPathComponent("datafile.txt")
         do
         {
             
@@ -138,7 +138,7 @@ class BackupRestoreViewController: UIViewController {
         // Delete 'hello.swift' file
         
         do {
-            try fileManager.removeItemAtPath("datafile.json")
+            try fileManager.removeItemAtPath("datafile.txt")
         }
         catch let error as NSError {
             print("Ooops! Something went wrong: \(error)")
@@ -151,7 +151,7 @@ class BackupRestoreViewController: UIViewController {
         super.viewDidLoad()
     clearTempFolder()
         backupFile.hidden = true
-        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil) //?.URLByAppendingPathComponent("BudgetBackup")
+        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil) //?.URLByAppendingPathComponent("Documents")
         
         let fileManager: NSFileManager = NSFileManager()
         do{
@@ -160,7 +160,7 @@ class BackupRestoreViewController: UIViewController {
             
             
             for s in fileList {
-                if String(s).rangeOfString("BudgetBackup") != nil
+                if String(s).rangeOfString("Documents") != nil
                 {
                 print(s)
                 if checkAndDownloadBackupFile(s as? NSURL)
@@ -192,7 +192,7 @@ class BackupRestoreViewController: UIViewController {
     
     func checkAndDownloadBackupFile(iCloudDocumentsURL : NSURL?) -> Bool{
         if(iCloudDocumentsURL != nil){
-            let file = iCloudDocumentsURL!.URLByAppendingPathComponent("datafile.json")
+            let file = iCloudDocumentsURL!.URLByAppendingPathComponent("datafile.txt")
             let filemanager = NSFileManager.defaultManager();
             
             if !filemanager.fileExistsAtPath(file.path!){

@@ -876,7 +876,7 @@
                                     <constraint firstAttribute="height" constant="45" id="KX3-KD-EGH"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tqn-Tm-N3T">
@@ -885,7 +885,7 @@
                                     <constraint firstAttribute="height" constant="21" id="6Y2-Qf-ruF"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To get a backup of the  application data sent to you by email, enter the email and press submit." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPi-gU-cAU">
@@ -894,7 +894,7 @@
                                     <constraint firstAttribute="height" constant="77" id="Bvm-Qb-pDs"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -1057,20 +1057,36 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="46" id="HzL-sQ-XD2"/>
                                         </constraints>
-                                        <state key="normal" title="Edit"/>
+                                        <state key="normal" title="Edit">
+                                            <color key="titleColor" red="0.20000000000000001" green="0.51764705879999995" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="showEditing:" destination="F2O-Rf-L1q" eventType="touchUpInside" id="UN4-R2-bht"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ijJ-G7-lfa">
+                                        <rect key="frame" x="8" y="10" width="97" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="97" id="Xhb-Tf-UcI"/>
+                                        </constraints>
+                                        <state key="normal" title="OneBudget">
+                                            <color key="titleColor" red="0.20000000000000001" green="0.51764705879999995" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="q2c-HG-ocP" kind="show" id="1kN-k7-1jT"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="ijJ-G7-lfa" firstAttribute="baseline" secondItem="gja-QE-wR7" secondAttribute="baseline" id="2W1-FF-5cg"/>
                                     <constraint firstItem="uB0-CY-kHc" firstAttribute="top" secondItem="Gzj-PH-gAa" secondAttribute="top" constant="5" id="86V-RN-drg"/>
                                     <constraint firstAttribute="trailing" secondItem="uB0-CY-kHc" secondAttribute="trailing" id="b8F-B4-X4w"/>
                                     <constraint firstItem="gja-QE-wR7" firstAttribute="trailing" secondItem="Gzj-PH-gAa" secondAttribute="trailingMargin" id="eeY-1z-bde"/>
                                     <constraint firstAttribute="bottom" secondItem="uB0-CY-kHc" secondAttribute="bottom" constant="42" id="kY6-Yr-KGF"/>
                                     <constraint firstItem="gja-QE-wR7" firstAttribute="centerY" secondItem="Gzj-PH-gAa" secondAttribute="centerY" constant="1" id="krn-Bi-Zbc"/>
                                     <constraint firstItem="uB0-CY-kHc" firstAttribute="leading" secondItem="Gzj-PH-gAa" secondAttribute="leading" id="nSR-9F-XCq"/>
+                                    <constraint firstItem="ijJ-G7-lfa" firstAttribute="leading" secondItem="Gzj-PH-gAa" secondAttribute="leadingMargin" id="rm1-8O-Zbh"/>
                                     <constraint firstAttribute="height" constant="48" id="wW7-BR-aj8"/>
                                 </constraints>
                             </view>
@@ -1231,6 +1247,67 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ITF-Wh-Cna" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2817" y="1189"/>
+        </scene>
+        <!--One Budget-->
+        <scene sceneID="s01-Sz-iLj">
+            <objects>
+                <viewController id="q2c-HG-ocP" customClass="OneBudgetViewController" customModule="budget" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QHe-Qy-dJ3"/>
+                        <viewControllerLayoutGuide type="bottom" id="DXd-6f-o5Y"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="c2j-lE-16L">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total  budget amount" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kve-Ly-yEC">
+                                <rect key="frame" x="20" y="97" width="280" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="vkI-Jy-Ecd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3x-ox-aJ5">
+                                <rect key="frame" x="44" y="130" width="22" height="22"/>
+                                <connections>
+                                    <action selector="info:" destination="q2c-HG-ocP" eventType="touchUpInside" id="AdR-ub-HQf"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FSJ-0B-E55">
+                                <rect key="frame" x="98" y="126" width="124" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kve-Ly-yEC" firstAttribute="centerX" secondItem="FSJ-0B-E55" secondAttribute="centerX" id="7iU-R1-rC5"/>
+                            <constraint firstItem="kve-Ly-yEC" firstAttribute="top" secondItem="QHe-Qy-dJ3" secondAttribute="bottom" constant="33" id="9sb-yS-VHN"/>
+                            <constraint firstItem="kve-Ly-yEC" firstAttribute="leading" secondItem="c2j-lE-16L" secondAttribute="leadingMargin" constant="4" id="Fx9-lY-150"/>
+                            <constraint firstItem="g3x-ox-aJ5" firstAttribute="centerY" secondItem="FSJ-0B-E55" secondAttribute="centerY" id="VPW-Vf-Br6"/>
+                            <constraint firstItem="kve-Ly-yEC" firstAttribute="centerX" secondItem="c2j-lE-16L" secondAttribute="centerX" id="dYo-zt-EUT"/>
+                            <constraint firstItem="FSJ-0B-E55" firstAttribute="leading" secondItem="g3x-ox-aJ5" secondAttribute="trailing" constant="32" id="tys-u9-m9k"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FSJ-0B-E55" secondAttribute="trailing" constant="82" id="wlz-a0-XJX"/>
+                            <constraint firstItem="FSJ-0B-E55" firstAttribute="top" secondItem="kve-Ly-yEC" secondAttribute="bottom" constant="8" symbolic="YES" id="yUb-0c-K2n"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="One Budget" id="3S4-gu-pz2">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Mor-bZ-3ub">
+                            <connections>
+                                <action selector="save:" destination="q2c-HG-ocP" id="ghf-07-fvh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="oneBudget" destination="FSJ-0B-E55" id="CjK-2f-TtO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hyf-gZ-kZF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2594" y="1809"/>
         </scene>
         <!--Income View Controller-->
         <scene sceneID="iZf-qf-UYJ">
@@ -2536,13 +2613,13 @@
         <image name="prevMonth" width="144" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="u5g-mR-znT"/>
-        <segue reference="oy1-0M-y6T"/>
-        <segue reference="aKh-Cl-C3P"/>
-        <segue reference="rxT-Kq-Ui6"/>
-        <segue reference="CDC-Zr-p0D"/>
         <segue reference="hsH-l5-Qe9"/>
+        <segue reference="CDC-Zr-p0D"/>
+        <segue reference="rxT-Kq-Ui6"/>
+        <segue reference="aKh-Cl-C3P"/>
+        <segue reference="oy1-0M-y6T"/>
+        <segue reference="u5g-mR-znT"/>
+        <segue reference="uKc-4G-tJG"/>
         <segue reference="lxu-3I-7YJ"/>
-        <segue reference="JIA-nG-xpd"/>
     </inferredMetricsTieBreakers>
 </document>

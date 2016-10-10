@@ -208,6 +208,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                    
                 }
+                if totalBudget == 0.0
+                {
+                    do{
+                        
+                        request = NSFetchRequest(entityName: "Other")
+                        let queryResult = try managedObjectContext?.executeFetchRequest(request).first as! Other
+                        
+                        totalBudget = Float(queryResult.oneBudget ?? "0") ?? 0.0
+                    }
+                    catch let error {
+                        print("error : ", error)
+                    }
+                }
             }
                 
                 
@@ -240,10 +253,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     
                    
                     total += Float(element.amount ?? "0") ?? 0.0
-                    
-                    
-                    
-                    
                     
                 }
             }

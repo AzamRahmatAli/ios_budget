@@ -103,7 +103,7 @@ struct  Helper {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss +zzzz"
         
         //if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
-            let path = dir.URLByAppendingPathComponent("datafile.json")
+            let path = dir.URLByAppendingPathComponent("datafile.txt")
             do {
                 let data = NSData(contentsOfURL : path) as NSData!
                 let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
@@ -366,8 +366,8 @@ struct  Helper {
             let cdata = NSString(data: jsonData, encoding: NSUTF8StringEncoding)! as String
             // print(cdata)
             /*if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
-                let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.json")
-                /*if let file = NSFileHandle(forWritingAtPath:"datafile.json") {
+                let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.txt")
+                /*if let file = NSFileHandle(forWritingAtPath:"datafile.txt") {
                  file.writeData(jsonData)
                  }*/
                 //writing

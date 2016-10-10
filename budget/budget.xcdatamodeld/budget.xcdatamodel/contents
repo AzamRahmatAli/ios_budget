@@ -33,6 +33,9 @@
         <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AccountTable" inverseName="income" inverseEntity="AccountTable" syncable="YES"/>
     </entity>
+    <entity name="Other" representedClassName=".Other" syncable="YES">
+        <attribute name="oneBudget" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="SubCategoryTable" representedClassName=".SubCategoryTable" syncable="YES">
         <attribute name="amount" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="String" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
@@ -46,6 +49,7 @@
         <element name="CategoryTable" positionX="432" positionY="18" width="128" height="88"/>
         <element name="ExpenseTable" positionX="-36" positionY="71" width="128" height="133"/>
         <element name="IncomeTable" positionX="-36" positionY="222" width="128" height="120"/>
+        <element name="Other" positionX="162" positionY="81" width="128" height="60"/>
         <element name="SubCategoryTable" positionX="234" positionY="-63" width="128" height="118"/>
     </elements>
 </model>
