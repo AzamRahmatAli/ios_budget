@@ -49,7 +49,10 @@ class SetBudgetViewController: UIViewController , UITextFieldDelegate{
         // Constants.Picker.chooseSubCategory = true
         if textField  == amount
         {
+            if amount.text == "0"
+            {
             amount.text = ""
+            }
             return true
         }
         return false

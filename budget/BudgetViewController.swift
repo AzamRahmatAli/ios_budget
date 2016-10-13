@@ -84,8 +84,22 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
             }
             
-            budgetTotalLabel.text = totalAmount.asLocaleCurrency
-                
+            
+            if totalAmount == 0.0
+            {
+                do{
+                    let request = NSFetchRequest(entityName: "Other")
+                   
+                    let queryResult = try managedObjectContext?.executeFetchRequest(request).first
+                    if let result = queryResult as? Other{
+                        totalAmount = Float(result.oneBudget ?? "0") ?? 0.0
+                    }
+                }
+                catch let error {
+                    print("error : ", error)
+                }
+            }
+                budgetTotalLabel.text = totalAmount.asLocaleCurrency
             
             
         }

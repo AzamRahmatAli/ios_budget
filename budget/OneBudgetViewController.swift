@@ -9,13 +9,14 @@
 import UIKit
 import CoreData
 
-class OneBudgetViewController: UIViewController {
+class OneBudgetViewController: UIViewController , UITextFieldDelegate{
 
     @IBOutlet weak var oneBudget: UITextField!
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        oneBudget.delegate = self
         let request = NSFetchRequest(entityName: "Other")
         if managedObjectContext!.countForFetchRequest( request , error: nil) > 0
         {
@@ -35,10 +36,33 @@ class OneBudgetViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-
-
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        // Constants.Picker.chooseSubCategory = true
+      
+            if oneBudget.text == "0"
+            {
+                oneBudget.text = ""
+                
+            }
+            return true
+              
+    }
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        let aSet = NSCharacterSet(charactersInString:"0123456789.").invertedSet
+        let compSepByCharInSet = string.componentsSeparatedByCharactersInSet(aSet)
+        let numberFiltered = compSepByCharInSet.joinWithSeparator("")
+        let countdots = textField.text!.componentsSeparatedByString(".").count - 1
+        
+        if countdots > 0 && string == "."
+        {
+            return false
+        }
+        return string == numberFiltered
+        
+    }
     @IBAction func info(sender: UIButton) {
-        let alertController = UIAlertController(title: "Account Type", message: "Enter one of Checking, Savings, Credit, Debit, Cash, etc", preferredStyle: UIAlertControllerStyle.Alert)
+        let alertController = UIAlertController(title: "Total Budget Amount", message: "You can set one total budget amount instead of setting budget amounts at the Category/Subcategory level", preferredStyle: UIAlertControllerStyle.Alert)
         
         
         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in

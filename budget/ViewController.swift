@@ -38,12 +38,35 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
  
+    func checkAndDownloadBackupFile() -> Bool{
+        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil)?.URLByAppendingPathComponent("MBBackup")
+        if(iCloudDocumentsURL != nil){
+            let file = iCloudDocumentsURL!.URLByAppendingPathComponent("datafile.txt")
+            let filemanager = NSFileManager.defaultManager();
+            
+            if !filemanager.fileExistsAtPath(file.path!){
+                
+                if filemanager.isUbiquitousItemAtURL(file) {
+                    
+                    do {
+                        try filemanager.startDownloadingUbiquitousItemAtURL(file)
+                    } catch{
+                        print("Error while loading Backup File \(error)")
+                    }
+                }
+                return false
+            } else{
+                return true
+            }
+        }
+        return true
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+       let _ =  checkAndDownloadBackupFile()
        // print(((self.view.frame.height  - 480 ) + 24 ) / 2)
         bottomConstraint.constant = ((self.view.frame.height  - 480 ) + 24 ) / 2
        
@@ -213,9 +236,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     do{
                         
                         request = NSFetchRequest(entityName: "Other")
-                        let queryResult = try managedObjectContext?.executeFetchRequest(request).first as! Other
-                        
-                        totalBudget = Float(queryResult.oneBudget ?? "0") ?? 0.0
+                        let queryResult = try managedObjectContext?.executeFetchRequest(request).first
+                        if let result = queryResult as? Other{
+                        totalBudget = Float(result.oneBudget ?? "0") ?? 0.0
+                        }
                     }
                     catch let error {
                         print("error : ", error)
@@ -358,7 +382,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-     print(self.view.frame.size.height)
+     //print(self.view.frame.size.height)
         //return self.tableView.frame.size.height /  13.7
         return self.tableView.frame.size.height /  4.2
     }
@@ -376,7 +400,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 let angle = ((self.ExpenceAsPercentage - ValueToMinus)  / 100 ) * CGFloat(2 * M_PI)
                 self.needle.transform = CGAffineTransformMakeRotation(angle)
-               print(angle,CGFloat(2 * M_PI))
+               //print(angle,CGFloat(2 * M_PI))
                
             })
         }

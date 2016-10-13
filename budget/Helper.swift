@@ -167,6 +167,25 @@ struct  Helper {
                             }
                         }
                     }
+                    if let records = dic["Other"]
+                    {
+                        if let data =  records  as? [[String : String]]
+                        {
+                            for element in data{
+                                
+                                if let entity = NSEntityDescription.insertNewObjectForEntityForName("Other", inManagedObjectContext: managedObjectContext!) as? Other
+                                {
+                                    if element["oneBudget"]  != ""
+                                    {
+                                    entity.oneBudget = element["oneBudget"]
+                                    }
+                                   
+                                    
+                                    
+                                }
+                            }
+                        }
+                    }
                     if let records = dic["SubCategoryTable"]
                     {
                         if let data =  records  as? [[String : String]]
@@ -357,6 +376,16 @@ struct  Helper {
             dictionary["ExpenseTable"] =  sets
             
             
+            fetchRequest = NSFetchRequest(entityName: "Other")
+            fetchedData = try managedObjectContext?.executeFetchRequest(fetchRequest)
+            sets  = []
+            for element in (fetchedData! as! [Other])
+                
+            {
+                sets.append(["oneBudget" :element.oneBudget ?? ""])
+                
+            }
+            dictionary["Other"] =  sets
             
             /*let dataInArr:NSArray = ManagedParser.convertToArray(fetchedGuest);
              NSLog("dataInArr \(dataInArr)");*/
@@ -408,6 +437,7 @@ struct  Helper {
         do {
             try managedObjectContext!.save()
             restoreBackup(dir)
+            
             
         } catch {
             print("error")
@@ -496,3 +526,102 @@ extension Float {
     
 
 }
+
+
+
+/*
+
+class CloudDataManager {
+    
+    static let sharedInstance = CloudDataManager() // Singleton
+    
+    struct DocumentsDirectory {
+        static let localDocumentsURL: NSURL? = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: .UserDomainMask).last! as NSURL
+        static let iCloudDocumentsURL: NSURL? = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil)?.URLByAppendingPathComponent("MBBackup")
+        
+    }
+    
+    
+    // Return the Document directory (Cloud OR Local)
+    // To do in a background thread
+    
+    func getDocumentDiretoryURL() -> NSURL {
+        print(DocumentsDirectory.iCloudDocumentsURL)
+        print(DocumentsDirectory.localDocumentsURL)
+            return DocumentsDirectory.localDocumentsURL!//DocumentsDirectory.iCloudDocumentsURL!
+        
+    }
+    
+    // Return true if iCloud is enabled
+    
+    func isCloudEnabled() -> Bool {
+        if DocumentsDirectory.iCloudDocumentsURL != nil { return true }
+        else { return false }
+    }
+    
+    // Delete All files at URL
+    
+    func deleteFilesInDirectory(url: NSURL?) {
+        let fileManager = NSFileManager.defaultManager()
+        let enumerator = fileManager.enumeratorAtPath(url!.path!)
+        while let file = enumerator?.nextObject() as? String {
+            
+            do {
+                try fileManager.removeItemAtURL(url!.URLByAppendingPathComponent(file))
+                print("Files deleted")
+            } catch let error as NSError {
+                print("Failed deleting files : \(error)")
+            }
+        }
+    }
+    
+    // Move local files to iCloud
+    // iCloud will be cleared before any operation
+    // No data merging
+    
+    func moveFileToCloud() {
+        if isCloudEnabled() {
+            deleteFilesInDirectory(DocumentsDirectory.iCloudDocumentsURL!) // Clear destination
+            let fileManager = NSFileManager.defaultManager()
+            let enumerator = fileManager.enumeratorAtPath(DocumentsDirectory.localDocumentsURL!.path!)
+            while let file = enumerator?.nextObject() as? String {
+                
+                do {
+                    try fileManager.setUbiquitous(true,
+                                                  itemAtURL: DocumentsDirectory.localDocumentsURL!.URLByAppendingPathComponent(file),
+                                                  destinationURL: DocumentsDirectory.iCloudDocumentsURL!.URLByAppendingPathComponent(file))
+                    print("Moved to iCloud")
+                } catch let error as NSError {
+                    print("Failed to move file to Cloud : \(error)")
+                }
+            }
+        }
+    }
+    
+    // Move iCloud files to local directory
+    // Local dir will be cleared
+    // No data merging
+    
+    func moveFileToLocal() {
+        
+            deleteFilesInDirectory(DocumentsDirectory.localDocumentsURL!)
+            let fileManager = NSFileManager.defaultManager()
+            let enumerator = fileManager.enumeratorAtPath(DocumentsDirectory.iCloudDocumentsURL!.path!)
+            while let file = enumerator?.nextObject() as? String {
+                
+                do {
+                    try fileManager.setUbiquitous(false,
+                                                  itemAtURL: DocumentsDirectory.iCloudDocumentsURL!.URLByAppendingPathComponent(file),
+                                                  destinationURL: DocumentsDirectory.localDocumentsURL!.URLByAppendingPathComponent(file))
+                    print("Moved to local dir")
+                } catch let error as NSError {
+                    print("Failed to move file to local dir : \(error)")
+                }
+            }
+        }
+    
+    
+    
+    
+}
+*/

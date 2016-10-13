@@ -9,46 +9,79 @@
 import UIKit
 
 class BackupRestoreViewController: UIViewController {
-
-
+    @IBOutlet weak var restore: UIButton!
+    @IBOutlet weak var backup: UIButton!
+  /*  let cloudDataManager : CloudDataManager = CloudDataManager()
+    @IBAction func dl(sender: UIButton) {
+        cloudDataManager.deleteFilesInDirectory(cloudDataManager.getDocumentDiretoryURL())
     
+    }
+
+    @IBAction func gfi(sender: UIButton) {
+        cloudDataManager.moveFileToLocal()
+    }
+    
+    @IBAction func fr(sender: UIButton) {
+        let url: NSURL? = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil)?.URLByAppendingPathComponent("MBBackup")
+        let fileManager = NSFileManager.defaultManager()
+        let enumerator = fileManager.enumeratorAtPath(url!.path!)
+        while let file = enumerator?.nextObject() as? String {
+            print("fileexist = ", file)
+                    }
+
+    }*/
     var nsurl : NSURL?
     
     @IBOutlet weak var backupFile: UILabel!
    
     @IBAction func RestoreBackupFile(sender: UIButton) {
         
+        let alertController = UIAlertController(title: "Restore from MyBudget Backup", message:  "You are about to restore a previous backup into MyBudget. This will overwrite all existing data in MyBudget. Would you like to continue", preferredStyle: UIAlertControllerStyle.Alert)
         
         
-        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil) //?.URLByAppendingPathComponent("Documents")
-        
-        let fileManager: NSFileManager = NSFileManager()
-        do{
+        let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+            let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil) //?.URLByAppendingPathComponent("Documents")
             
-            let fileList: NSArray = try fileManager.contentsOfDirectoryAtURL(iCloudDocumentsURL!, includingPropertiesForKeys: nil, options:[])
-           
-            for s in fileList {
+            let fileManager: NSFileManager = NSFileManager()
+            do{
                 
-                print(s)
-                if checkAndDownloadBackupFile(s as? NSURL)
-                {
-                    print("file is uptodate")
-                    Helper.clearCoreDataStore(s as! NSURL)
-                    //clearTempFolder((s as! NSURL))
+                let fileList: NSArray = try fileManager.contentsOfDirectoryAtURL(iCloudDocumentsURL!, includingPropertiesForKeys: nil, options:[])
+                
+                for s in fileList {
+                    
+                    print(s)
+                    if String(s).rangeOfString("MBBackup") != nil
+                    {
+                        if self.checkAndDownloadBackupFile(s as? NSURL)
+                        {
+                           
+                            Helper.clearCoreDataStore(s as! NSURL)
+                           
+                            self.backupFile.text = "Backup data has been restored"
+                      
+                        }
+                    }
+                    
                 }
+            }
+            catch{
                 
             }
+
         }
-        catch{
-            
+        let noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+            print("no")
         }
+        alertController.addAction(noAction)
+        alertController.addAction(yesAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
         
     }
     @IBAction func sendMessage()
     {
       
         
-        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil)?.URLByAppendingPathComponent("Documents")
+        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil)?.URLByAppendingPathComponent("MBBackup")
         
         //is iCloud working?
         if  iCloudDocumentsURL != nil {
@@ -66,8 +99,9 @@ class BackupRestoreViewController: UIViewController {
                 }
             }
         } else {
-            print("iCloud is NOT working!")
-            //  return
+            backupFile.hidden = false
+            backupFile.text = "iCloud is NOT working!"
+            return
         }
         
         
@@ -122,7 +156,8 @@ class BackupRestoreViewController: UIViewController {
         
         
         
-        
+        backupFile.text = "New Backup Done"
+        backupFile.hidden = false
         
         
         
@@ -149,9 +184,16 @@ class BackupRestoreViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    clearTempFolder()
-        backupFile.hidden = true
-        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil) //?.URLByAppendingPathComponent("Documents")
+        backup.layer.borderColor = UIColor(red: 38/255, green: 151/255, blue: 213/255, alpha: 1).CGColor
+        restore.layer.borderColor = UIColor(red: 38/255, green: 151/255, blue: 213/255, alpha: 1).CGColor
+        restore.hidden = true
+            backupFile.hidden = true
+        //let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil) //?.URLByAppendingPathComponent("Documents")
+        let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil)?.URLByAppendingPathComponent("MBBackup")
+        
+        //is iCloud working?
+        if  iCloudDocumentsURL != nil {
+          
         
         let fileManager: NSFileManager = NSFileManager()
         do{
@@ -160,21 +202,16 @@ class BackupRestoreViewController: UIViewController {
             
             
             for s in fileList {
-                if String(s).rangeOfString("Documents") != nil
+               print(s)
+                if String(s).rangeOfString("datafile.txt") != nil
                 {
-                print(s)
-                if checkAndDownloadBackupFile(s as? NSURL)
-                {
-                    print("file is uptodate")
+                 
                   backupFile.text = "Backup file exist"
                     backupFile.hidden = false
+                    restore.hidden = false
                     }
-                else
-                {
-                    backupFile.text = "Backup file not exist"
-                    backupFile.hidden = false
-                    }
-                }
+                
+                
                 else if backupFile.hidden
                 {
                     backupFile.text = "Backup file not exist"
@@ -186,6 +223,11 @@ class BackupRestoreViewController: UIViewController {
             }
         }
         catch{
+            
+        }
+        } else {
+            backupFile.hidden = false
+            backupFile.text = "iCloud is NOT working!"
             
         }
     }

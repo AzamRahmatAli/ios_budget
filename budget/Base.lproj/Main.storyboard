@@ -619,7 +619,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cbe-ib-14K">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="0.20000000000000001" green="0.51764705882352946" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.14901960784313725" green="0.59215686274509804" blue="0.83529411764705885" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -704,9 +704,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="193"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_logo" translatesAutoresizingMaskIntoConstraints="NO" id="JBH-3q-9gx">
-                                                    <rect key="frame" x="49" y="22" width="196" height="121"/>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyBudget" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bzf-M0-1bQ">
                                                     <rect key="frame" x="49" y="151" width="196" height="21"/>
                                                     <constraints>
@@ -716,6 +713,9 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_logo" translatesAutoresizingMaskIntoConstraints="NO" id="JBH-3q-9gx">
+                                                    <rect key="frame" x="49" y="22" width="196" height="121"/>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="JBH-3q-9gx" firstAttribute="top" secondItem="2I6-g8-gmX" secondAttribute="topMargin" constant="14" id="0N9-zu-B7h"/>
@@ -1493,7 +1493,9 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="46" id="qvA-lH-wb1"/>
                                         </constraints>
-                                        <state key="normal" title="Edit"/>
+                                        <state key="normal" title="Edit">
+                                            <color key="titleColor" red="0.14901960780000001" green="0.59215686270000001" blue="0.83529411760000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="showEditing:" destination="SAF-ci-MK7" eventType="touchUpInside" id="aWm-VY-Bfm"/>
                                         </connections>
@@ -2515,7 +2517,9 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="76" id="2Ii-1y-tMF"/>
                                 </constraints>
-                                <state key="normal" title="Restore"/>
+                                <state key="normal" title="Restore">
+                                    <color key="titleColor" red="0.14901960780000001" green="0.59215686270000001" blue="0.83529411760000005" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="5"/>
@@ -2536,7 +2540,9 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="76" id="SGn-9y-sFf"/>
                                 </constraints>
-                                <state key="normal" title="Bacup"/>
+                                <state key="normal" title="Bacup">
+                                    <color key="titleColor" red="0.14901960780000001" green="0.59215686270000001" blue="0.83529411760000005" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="5"/>
@@ -2566,6 +2572,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="CSR-gT-kXI">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="HEZ-1N-Pii">
+                            <color key="tintColor" red="0.14901960780000001" green="0.59215686270000001" blue="0.83529411760000005" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="goBack:" destination="iJj-Ph-B8a" id="4bR-UM-bk7"/>
                             </connections>
@@ -2573,7 +2580,9 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="backup" destination="wKi-Tc-7lh" id="ldD-QO-0jq"/>
                         <outlet property="backupFile" destination="rij-jr-19L" id="15w-gm-eN1"/>
+                        <outlet property="restore" destination="ZXI-qt-624" id="lLm-hu-Web"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2mQ-wc-s4E" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2613,13 +2622,13 @@
         <image name="prevMonth" width="144" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hsH-l5-Qe9"/>
-        <segue reference="CDC-Zr-p0D"/>
-        <segue reference="rxT-Kq-Ui6"/>
-        <segue reference="aKh-Cl-C3P"/>
         <segue reference="oy1-0M-y6T"/>
-        <segue reference="u5g-mR-znT"/>
-        <segue reference="uKc-4G-tJG"/>
+        <segue reference="IVx-tJ-cid"/>
+        <segue reference="rxT-Kq-Ui6"/>
+        <segue reference="CDC-Zr-p0D"/>
+        <segue reference="hsH-l5-Qe9"/>
         <segue reference="lxu-3I-7YJ"/>
+        <segue reference="u5g-mR-znT"/>
+        <segue reference="JIA-nG-xpd"/>
     </inferredMetricsTieBreakers>
 </document>
