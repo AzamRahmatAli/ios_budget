@@ -88,7 +88,7 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
         let localDocumentsURL = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: .UserDomainMask).last
         
         //Add txt file to my local folder
-        let myTextString = NSString(string: Helper.doBackup() ?? "")
+        let myTextString = NSString(string: Backup.doBackup() ?? "")
         let myLocalFile = localDocumentsURL!.URLByAppendingPathComponent("datafile.txt")
         do
         {
@@ -165,7 +165,7 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
                 if checkAndDownloadBackupFile(s as? NSURL)
                 {
                     print("file is uptodate")
-                    Helper.clearCoreDataStore(s as! NSURL)
+                    Restore.clearCoreDataStore(s as! NSURL)
                 }
                
             }

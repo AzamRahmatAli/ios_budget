@@ -16,7 +16,7 @@ class PickIconViewController: UIViewController , UICollectionViewDelegate, UICol
     var addSubCategory = false
     var category = ""
     
-        @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     
     override func viewDidLoad() {
@@ -28,9 +28,9 @@ class PickIconViewController: UIViewController , UICollectionViewDelegate, UICol
     @IBAction func save(sender: AnyObject) {
         
         
-                    Helper.bankIcon = selectedImage
+        Helper.bankIcon = selectedImage
         navigationController?.popViewControllerAnimated(true)
-                        }
+    }
     @IBAction func cancel(sender: AnyObject) {
         navigationController?.popViewControllerAnimated(true)
     }

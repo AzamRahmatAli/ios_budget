@@ -20,7 +20,7 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     var expenseData : [CategoryTable]?
-
+    
     @IBOutlet weak var editAndOneBudget: UIView!
     
     @IBOutlet weak var tableView: UITableView!
@@ -29,7 +29,7 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-     
+        
         
         return expenseData!.count
         
@@ -50,14 +50,14 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         else
         {
-        UpdateView()
+            UpdateView()
         }
-
+        
     }
     
     func UpdateView()
     {
-    
+        
         
         expenseData = []
         
@@ -69,17 +69,17 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let queryResult = try managedObjectContext?.executeFetchRequest(request) as! [CategoryTable]
             
             
-                
-                
             
-                    expenseData = queryResult
+            
+            
+            expenseData = queryResult
             var totalAmount : Float = 0
-           for element in expenseData!
+            for element in expenseData!
             {
                 
-             
+                
                 let subcategory = element.subcategory!.allObjects as! [SubCategoryTable]
-               
+                
                 for element in subcategory{
                     if let price = Float(element.amount ?? "0")
                     {
@@ -87,7 +87,7 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     }
                     
                 }
-
+                
             }
             
             
@@ -95,7 +95,7 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
             {
                 do{
                     let request = NSFetchRequest(entityName: "Other")
-                   
+                    
                     let queryResult = try managedObjectContext?.executeFetchRequest(request).first
                     if let result = queryResult as? Other{
                         totalAmount = Float(result.oneBudget ?? "0") ?? 0.0
@@ -105,7 +105,7 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     print("error : ", error)
                 }
             }
-                budgetTotalLabel.text = totalAmount.asLocaleCurrency
+            budgetTotalLabel.text = totalAmount.asLocaleCurrency
             
             
         }
@@ -115,26 +115,26 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         tableView.reloadData()
         
-    
-
+        
+        
     }
     
     func getBudgetForCategory(name : String, row : Int) -> Float?
     {
-         let data = expenseData![row].subcategory!.allObjects as! [SubCategoryTable]
+        let data = expenseData![row].subcategory!.allObjects as! [SubCategoryTable]
         var amount : Float = 0.0
         for element in data{
             if let price = Float(element.amount ?? "0")
             {
                 amount += price
             }
-        
+            
         }
         if amount != 0
         {
             return amount
         }
-    return nil
+        return nil
     }
     
     func getExpensesForCategory(row : Int) -> Float?
@@ -171,14 +171,14 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let index = indexPath.row
         let ctgName = expenseData![index].name
         cell.leftUp.text = ctgName
-       
+        
         cell.img.image = UIImage(named: expenseData![index].icon!)
         cell.img.tintColor = UIColor.whiteColor()
         cell.viewInCell.backgroundColor = Helper.colors[indexPath.row % 5]
         
         if let budget = getBudgetForCategory(ctgName!,row: indexPath.row)
         {
-        cell.rightUp.text = budget.asLocaleCurrency
+            cell.rightUp.text = budget.asLocaleCurrency
             
             if let expenses = getExpensesForCategory(indexPath.row)
             {
@@ -186,7 +186,7 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 cell.rightDown.text = (budget - expenses).asLocaleCurrency
                 if (budget - expenses) >= 0
                 {
-                cell.rightDown.textColor = UIColor(red: 37/255, green: 162/255, blue: 77/255, alpha: 1)
+                    cell.rightDown.textColor = UIColor(red: 37/255, green: 162/255, blue: 77/255, alpha: 1)
                 }
                 else{
                     cell.rightDown.textColor = UIColor.redColor()
@@ -214,46 +214,46 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.indexPathForSelectedRow!
         if (self.tableView.editing) {
-
-        performSegueWithIdentifier("updateCategory", sender: nil)
+            
+            performSegueWithIdentifier("updateCategory", sender: nil)
         }
         else{
             
-        
-        performSegueWithIdentifier("subcategory", sender: nil)
-        
+            
+            performSegueWithIdentifier("subcategory", sender: nil)
+            
         }
     }
-
-
+    
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if (segue.identifier == "addCategory") {
             let dvc = segue.destinationViewController as! AddBudgetCGViewController
-          
+            
             dvc.addCategory = true
-       
+            
         }
-       else  if (segue.identifier == "updateCategory") {
-             let path = self.tableView.indexPathForSelectedRow!
+        else  if (segue.identifier == "updateCategory") {
+            let path = self.tableView.indexPathForSelectedRow!
             let dvc = segue.destinationViewController as! AddBudgetCGViewController
             dvc.addCategory = true
             dvc.update = true
             dvc.category = expenseData![path.row]
             
         }
-        
-        
+            
+            
         else if let _ = self.tableView.indexPathForSelectedRow
         {
             let path = self.tableView.indexPathForSelectedRow!
-        let dvc = segue.destinationViewController as! SCBudgetViewController
-        let index = path.row
+            let dvc = segue.destinationViewController as! SCBudgetViewController
+            let index = path.row
+            
+            dvc.category = expenseData![index]
+        }
         
-        dvc.category = expenseData![index]
-    }
-
     }
     
     
@@ -306,11 +306,11 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     } catch {
                         print("error")
                     }
-                
-                expenseData!.removeAtIndex(indexPath.row)
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+                    
+                    expenseData!.removeAtIndex(indexPath.row)
+                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
                 }
-              
+                
             }
             else{
                 let alertController = UIAlertController(title: "Delete not allowed", message: "Delete the subcategories first", preferredStyle: UIAlertControllerStyle.Alert)
@@ -328,6 +328,6 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
         }
     }
-
+    
     
 }

@@ -37,12 +37,12 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
     var expenseDataForSection : [ExpenseTable]?
     
     
-  
+    
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var expenseTotalLabel: UILabel!
     @IBOutlet weak var titleMonth: UILabel!
-      @IBAction func addExpense(sender: AnyObject) {
+    @IBAction func addExpense(sender: AnyObject) {
         self.performSegueWithIdentifier("addExpense", sender: nil)
         
         
@@ -208,7 +208,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.img.image = UIImage(named: img)
             cell.img?.tintColor = Helper.colors[(indexPath.row +  indexPath.section ) % 5]
         }
- 
+        
         return cell
         
     }
@@ -216,14 +216,14 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
-       if (segue.identifier == "updateExpense") {
+        if (segue.identifier == "updateExpense") {
             let indexPath = self.tableView.indexPathForSelectedRow!
             
             let dvc = segue.destinationViewController as! AddExpenseViewController
             
             dvc.expenseData = expenseDataForSection![indexPath.row]
             dvc.updateExpens = true
-           
+            
             
         }
         
@@ -267,7 +267,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
             var totalAmount : Float = 0
             for element in queryResult
             {
-               
+                
                 let category = element.subCategory!.category!.name
                 if (expenseData![category!] == nil)
                 {
@@ -277,13 +277,13 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
                 else{
                     totalAmount += Float(element.amount ?? "0" ) ?? 0.0
                     var temp = expenseData![category!]! as! [ExpenseTable]
-                  
+                    
                     temp.append(element)
                     expenseData![category!] = temp
                 }
                 
             }
-           
+            
             expenseTotalLabel.text = totalAmount.asLocaleCurrency
             
         }

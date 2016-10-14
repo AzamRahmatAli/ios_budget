@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class OneBudgetViewController: UIViewController , UITextFieldDelegate{
-
+    
     @IBOutlet weak var oneBudget: UITextField!
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
@@ -32,20 +32,20 @@ class OneBudgetViewController: UIViewController , UITextFieldDelegate{
                 print("error : ", error)
             }
         }
-
-
+        
+        
         // Do any additional setup after loading the view.
     }
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         // Constants.Picker.chooseSubCategory = true
-      
-            if oneBudget.text == "0"
-            {
-                oneBudget.text = ""
-                
-            }
-            return true
-              
+        
+        if oneBudget.text == "0"
+        {
+            oneBudget.text = ""
+            
+        }
+        return true
+        
     }
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
@@ -72,38 +72,38 @@ class OneBudgetViewController: UIViewController , UITextFieldDelegate{
         alertController.addAction(okAction)
         self.presentViewController(alertController, animated: true, completion: nil)
     }
-
+    
     @IBAction func save(sender: UIBarButtonItem) {
         
         
         let request = NSFetchRequest(entityName: "Other")
         
         
-       
+        
         if managedObjectContext!.countForFetchRequest( request , error: nil) > 0
         {
             
             do{
-             
-            
+                
+                
                 let queryResult = try managedObjectContext?.executeFetchRequest(request).first as! Other
                 
                 queryResult.oneBudget = (oneBudget.text != "") ? oneBudget.text : "0"
-          
+                
             }
             catch let error {
                 print("error : ", error)
             }
             
-
+            
             
         }
-        
+            
         else if let entity = NSEntityDescription.insertNewObjectForEntityForName("Other", inManagedObjectContext: managedObjectContext!) as? Other
         {
             
             entity.oneBudget = (oneBudget.text != "") ? oneBudget.text : "0" //if else condition
-           
+            
             
             
             

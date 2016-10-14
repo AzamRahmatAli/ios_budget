@@ -11,14 +11,14 @@ import CoreData
 
 
 class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
-
+    
     
     var selectedIndexPath : NSIndexPath?
     
     
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
- 
+    
     var expenseMonthDate = NSDate()
     
     var expenseData : [String:[IncomeTable]]?
@@ -38,7 +38,7 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var incomeTotalLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleMonth: UILabel!
-
+    
     
     @IBAction func addExpense(sender: AnyObject) {
         self.performSegueWithIdentifier("addincome", sender: nil)
@@ -153,7 +153,7 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
         
-    
+        
         return expenseData!.keys.count
         
     }
@@ -190,7 +190,7 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         cell.leftDown.text = date + " " + note
         let amount = Float(expenseDataForSection![indexPath.row].amount ?? "0") ?? 0.0
-       
+        
         cell.rightUp.text = amount.asLocaleCurrency
         
         return cell
@@ -246,22 +246,22 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             print(startDate! ,  endDate!)
             let queryResult = try managedObjectContext?.executeFetchRequest(request) as! [IncomeTable]
-             var totalAmount : Float = 0
+            var totalAmount : Float = 0
             for element in queryResult
             {
-               
+                
                 if (expenseData![element.category!] == nil)
                 {
                     expenseData![element.category!] = [element]
                     totalAmount = Float(element.amount ?? "0" ) ?? 0.0
-
+                    
                 }
                 else{
                     totalAmount += Float(element.amount ?? "0" ) ?? 0.0
-                  expenseData![element.category!]?.append(element)
-                   
+                    expenseData![element.category!]?.append(element)
                     
-                   
+                    
+                    
                 }
                 
             }

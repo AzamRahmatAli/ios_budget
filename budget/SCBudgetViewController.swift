@@ -22,7 +22,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
     var available : Float = 0
     
     @IBOutlet weak var editView: UIView!
-     @IBOutlet weak var edit: UIButton!
+    @IBOutlet weak var edit: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -61,12 +61,12 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
             expenseData = queryResult
             
             var totalAmount : Float = 0
-              for element in expenseData
-             {
-             
-             totalAmount += Float(element.amount ?? "0" ) ?? 0.0
-             
-             }
+            for element in expenseData
+            {
+                
+                totalAmount += Float(element.amount ?? "0" ) ?? 0.0
+                
+            }
             budgetTotalLabel.text = totalAmount.asLocaleCurrency
         }
         catch let error {
@@ -86,20 +86,20 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-
+    
     func getExpensesForCategory(row : Int) -> Float?
     {
-       // if expenseData[row].expense != nil{
+        // if expenseData[row].expense != nil{
         var amount : Float = 0.0
-       
-            if let expenses = expenseData[row].expense?.allObjects as? [ExpenseTable]
+        
+        if let expenses = expenseData[row].expense?.allObjects as? [ExpenseTable]
+        {
+            for expense in expenses
             {
-                for expense in expenses
-                {
                 amount += Float(expense.amount ?? "0") ?? 0.0
-                }
             }
-            
+        }
+        
         
         if amount != 0
         {
@@ -126,9 +126,9 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         }
         return nil
     }
-
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-       
+        
         return 48.0
     }
     
@@ -137,7 +137,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cellparent", forIndexPath: indexPath) as! ParentTableViewCell
-       
+        
         
         cell.leftUp.text = expenseData[indexPath.row].name
         cell.img.tintColor = Helper.colors[indexPath.row % 5]
@@ -148,7 +148,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
             cell.rightUp.text = budget.asLocaleCurrency
             if let expenses = getExpensesForCategory(indexPath.row)
             {
-            cell.leftDown.text = expenses.asLocaleCurrency
+                cell.leftDown.text = expenses.asLocaleCurrency
                 cell.rightDown.text = (budget - expenses).asLocaleCurrency
                 if (budget - expenses) >= 0
                 {
@@ -173,8 +173,8 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
                 cell.rightDown.textColor = UIColor.redColor()
             }
         }
-
-
+        
+        
         if let scicon = expenseData[indexPath.row].icon
         {
             cell.img.image = UIImage(named: scicon)
@@ -183,14 +183,14 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-   
-   /* override func willMoveToParentViewController(parent: UIViewController?) {
-        if parent == nil {
-            if Helper.pickCategory        {
-                Helper.pickCategory  = false
-            }
-        }
-    }*/
+    
+    /* override func willMoveToParentViewController(parent: UIViewController?) {
+     if parent == nil {
+     if Helper.pickCategory        {
+     Helper.pickCategory  = false
+     }
+     }
+     }*/
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -285,38 +285,38 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         
         if editingStyle == UITableViewCellEditingStyle.Delete {
             
-                if let category = SubCategoryTable.subCategory(expenseData[indexPath.row].name!,categoryName: category!.name!, inManagedObjectContext: managedObjectContext!)
-                {
-                    if category.expense?.count < 1{
-                        
+            if let category = SubCategoryTable.subCategory(expenseData[indexPath.row].name!,categoryName: category!.name!, inManagedObjectContext: managedObjectContext!)
+            {
+                if category.expense?.count < 1{
+                    
                     managedObjectContext!.deleteObject(category)
-                        do {
-                            try managedObjectContext!.save()
-                            
-                            
-                        } catch {
-                            print("error")
-                        }
+                    do {
+                        try managedObjectContext!.save()
+                        
+                        
+                    } catch {
+                        print("error")
+                    }
                     expenseData.removeAtIndex(indexPath.row)
                     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-                       
-                    }
-                    else
-                    {
-                        let alertController = UIAlertController(title: "Delete not allowed", message: "Expense entries exist. Delete them first", preferredStyle: UIAlertControllerStyle.Alert)
-                        
-                        
-                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
-                            print("OK")
-                        }
-                        
-                        alertController.addAction(okAction)
-                        self.presentViewController(alertController, animated: true, completion: nil)
-                    }
-
-
-                }
                     
+                }
+                else
+                {
+                    let alertController = UIAlertController(title: "Delete not allowed", message: "Expense entries exist. Delete them first", preferredStyle: UIAlertControllerStyle.Alert)
+                    
+                    
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+                        print("OK")
+                    }
+                    
+                    alertController.addAction(okAction)
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                }
+                
+                
+            }
+            
             
             
             
@@ -328,5 +328,5 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-
+    
 }

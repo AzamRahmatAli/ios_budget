@@ -11,29 +11,29 @@ import UIKit
 class BackupRestoreViewController: UIViewController {
     @IBOutlet weak var restore: UIButton!
     @IBOutlet weak var backup: UIButton!
-  /*  let cloudDataManager : CloudDataManager = CloudDataManager()
-    @IBAction func dl(sender: UIButton) {
-        cloudDataManager.deleteFilesInDirectory(cloudDataManager.getDocumentDiretoryURL())
-    
-    }
-
-    @IBAction func gfi(sender: UIButton) {
-        cloudDataManager.moveFileToLocal()
-    }
-    
-    @IBAction func fr(sender: UIButton) {
-        let url: NSURL? = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil)?.URLByAppendingPathComponent("MBBackup")
-        let fileManager = NSFileManager.defaultManager()
-        let enumerator = fileManager.enumeratorAtPath(url!.path!)
-        while let file = enumerator?.nextObject() as? String {
-            print("fileexist = ", file)
-                    }
-
-    }*/
+    /*  let cloudDataManager : CloudDataManager = CloudDataManager()
+     @IBAction func dl(sender: UIButton) {
+     cloudDataManager.deleteFilesInDirectory(cloudDataManager.getDocumentDiretoryURL())
+     
+     }
+     
+     @IBAction func gfi(sender: UIButton) {
+     cloudDataManager.moveFileToLocal()
+     }
+     
+     @IBAction func fr(sender: UIButton) {
+     let url: NSURL? = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil)?.URLByAppendingPathComponent("MBBackup")
+     let fileManager = NSFileManager.defaultManager()
+     let enumerator = fileManager.enumeratorAtPath(url!.path!)
+     while let file = enumerator?.nextObject() as? String {
+     print("fileexist = ", file)
+     }
+     
+     }*/
     var nsurl : NSURL?
     
     @IBOutlet weak var backupFile: UILabel!
-   
+    
     @IBAction func RestoreBackupFile(sender: UIButton) {
         
         let alertController = UIAlertController(title: "Restore from MyBudget Backup", message:  "You are about to restore a previous backup into MyBudget. This will overwrite all existing data in MyBudget. Would you like to continue", preferredStyle: UIAlertControllerStyle.Alert)
@@ -54,11 +54,11 @@ class BackupRestoreViewController: UIViewController {
                     {
                         if self.checkAndDownloadBackupFile(s as? NSURL)
                         {
-                           
-                            Helper.clearCoreDataStore(s as! NSURL)
-                           
+                            
+                            Restore.clearCoreDataStore(s as! NSURL)
+                            
                             self.backupFile.text = "Backup data has been restored"
-                      
+                            
                         }
                     }
                     
@@ -67,7 +67,7 @@ class BackupRestoreViewController: UIViewController {
             catch{
                 
             }
-
+            
         }
         let noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
             print("no")
@@ -79,7 +79,7 @@ class BackupRestoreViewController: UIViewController {
     }
     @IBAction func sendMessage()
     {
-      
+        
         
         let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil)?.URLByAppendingPathComponent("MBBackup")
         
@@ -110,7 +110,7 @@ class BackupRestoreViewController: UIViewController {
         let localDocumentsURL = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: .UserDomainMask).last
         
         //Add txt file to my local folder
-        let myTextString = NSString(string: Helper.doBackup() ?? "")
+        let myTextString = NSString(string: Backup.doBackup() ?? "")
         let myLocalFile = localDocumentsURL!.URLByAppendingPathComponent("datafile.txt")
         do
         {
@@ -187,44 +187,44 @@ class BackupRestoreViewController: UIViewController {
         backup.layer.borderColor = UIColor(red: 38/255, green: 151/255, blue: 213/255, alpha: 1).CGColor
         restore.layer.borderColor = UIColor(red: 38/255, green: 151/255, blue: 213/255, alpha: 1).CGColor
         restore.hidden = true
-            backupFile.hidden = true
+        backupFile.hidden = true
         //let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil) //?.URLByAppendingPathComponent("Documents")
         let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil)?.URLByAppendingPathComponent("MBBackup")
         
         //is iCloud working?
         if  iCloudDocumentsURL != nil {
-          
-        
-        let fileManager: NSFileManager = NSFileManager()
-        do{
-            
-            let fileList: NSArray = try fileManager.contentsOfDirectoryAtURL(iCloudDocumentsURL!, includingPropertiesForKeys: nil, options:[])
             
             
-            for s in fileList {
-               print(s)
-                if String(s).rangeOfString("datafile.txt") != nil
-                {
-                 
-                  backupFile.text = "Backup file exist"
-                    backupFile.hidden = false
-                    restore.hidden = false
+            let fileManager: NSFileManager = NSFileManager()
+            do{
+                
+                let fileList: NSArray = try fileManager.contentsOfDirectoryAtURL(iCloudDocumentsURL!, includingPropertiesForKeys: nil, options:[])
+                
+                
+                for s in fileList {
+                    print(s)
+                    if String(s).rangeOfString("datafile.txt") != nil
+                    {
+                        
+                        backupFile.text = "Backup file exist"
+                        backupFile.hidden = false
+                        restore.hidden = false
                     }
-                
-                
-                else if backupFile.hidden
-                {
-                    backupFile.text = "Backup file not exist"
-                    backupFile.hidden = false
+                        
+                        
+                    else if backupFile.hidden
+                    {
+                        backupFile.text = "Backup file not exist"
+                        backupFile.hidden = false
+                    }
+                    
+                    
+                    
                 }
-                
-                
-            
             }
-        }
-        catch{
-            
-        }
+            catch{
+                
+            }
         } else {
             backupFile.hidden = false
             backupFile.text = "iCloud is NOT working!"
@@ -262,15 +262,15 @@ class BackupRestoreViewController: UIViewController {
         return true
     }
     
-  
-
-
-
+    
+    
+    
+    
     
     // MARK: MFMailComposeViewControllerDelegate
     
     
- 
+    
     @IBAction func goBack(sender: UIBarButtonItem) {
         
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -285,7 +285,7 @@ class BackupRestoreViewController: UIViewController {
      }
      */
     
- 
+    
     
     
     

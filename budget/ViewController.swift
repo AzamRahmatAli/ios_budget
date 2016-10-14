@@ -22,7 +22,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     
- 
+    
     
     let images : [UIImage] = [UIImage(named : "expenses")!, UIImage(named : "income")!, UIImage(named : "budget")!, UIImage(named : "accounts")!]
     let ctgNames : [String] = ["Expenses","Income", "Budget", "Accounts"]
@@ -37,7 +37,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
     
- 
+    
     func checkAndDownloadBackupFile() -> Bool{
         let iCloudDocumentsURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil)?.URLByAppendingPathComponent("MBBackup")
         if(iCloudDocumentsURL != nil){
@@ -66,10 +66,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       let _ =  checkAndDownloadBackupFile()
-       // print(((self.view.frame.height  - 480 ) + 24 ) / 2)
+        let _ =  checkAndDownloadBackupFile()
+        // print(((self.view.frame.height  - 480 ) + 24 ) / 2)
         bottomConstraint.constant = ((self.view.frame.height  - 480 ) + 24 ) / 2
-       
+        
         // Do any additional setup after loading the view, typically from a nib.
         if  self.revealViewController() != nil {
             //  menuButton.target = self.revealViewController()
@@ -89,7 +89,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             dateFormatter.dateFormat = "MMMM yyyy"
             currentMonth.text = dateFormatter.stringFromDate(NSDate())
             
-           
+            
             
             /*menuButton.addTarget(self.revealViewController(), action: "revealToggle:", forControlEvents: UIControlEvents.TouchUpInside)
              
@@ -97,14 +97,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
     }
-   /* override func viewDidLayoutSubviews(){
-         tableView.frame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, (self.view.frame.size.height /  13.7) * 4)
-       // tableView.reloadData()
-    }
-    override func viewDidAppear(animated: Bool) {
-        tableView.frame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, (self.view.frame.size.height /  13.7) * 4)
-    }
-    */
+    /* override func viewDidLayoutSubviews(){
+     tableView.frame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, (self.view.frame.size.height /  13.7) * 4)
+     // tableView.reloadData()
+     }
+     override func viewDidAppear(animated: Bool) {
+     tableView.frame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, (self.view.frame.size.height /  13.7) * 4)
+     }
+     */
     @IBOutlet weak var tableView: UITableView!
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -127,7 +127,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let startDate = NSDate().startOfMonth(components)
         let endDate = NSDate().endOfMonth(components)
         let predicate = NSPredicate(format: "createdAt >= %@ AND createdAt <= %@", startDate!, endDate!)
-       
+        
         
         
         if indexPath.row == 0
@@ -136,7 +136,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             request = NSFetchRequest(entityName: "ExpenseTable")
             request.predicate = predicate
             do{
-               
+                
                 
                 totalExpenses = 0.0
                 
@@ -144,22 +144,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 for element in queryResult
                 {
-                   
+                    
                     
                     totalExpenses += Float(element.amount ?? "0") ?? 0.0
                     if (element.account != nil)
                     {
-                    expensesInAccountsTotal += totalExpenses
-                    
-                    }
-                   
-                    
-                        
+                        expensesInAccountsTotal += totalExpenses
                         
                     }
-                               }
+                    
+                    
+                    
+                    
+                }
+            }
                 
-            
+                
             catch let error {
                 print("error : ", error)
             }
@@ -170,7 +170,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell.img.image = UIImage(named: "wallet")
             cell.img.tintColor = UIColor.whiteColor()
             cell.viewInCell.backgroundColor = color
-
+            
             
         }
         else if indexPath.row == 1
@@ -221,15 +221,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 for element in queryResult
                 {
-                   
                     
-                   
-                        if let value =  Float(element.amount ?? "0")
-                        {
+                    
+                    
+                    if let value =  Float(element.amount ?? "0")
+                    {
                         totalBudget += value
                         
                     }
-                   
+                    
                 }
                 if totalBudget == 0.0
                 {
@@ -238,7 +238,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         request = NSFetchRequest(entityName: "Other")
                         let queryResult = try managedObjectContext?.executeFetchRequest(request).first
                         if let result = queryResult as? Other{
-                        totalBudget = Float(result.oneBudget ?? "0") ?? 0.0
+                            totalBudget = Float(result.oneBudget ?? "0") ?? 0.0
                         }
                     }
                     catch let error {
@@ -252,7 +252,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print("error : ", error)
             }
             cell.price.text = totalBudget.asLocaleCurrency
-
+            
             
             let color = UIColor(red: 50/255, green: 195/255, blue: 0, alpha: 1)
             cell.price.textColor = color
@@ -275,7 +275,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 for element in queryResult
                 {
                     
-                   
+                    
                     total += Float(element.amount ?? "0") ?? 0.0
                     
                 }
@@ -288,12 +288,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell.price.text = (total - expensesInAccountsTotal + incomeInAccountsTotal).asLocaleCurrency
             if totalBudget == 0
             {
-            available.text = (totalIncome -  totalExpenses).asLocaleCurrency
+                available.text = (totalIncome -  totalExpenses).asLocaleCurrency
                 percentageText.text = "Expenses as % of Income"
                 var pt = 0
                 if totalIncome != 0 // to solve infinity problem
                 {
-                 pt = Int((totalExpenses / totalIncome) * 100)
+                    pt = Int((totalExpenses / totalIncome) * 100)
                 }else if totalExpenses > 0
                 {
                     pt = 101 // to solve 100+ problem
@@ -314,7 +314,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     pt = 100
                 }
                 percentage.text =  pt > 100 ? (String(100) + "%+") : (String(pt) + "%")
-                 ExpenceAsPercentage = pt > 100 ? CGFloat(100) : CGFloat(pt)
+                ExpenceAsPercentage = pt > 100 ? CGFloat(100) : CGFloat(pt)
                 
             }
             
@@ -334,24 +334,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.indexPathForSelectedRow!
-       
-         if indexPath.row == 0
-         {
-         self.performSegueWithIdentifier("listView", sender: nil)
-         }
-         else if indexPath.row == 1{
+        
+        if indexPath.row == 0
+        {
+            self.performSegueWithIdentifier("listView", sender: nil)
+        }
+        else if indexPath.row == 1{
             
-         self.performSegueWithIdentifier("incomeList", sender: nil)
+            self.performSegueWithIdentifier("incomeList", sender: nil)
         }
         else if indexPath.row == 2
-         {
+        {
             self.performSegueWithIdentifier("budgetView", sender: nil)
         }
-         else if indexPath.row == 3
-         {
+        else if indexPath.row == 3
+        {
             self.performSegueWithIdentifier("accountList", sender: nil)
         }
- 
+        
         
     }
     
@@ -362,7 +362,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             //let dvc = segue.destinationViewController as! ExpenseViewController
             
-          
+            
             
         }
         
@@ -375,14 +375,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         tableView.reloadData()
         
-       
-
+        
+        
     }
     
     
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-     //print(self.view.frame.size.height)
+        //print(self.view.frame.size.height)
         //return self.tableView.frame.size.height /  13.7
         return self.tableView.frame.size.height /  4.2
     }
@@ -391,22 +391,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     
-     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if indexPath.row == 3 {
             UIView.animateWithDuration(1.0, animations: {
-               self.needle.layer.anchorPoint = CGPointMake(0.5, 0.54)
+                self.needle.layer.anchorPoint = CGPointMake(0.5, 0.54)
                 let ValueToMinus = (self.ExpenceAsPercentage < 30 ) ? ((self.ExpenceAsPercentage + 9)/100) * 24 : (self.ExpenceAsPercentage/100) * 24
                 
                 let angle = ((self.ExpenceAsPercentage - ValueToMinus)  / 100 ) * CGFloat(2 * M_PI)
                 self.needle.transform = CGAffineTransformMakeRotation(angle)
-               //print(angle,CGFloat(2 * M_PI))
-               
+                //print(angle,CGFloat(2 * M_PI))
+                
             })
         }
-       
+        
     }
-
+    
     
     
     
