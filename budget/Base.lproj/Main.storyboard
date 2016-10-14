@@ -1242,6 +1242,7 @@
                     <connections>
                         <outlet property="budgetTotalLabel" destination="aqA-qh-LDs" id="TdZ-G2-akR"/>
                         <outlet property="edit" destination="gja-QE-wR7" id="WI9-ZT-idg"/>
+                        <outlet property="editAndOneBudget" destination="Gzj-PH-gAa" id="dT0-89-Kw4"/>
                         <outlet property="tableView" destination="v3q-jv-loz" id="RlM-8a-20T"/>
                         <segue destination="SAF-ci-MK7" kind="show" identifier="subcategory" id="0wu-Oz-uR3"/>
                         <segue destination="m9h-SI-dz5" kind="show" identifier="updateCategory" id="uKc-4G-tJG"/>
@@ -1281,7 +1282,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FSJ-0B-E55">
                                 <rect key="frame" x="98" y="126" width="124" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1664,6 +1665,7 @@
                     <connections>
                         <outlet property="budgetTotalLabel" destination="rVP-RZ-vX4" id="IU5-7R-ESg"/>
                         <outlet property="edit" destination="1Zr-hy-E7c" id="zfd-4i-ThF"/>
+                        <outlet property="editView" destination="oc7-FB-fFx" id="4i5-de-dlO"/>
                         <outlet property="tableView" destination="N4v-tt-2vb" id="C23-MA-1my"/>
                         <outlet property="titleLabel" destination="8LD-Fd-uCE" id="p5I-yN-75n"/>
                         <segue destination="PDa-Lg-jOL" kind="show" identifier="setBudget" id="la3-4M-usk"/>
@@ -2632,6 +2634,6 @@
         <segue reference="rxT-Kq-Ui6"/>
         <segue reference="uHg-lh-ava"/>
         <segue reference="u5g-mR-znT"/>
-        <segue reference="JIA-nG-xpd"/>
+        <segue reference="uKc-4G-tJG"/>
     </inferredMetricsTieBreakers>
 </document>

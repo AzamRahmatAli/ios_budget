@@ -21,6 +21,7 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var expenseData : [CategoryTable]?
 
+    @IBOutlet weak var editAndOneBudget: UIView!
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var budgetTotalLabel: UILabel!
@@ -35,7 +36,12 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     
-    
+    override func viewDidLoad() {
+        if Helper.pickCategory
+        {
+            editAndOneBudget.hidden = true
+        }
+    }
     override func viewWillAppear(animated: Bool) {
         if Helper.categoryPicked
         {

@@ -21,6 +21,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
     var category : CategoryTable?
     var available : Float = 0
     
+    @IBOutlet weak var editView: UIView!
      @IBOutlet weak var edit: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
@@ -30,6 +31,10 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         self.titleLabel.text = category!.name
+        if Helper.pickCategory
+        {
+            editView.hidden = true
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
