@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSheetDelegate , UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSheetDelegate , UIImagePickerControllerDelegate, UINavigationControllerDelegate ,UIScrollViewDelegate{
     
     
     @IBOutlet weak var category: UITextField!
@@ -34,7 +34,8 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
     
     var imagePicker: UIImagePickerController = UIImagePickerController()
      var imagePicked = false
-    
+    var scrollV : UIScrollView!
+    var imageView : UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +48,7 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
         imagePicker.delegate = self
         
         
-    
+       
         
         if updateExpens
         {
@@ -149,8 +150,72 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
         imagePicker.dismissViewControllerAnimated(true, completion: nil)
         reciept.image = info[UIImagePickerControllerOriginalImage] as? UIImage
     }
+  
+    @IBAction func longPress(sender: UILongPressGestureRecognizer) {
+        
+        //Create the AlertController and add Its action like button in Actionsheet
+        if let _ = expenseData?.reciept
+        {
+            
+            
+            
+            
+            
+            let actionSheetControllerIOS8: UIAlertController = UIAlertController(title: "", message: "Update receipt image from", preferredStyle: .ActionSheet)
+            
+            
+            
+            let saveActionButton: UIAlertAction = UIAlertAction(title: "Camera", style: .Default)
+            { action -> Void in
+                self.getImageFromCamera()
+            }
+            actionSheetControllerIOS8.addAction(saveActionButton)
+            
+            let deleteActionButton: UIAlertAction = UIAlertAction(title: "Photo Library", style: .Default)
+            { action -> Void in
+                self.getImageFromGallery()
+            }
+            actionSheetControllerIOS8.addAction(deleteActionButton)
+            self.presentViewController(actionSheetControllerIOS8, animated: true, completion: nil)
+            
+            let cancelActionButton: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
+                
+            }
+            actionSheetControllerIOS8.addAction(cancelActionButton)
+        }
+    }
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return self.imageView
+    }
+    func imageTapped(img: AnyObject)
+    {
+         scrollV.hidden = true
+    }
     @IBAction func addReciept(sender: UITapGestureRecognizer) {
         //Create the AlertController and add Its action like button in Actionsheet
+        if let image = expenseData?.reciept
+        {
+           
+            scrollV=UIScrollView()
+             scrollV.hidden = false
+            scrollV.frame = CGRectMake(0, self.navigationController!.navigationBar.frame.size.height, self.view.frame.width, self.view.frame.height)
+            scrollV.minimumZoomScale=1
+            scrollV.maximumZoomScale=3
+            scrollV.bounces=false
+            scrollV.delegate=self;
+            self.view.addSubview(scrollV)
+            
+            imageView=UIImageView()
+            imageView.image = UIImage(data: image)
+            let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(AddExpenseViewController.imageTapped(_:)))
+            
+            scrollV.addGestureRecognizer(tapGestureRecognizer)
+            imageView.frame = CGRectMake(0, 0, scrollV.frame.width, scrollV.frame.height)
+            imageView.backgroundColor = .blackColor()
+            imageView.contentMode = .ScaleToFill
+            scrollV.addSubview(imageView)
+        }
+        else{
         let actionSheetControllerIOS8: UIAlertController = UIAlertController(title: "", message: "Attach receipt image from", preferredStyle: .ActionSheet)
         
        
@@ -172,7 +237,7 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
             
         }
         actionSheetControllerIOS8.addAction(cancelActionButton)
-        
+        }
     }
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         // Constants.Picker.chooseSubCategory = true
