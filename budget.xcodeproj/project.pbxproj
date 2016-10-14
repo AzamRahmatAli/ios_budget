@@ -15,6 +15,7 @@
 		F77CB8C21DB10A9B0016F412 /* Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77CB8C11DB10A9B0016F412 /* Backup.swift */; };
 		F77CB8C41DB10ABA0016F412 /* Restore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77CB8C31DB10ABA0016F412 /* Restore.swift */; };
 		F77CB8C61DB10F450016F412 /* BasicData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77CB8C51DB10F450016F412 /* BasicData.swift */; };
+		F77CB8C81DB113DF0016F412 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77CB8C71DB113DF0016F412 /* Strings.swift */; };
 		F793B0F81D40C974000960AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F793B0F71D40C974000960AC /* AppDelegate.swift */; };
 		F793B0FA1D40C974000960AC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F793B0F91D40C974000960AC /* ViewController.swift */; };
 		F793B0FD1D40C975000960AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F793B0FB1D40C975000960AC /* Main.storyboard */; };
@@ -67,6 +68,7 @@
 		F77CB8C11DB10A9B0016F412 /* Backup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Backup.swift; sourceTree = "<group>"; };
 		F77CB8C31DB10ABA0016F412 /* Restore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restore.swift; sourceTree = "<group>"; };
 		F77CB8C51DB10F450016F412 /* BasicData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicData.swift; sourceTree = "<group>"; };
+		F77CB8C71DB113DF0016F412 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		F793B0F41D40C974000960AC /* budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = budget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F793B0F71D40C974000960AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F793B0F91D40C974000960AC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 			children = (
 				F7C7AF611D74491B003FE534 /* coreData */,
 				F7DAE2791D5DA10200AAA94F /* Helper.swift */,
+				F77CB8C71DB113DF0016F412 /* Strings.swift */,
 				F77CB8BF1DB10A150016F412 /* Currency.swift */,
 				F77CB8C11DB10A9B0016F412 /* Backup.swift */,
 				F77CB8C31DB10ABA0016F412 /* Restore.swift */,
@@ -350,6 +353,7 @@
 				F7C7AF601D7448FF003FE534 /* CategoryTable.swift in Sources */,
 				F77CB8C61DB10F450016F412 /* BasicData.swift in Sources */,
 				F7EFEE681D4B1ED1004695C0 /* ExpenseTable.swift in Sources */,
+				F77CB8C81DB113DF0016F412 /* Strings.swift in Sources */,
 				F7D79ADA1D9A3102008ECF6D /* EmailBackupViewController.swift in Sources */,
 				F7A52B051D41F15F00033146 /* SWRevealViewController.m in Sources */,
 				F7C7AF641D744D50003FE534 /* SubCategoryTable+CoreDataProperties.swift in Sources */,

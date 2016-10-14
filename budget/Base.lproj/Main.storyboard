@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="kz8-pC-rL9">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -2627,13 +2626,13 @@
         <image name="prevMonth" width="144" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hsH-l5-Qe9"/>
-        <segue reference="CDC-Zr-p0D"/>
         <segue reference="rxT-Kq-Ui6"/>
         <segue reference="IVx-tJ-cid"/>
-        <segue reference="atI-d2-zGb"/>
-        <segue reference="u5g-mR-znT"/>
+        <segue reference="Vax-Si-0IU"/>
+        <segue reference="fEM-OY-Hyi"/>
         <segue reference="uKc-4G-tJG"/>
+        <segue reference="atI-d2-zGb"/>
+        <segue reference="hsH-l5-Qe9"/>
         <segue reference="FPP-Zd-6Ca"/>
     </inferredMetricsTieBreakers>
 </document>

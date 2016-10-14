@@ -105,8 +105,6 @@ class OneBudgetViewController: UIViewController , UITextFieldDelegate{
             entity.oneBudget = (oneBudget.text != "") ? oneBudget.text : "0" //if else condition
             
             
-            
-            
         }
         do {
             try self.managedObjectContext!.save()
