@@ -1471,7 +1471,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5AL-ad-DkQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2032" y="-271"/>
+            <point key="canvasLocation" x="2064" y="31"/>
         </scene>
         <!--Budget View Controller-->
         <scene sceneID="akY-zo-A5X">
@@ -1966,7 +1966,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KA6-XP-l3S" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="vyH-Nu-pcl"/>
             </objects>
-            <point key="canvasLocation" x="2436" y="-306"/>
+            <point key="canvasLocation" x="2467" y="23"/>
         </scene>
         <!--Pick Date-->
         <scene sceneID="lo0-Gm-U0V">

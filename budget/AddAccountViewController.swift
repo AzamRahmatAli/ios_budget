@@ -24,7 +24,7 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     var updateAccount = false
     var accountData : AccountTable?
     
-   
+    
     var accountDate : NSDate? = NSDate()
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
@@ -35,7 +35,7 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
             print("OK")
         }
-       
+        
         alertController.addAction(okAction)
         self.presentViewController(alertController, animated: true, completion: nil)
         
@@ -57,10 +57,11 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
         
         dateValue.delegate = self
         amount.delegate = self
-        
+        category.delegate = self
+        subCategory.delegate = self
         
         icon.image = UIImage(named: "bank")
-         icon.tintColor = Helper.colors[0]
+        icon.tintColor = Helper.colors[0]
         //subCategory.delegate = self
         
         
@@ -85,17 +86,22 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
         }
         else
         {
-        
-                deleteIcon.hidden = true
+            
+            deleteIcon.hidden = true
             
         }
-
+        
     }
     
     
     func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     
@@ -108,11 +114,16 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
         {
             if amount.text == "0"
             {
-            amount.text = ""
+                amount.text = ""
             }
             return true
             
-        }else{
+        }
+        if  textField  == category ||  textField  == subCategory
+        {
+            return true
+        }
+        else  {
             Helper.pickCategory = true
             self.performSegueWithIdentifier("pickCategory", sender: nil)
         }
@@ -138,7 +149,7 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
         return string == numberFiltered
         
     }
-
+    
     
     @IBAction func Cancel(sender: AnyObject) {
         navigationController?.popViewControllerAnimated(true)
@@ -151,12 +162,12 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     
     
     
-
+    
     func deleteRecord(object: NSManagedObject){
         
         managedObjectContext!.deleteObject(object)
         
-       
+        
     }
     
     @IBAction func pickIcon(sender: UITapGestureRecognizer) {
@@ -168,20 +179,20 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     
     func deleteAccountType(accountTypeName : String)
     {
-         let request = NSFetchRequest(entityName: "AccountTable")
-            
-            
-            request.predicate = NSPredicate(format: "accountType.name == %@", accountTypeName)
-            if managedObjectContext!.countForFetchRequest( request , error: nil) < 1
+        let request = NSFetchRequest(entityName: "AccountTable")
+        
+        
+        request.predicate = NSPredicate(format: "accountType.name == %@", accountTypeName)
+        if managedObjectContext!.countForFetchRequest( request , error: nil) < 1
+        {
+            if let accountType = AccountTypeTable.accontType(accountTypeName, inManagedObjectContext: managedObjectContext!)
             {
-                if let accountType = AccountTypeTable.accontType(accountTypeName, inManagedObjectContext: managedObjectContext!)
-                { 
-                    deleteRecord(accountType)
-                }
+                deleteRecord(accountType)
             }
+        }
         
     }
-
+    
     @IBAction func addExpense(sender: AnyObject) {
         dismissKeyboard()
         
@@ -190,85 +201,85 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
         {
             if subCategory.text != ""
             {
-        if updateAccount
-        {
-            
-            if let entity =  managedObjectContext!.objectWithID(accountData!.objectID)  as? AccountTable
-            {
-                
-                entity.amount = (amount.text != "") ? amount.text : "0"
-                
-                entity.icon = Helper.bankIcon
-                Helper.bankIcon = "bank"
-                
-                entity.createdAt = accountDate
-                
-                entity.name = subCategory.text
-                
-                let  accountTypeName = entity.accountType!.name
-                
-                
-                if let accountType = AccountTypeTable.accontType(category.text!, inManagedObjectContext: managedObjectContext!)
+                if updateAccount
                 {
-                    entity.accountType = accountType
+                    
+                    if let entity =  managedObjectContext!.objectWithID(accountData!.objectID)  as? AccountTable
+                    {
+                        
+                        entity.amount = (amount.text != "") ? amount.text : "0"
+                        
+                        entity.icon = Helper.bankIcon
+                        Helper.bankIcon = "bank"
+                        
+                        entity.createdAt = accountDate
+                        
+                        entity.name = subCategory.text
+                        
+                        let  accountTypeName = entity.accountType!.name
+                        
+                        
+                        if let accountType = AccountTypeTable.accontType(category.text!, inManagedObjectContext: managedObjectContext!)
+                        {
+                            entity.accountType = accountType
+                        }
+                        
+                        deleteAccountType(accountTypeName!) //if nesessary
+                        
+                    }
+                    
+                    Helper.saveChanges(managedObjectContext!, viewController : self )
+                    
                 }
-
-                deleteAccountType(accountTypeName!) //if nesessary
-              
-            }
-            
-            Helper.saveChanges(managedObjectContext!, viewController : self )
-            
-        }
-        
-             else   if let _ = AccountTable.account(category.text!, type: category.text!, inManagedObjectContext: managedObjectContext!)
+                    
+                else   if let _ = AccountTable.account(category.text!, type: category.text!, inManagedObjectContext: managedObjectContext!)
                 {
                     self.navigationController?.popViewControllerAnimated(true)
                 }
-        else if let entity = NSEntityDescription.insertNewObjectForEntityForName("AccountTable", inManagedObjectContext: managedObjectContext!) as? AccountTable
-        {
-            
-            
-     
-            entity.amount = (amount.text != "") ? amount.text : "0"
-            entity.icon = Helper.bankIcon
-            Helper.bankIcon = "bank"
-            entity.name = subCategory.text
-            entity.createdAt = accountDate
-         entity.accountType = AccountTypeTable.accontType(category.text!, inManagedObjectContext: managedObjectContext!)
-            
-            print(entity)
-            
-            
-            
-        
-        
-         Helper.saveChanges(managedObjectContext!, viewController : self )
-        }
+                else if let entity = NSEntityDescription.insertNewObjectForEntityForName("AccountTable", inManagedObjectContext: managedObjectContext!) as? AccountTable
+                {
+                    
+                    
+                    
+                    entity.amount = (amount.text != "") ? amount.text : "0"
+                    entity.icon = Helper.bankIcon
+                    Helper.bankIcon = "bank"
+                    entity.name = subCategory.text
+                    entity.createdAt = accountDate
+                    entity.accountType = AccountTypeTable.accontType(category.text!, inManagedObjectContext: managedObjectContext!)
+                    
+                    print(entity)
+                    
+                    
+                    
+                    
+                    
+                    Helper.saveChanges(managedObjectContext!, viewController : self )
+                }
+            }
+            else{
+                missing.text = "Enter Name"
+            }
         }
         else{
-            missing.text = "Enter Name"
+            missing.text = "Enter Type"
         }
-    }
-    else{
-    missing.text = "Enter Type"
+        
     }
     
-    }
-
     override func viewWillAppear(animated: Bool) {
-     
-       
-            if let date  = Helper.datePic
-            {
-                accountDate = date
-                Helper.datePic = nil
-                
-                
-            }
-            
         
-            dateValue.text =  Helper.getFormattedDate(accountDate!)
+        
+        if let date  = Helper.datePic
+        {
+            accountDate = date
+            Helper.datePic = nil
+            
+            
+        }
+        
+        
+        dateValue.text =  Helper.getFormattedDate(accountDate!)
         icon.image = UIImage(named: Helper.bankIcon)
         
     }

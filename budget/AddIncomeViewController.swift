@@ -11,13 +11,14 @@ import CoreData
 
 
 class AddIncomeViewController: UIViewController , UITextFieldDelegate{
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         dateValue.delegate = self
         amount.delegate = self
         account.delegate = self
-        
+        note.delegate = self
+        category.delegate = self
         
         
         if updateIncome
@@ -44,11 +45,16 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(AddIncomeViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
-      
+        
     }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
 
     
-   
     func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
@@ -56,7 +62,7 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
     
     @IBAction func deleteExpense(sender: UIButton) {
         managedObjectContext!.deleteObject(incomeData!)
-         Helper.saveChanges(managedObjectContext!, viewController: self)
+        Helper.saveChanges(managedObjectContext!, viewController: self)
     }
     @IBOutlet weak var category: UITextField!
     
@@ -67,7 +73,7 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
     var updateIncome = false
     
     @IBOutlet weak var dateValue: UITextField!
-   
+    
     @IBOutlet weak var note: UITextField!
     
     @IBOutlet weak var missing: UILabel!
@@ -86,18 +92,23 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
         {
             if amount.text == "0"
             {
-            amount.text = ""
-            
+                amount.text = ""
+                
             }
             return true
-        }else{
+        }
+        if textField  == note || textField  == category
+        {
+            return true
+        }
+        else    {
             Helper.pickAccount = true
             self.performSegueWithIdentifier("pickAccount", sender: nil)
         }
         return false
     }
     
-
+    
     
     
     
@@ -164,11 +175,11 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
             
             
         }
-      
-            else if let entity = NSEntityDescription.insertNewObjectForEntityForName("IncomeTable", inManagedObjectContext: managedObjectContext!) as? IncomeTable
+            
+        else if let entity = NSEntityDescription.insertNewObjectForEntityForName("IncomeTable", inManagedObjectContext: managedObjectContext!) as? IncomeTable
         {
             
-                
+            
             entity.category = (category.text != "") ? category.text : "income"
             entity.amount = (amount.text != "") ? amount.text : "0"
             //entity.account = account.text
@@ -178,7 +189,7 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
                 Helper.pickedAccountData = nil
             }
             
-
+            
             entity.createdAt = incomeDate
             entity.note = note.text
             
@@ -196,10 +207,10 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
         }
         
         
-     
         
-
-    
+        
+        
+        
     }
     
     /*
@@ -218,9 +229,9 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
     
     
     override func viewWillAppear(animated: Bool) {
-       
         
-       
+        
+        
         if Helper.accountPicked
         {
             
@@ -244,8 +255,8 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
         }
         
         dateValue.text = Helper.getFormattedDate(incomeDate!)
-
+        
     }
-
-
+    
+    
 }
