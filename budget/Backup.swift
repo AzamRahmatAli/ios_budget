@@ -1,0 +1,142 @@
+//
+//  Backup.swift
+//  budget
+//
+//  Created by Azam Rahmat on 10/14/16.
+//  Copyright © 2016 Brainload Technologies. All rights reserved.
+//
+
+import Foundation
+import CoreData
+
+
+struct Backup
+{
+static func doBackup() -> String?
+{
+    do{
+        var fetchRequest = NSFetchRequest(entityName: "AccountTypeTable")
+        
+        
+        
+        var fetchedData : [AnyObject]? = try Helper.managedObjectContext?.executeFetchRequest(fetchRequest)
+        var names : [String] = []
+        
+        for element in (fetchedData! as! [AccountTypeTable])
+            
+        {
+            names.append(element.name!)
+        }
+        var dictionary : [String : AnyObject] = ["AccountTypeTable" : names]
+        
+        
+        
+        fetchRequest = NSFetchRequest(entityName: "CategoryTable")
+        
+        
+        
+        fetchedData = try Helper.managedObjectContext?.executeFetchRequest(fetchRequest)
+        var sets  = [[String:AnyObject]]()
+        sets = []
+        for element in (fetchedData! as! [CategoryTable])
+            
+        {
+            sets.append(["name" :element.name!, "icon" :element.icon!])
+        }
+        dictionary["CategoryTable"] =  sets
+        
+        
+        
+        fetchRequest = NSFetchRequest(entityName: "AccountTable")
+        fetchedData = try Helper.managedObjectContext?.executeFetchRequest(fetchRequest)
+        sets  = []
+        for element in (fetchedData! as! [AccountTable])
+            
+        {
+            sets.append(["name" :element.name!, "amount" :element.amount! , "icon" :element.icon! , "createdat" : String(element.createdAt!), "accounttype": element.accountType!.name!])
+        }
+        dictionary["AccountTable"] =  sets
+        
+        
+        fetchRequest = NSFetchRequest(entityName: "SubCategoryTable")
+        fetchedData = try Helper.managedObjectContext?.executeFetchRequest(fetchRequest)
+        sets  = []
+        for element in (fetchedData! as! [SubCategoryTable])
+            
+        {
+            sets.append(["name" :element.name!, "amount" :element.amount ?? "" , "icon" :element.icon! , "category": element.category!.name!])
+        }
+        dictionary["SubCategoryTable"] =  sets
+        
+        
+        fetchRequest = NSFetchRequest(entityName: "IncomeTable")
+        fetchedData = try Helper.managedObjectContext?.executeFetchRequest(fetchRequest)
+        sets  = []
+        for element in (fetchedData! as! [IncomeTable])
+            
+        {
+            sets.append(["name" :element.category!, "amount" :element.amount! , "note" :element.note! , "createdat" : String(element.createdAt!), "accountname" : element.account?.name ?? "", "accounttype" : element.account?.accountType?.name ?? ""])
+        }
+        dictionary["IncomeTable"] =  sets
+        
+        
+        fetchRequest = NSFetchRequest(entityName: "ExpenseTable")
+        fetchedData = try Helper.managedObjectContext?.executeFetchRequest(fetchRequest)
+        sets  = []
+        for element in (fetchedData! as! [ExpenseTable])
+            
+        {
+            var a : [String : AnyObject] = ["amount" :element.amount! , "note" :element.note!, "reciept" :/*element.reciept ??*/ "", "createdat" : String(element.createdAt!)]
+            a["accountname"] = element.account?.name ?? ""
+            a["accounttype"] =  element.account?.accountType?.name ?? ""
+            a["subcategory"] = element.subCategory!.name!
+            a["category"] = element.subCategory!.category!.name!
+            sets.append(a)
+            
+        }
+        dictionary["ExpenseTable"] =  sets
+        
+        
+        fetchRequest = NSFetchRequest(entityName: "Other")
+        fetchedData = try Helper.managedObjectContext?.executeFetchRequest(fetchRequest)
+        sets  = []
+        for element in (fetchedData! as! [Other])
+            
+        {
+            sets.append(["oneBudget" :element.oneBudget ?? ""])
+            
+        }
+        dictionary["Other"] =  sets
+        
+        /*let dataInArr:NSArray = ManagedParser.convertToArray(fetchedGuest);
+         NSLog("dataInArr \(dataInArr)");*/
+        
+        
+        let jsonData: NSData = try NSJSONSerialization.dataWithJSONObject(dictionary, options: NSJSONWritingOptions.PrettyPrinted)
+        let cdata = NSString(data: jsonData, encoding: NSUTF8StringEncoding)! as String
+        // print(cdata)
+        /*if let dir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
+         let path = NSURL(fileURLWithPath: dir).URLByAppendingPathComponent("datafile.txt")
+         /*if let file = NSFileHandle(forWritingAtPath:"datafile.txt") {
+         file.writeData(jsonData)
+         }*/
+         //writing
+         do {
+         try cdata.writeToURL(path, atomically: false, encoding: NSUTF8StringEncoding)
+         
+         }
+         catch {/* error handling here */}
+         }*/
+        
+        return cdata
+        // let myEntities : [String] = Array(objectModel!.entitiesByName.keys)
+        // print(myEntities)
+        
+    }
+    catch let error {
+        print("error : ", error)
+    }
+    return nil
+}
+
+}

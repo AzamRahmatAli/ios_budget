@@ -45,45 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             //let Category = ["Utilities", "Food"]
           
-            
-            
-            
-            for  key in Helper.units
-            {
-                for  (index, value) in key.sname.enumerate()
-                {
-            if let expense = NSEntityDescription.insertNewObjectForEntityForName("SubCategoryTable", inManagedObjectContext: managedObjectContext) as? SubCategoryTable
-            {
-                print(value)
-              
-                expense.name = value
-                
-              
-                expense.icon = key.simage[index]
-               
-               
-                expense.category = CategoryTable.category(key.name, image: key.image,  inManagedObjectContext: managedObjectContext)
-               
-              
-                do{
-                    try self.managedObjectContext.save()
-                    
-                    //receivedMessageFromServer()
-                    
-                }
-                catch{
-                    print("error")
-                }
-               
-                
-            }
-            else{
-                print("fail insert")
-            }
-            
-                }
-            }
-            
+            BasicData.addBasicData()
+           
             
             
         }
