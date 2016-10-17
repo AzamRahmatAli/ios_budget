@@ -113,7 +113,8 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
     
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        
+        if textField  == amount
+        {
         let aSet = NSCharacterSet(charactersInString:"0123456789.").invertedSet
         let compSepByCharInSet = string.componentsSeparatedByCharactersInSet(aSet)
         let numberFiltered = compSepByCharInSet.joinWithSeparator("")
@@ -124,6 +125,10 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
             return false
         }
         return string == numberFiltered
+        }
+        else{
+            return true
+        }
         
     }
     

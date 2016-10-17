@@ -17,7 +17,7 @@ struct  Helper {
     
     
     static var pickedSubCaregory : SubCategoryTable?
-    
+    static var expandedAndCollapsedSections : [Bool] = []
     
     static var datePic : NSDate? = nil
     static var pickAccount = false

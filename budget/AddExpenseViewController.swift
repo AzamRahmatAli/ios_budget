@@ -279,7 +279,8 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
     
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        
+        if textField  == amount
+        {
         let aSet = NSCharacterSet(charactersInString:"0123456789.").invertedSet
         let compSepByCharInSet = string.componentsSeparatedByCharactersInSet(aSet)
         let numberFiltered = compSepByCharInSet.joinWithSeparator("")
@@ -290,7 +291,10 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
             return false
         }
         return string == numberFiltered
-        
+        }
+        else{
+            return true
+        }
     }
     
     

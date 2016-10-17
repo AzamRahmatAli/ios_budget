@@ -12,7 +12,7 @@ import CoreData
 
 class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
-    var expandedAndCollapsedSections : [Bool]?
+    
     var selectedIndexPath : NSIndexPath?
     
     
@@ -54,6 +54,14 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
+    override func viewWillAppear(animated: Bool) {
+        
+        expenseMonthDate = NSDate()
+        updateMonthlyExpenseView(expenseMonthDate)
+        
+        
+        
+    }
     
     
     
@@ -98,7 +106,7 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         
         header.catg.text = expenseData!.keys[index]
-        if section == sectionTapped
+        if Helper.expandedAndCollapsedSections[section]
         {
             header.image.image = UIImage(named: "arrowDown")
             header.separator.hidden = true
@@ -129,12 +137,16 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Get the section
         sectionTapped  = senderView.headerCellSection
         
+        //change the value of section to expandable or not expandable
+        Helper.expandedAndCollapsedSections[sectionTapped] = !Helper.expandedAndCollapsedSections[sectionTapped]
+        
     }
     
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == sectionTapped
+        print(Helper.expandedAndCollapsedSections[section])
+        if Helper.expandedAndCollapsedSections[section]
         {
             let index = expenseData!.values.startIndex.advancedBy(section)
             
@@ -162,15 +174,7 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     
-    override func viewWillAppear(animated: Bool) {
-        
-        expenseMonthDate = NSDate()
-        updateMonthlyExpenseView(expenseMonthDate)
-        
-        
-        
-    }
-    
+
     
     
     
@@ -202,6 +206,7 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
+        
         if (segue.identifier == "updateIncome") {
             let indexPath = self.tableView.indexPathForSelectedRow!
             
@@ -209,7 +214,6 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             dvc.incomeData = expenseDataForSection![indexPath.row]
             dvc.updateIncome = true
-            
             
         }
         
@@ -272,6 +276,29 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         catch let error {
             print("error : ", error)
         }
+        
+        //append array if section increase
+        if Helper.expandedAndCollapsedSections.count < expenseData!.count
+        {
+            let newSections = expenseData!.count - Helper.expandedAndCollapsedSections.count
+            print(newSections)
+            if newSections > 0
+            {
+                //to make first section expanded at launch
+            if Helper.expandedAndCollapsedSections.count == 0
+            {
+                Helper.expandedAndCollapsedSections.append(true)
+            }
+        
+            // expandedAndCollapsedSections array can be greater then sections
+            Helper.expandedAndCollapsedSections += [Bool](count: newSections, repeatedValue: false)
+            
+            }
+            
+        }
+        
+        
+        
         
         tableView.reloadData()
         
