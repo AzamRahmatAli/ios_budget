@@ -133,25 +133,30 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // Get the view
         let senderView = sender.view as! TableSectionHeader
+        let section = senderView.headerCellSection
+        //do it before table reload
+        //change the value of section to expandable or not expandable
+        Helper.expandedAndCollapsedSections[section] = !Helper.expandedAndCollapsedSections[section]
+        print(Helper.expandedAndCollapsedSections[section], section)
+        
         
         // Get the section
-        sectionTapped  = senderView.headerCellSection
+        sectionTapped  = section
         
-        //change the value of section to expandable or not expandable
-        Helper.expandedAndCollapsedSections[sectionTapped] = !Helper.expandedAndCollapsedSections[sectionTapped]
+     
         
     }
     
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(Helper.expandedAndCollapsedSections[section])
+        print(Helper.expandedAndCollapsedSections[section], section)
         if Helper.expandedAndCollapsedSections[section]
         {
             let index = expenseData!.values.startIndex.advancedBy(section)
             
             let array = expenseData!.values[index]
-            expenseDataForSection = array
+           
             
             return array.count
         }
@@ -182,7 +187,9 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        let index = expenseData!.values.startIndex.advancedBy(indexPath.section)
         
+        expenseDataForSection = expenseData!.values[index]
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cellparent", forIndexPath: indexPath) as! ParentTableViewCell
         
@@ -211,8 +218,10 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let indexPath = self.tableView.indexPathForSelectedRow!
             
             let dvc = segue.destinationViewController as! AddIncomeViewController
+            let index = expenseData!.values.startIndex.advancedBy(indexPath.section)
             
-            dvc.incomeData = expenseDataForSection![indexPath.row]
+           
+            dvc.incomeData = expenseData!.values[index][indexPath.row]
             dvc.updateIncome = true
             
         }

@@ -113,6 +113,26 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
         return false
     }
     
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        if textField  == amount
+        {
+            let aSet = NSCharacterSet(charactersInString:"0123456789.").invertedSet
+            let compSepByCharInSet = string.componentsSeparatedByCharactersInSet(aSet)
+            let numberFiltered = compSepByCharInSet.joinWithSeparator("")
+            let countdots = textField.text!.componentsSeparatedByString(".").count - 1
+            
+            if countdots > 0 && string == "."
+            {
+                return false
+            }
+            return string == numberFiltered
+        }
+        else{
+            return true
+        }
+    }
+    
+    
 
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -276,28 +296,7 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
     }
     
     
-    
-    
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        if textField  == amount
-        {
-        let aSet = NSCharacterSet(charactersInString:"0123456789.").invertedSet
-        let compSepByCharInSet = string.componentsSeparatedByCharactersInSet(aSet)
-        let numberFiltered = compSepByCharInSet.joinWithSeparator("")
-        let countdots = textField.text!.componentsSeparatedByString(".").count - 1
-        
-        if countdots > 0 && string == "."
-        {
-            return false
-        }
-        return string == numberFiltered
-        }
-        else{
-            return true
-        }
-    }
-    
-    
+  
     
     @IBAction func Cancel(sender: AnyObject) {
         navigationController?.popViewControllerAnimated(true)
