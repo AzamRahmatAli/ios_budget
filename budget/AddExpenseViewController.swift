@@ -83,6 +83,38 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
         
     }
     
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        // Constants.Picker.chooseSubCategory = true
+        if textField == expnseDate
+        {
+            self.performSegueWithIdentifier("pickDate", sender: nil)
+        }else if textField  == amount
+        {
+            if amount.text == "0"
+            {
+                amount.text = ""
+                
+            }
+            return true
+        }else if textField  == payFrom
+        {
+            Helper.pickAccount = true
+            self.performSegueWithIdentifier("pickAccount", sender: nil)
+        }
+        else if textField  == note
+        {
+            return true
+        }
+            
+        else {
+            Helper.pickCategory = true
+            self.performSegueWithIdentifier("pickCategory", sender: nil)
+        }
+        return false
+    }
+    
+
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -243,36 +275,6 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
         }
     }
     
-    
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        // Constants.Picker.chooseSubCategory = true
-        if textField == expnseDate
-        {
-            self.performSegueWithIdentifier("pickDate", sender: nil)
-        }else if textField  == amount
-        {
-            if amount.text == "0"
-            {
-                amount.text = ""
-                
-            }
-            return true
-        }else if textField  == payFrom
-        {
-            Helper.pickAccount = true
-            self.performSegueWithIdentifier("pickAccount", sender: nil)
-        }
-        if textField  == note
-        {
-        return true
-        }
-            
-        else {
-            Helper.pickCategory = true
-            self.performSegueWithIdentifier("pickCategory", sender: nil)
-        }
-        return false
-    }
     
     
     

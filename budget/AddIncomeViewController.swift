@@ -97,7 +97,7 @@ class AddIncomeViewController: UIViewController , UITextFieldDelegate{
             }
             return true
         }
-        if textField  == note || textField  == category
+        else if textField  == note || textField  == category
         {
             return true
         }

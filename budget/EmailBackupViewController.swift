@@ -287,7 +287,7 @@ class EmailBackupViewController: UIViewController ,MFMailComposeViewControllerDe
         
         let date = String(NSDate()).componentsSeparatedByString(" ").first!
         
-        mailComposerVC.setSubject("\(String.far["appName"]) Backup \(date)")
+        mailComposerVC.setSubject("\(StringFor.name["appName"]) Backup \(date)")
         
         mailComposerVC.setToRecipients([email.text!])
         

@@ -12,7 +12,7 @@ import CoreData
 
 class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
-    
+    var expandedAndCollapsedSections : [Bool]?
     var selectedIndexPath : NSIndexPath?
     
     
@@ -166,6 +166,8 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         expenseMonthDate = NSDate()
         updateMonthlyExpenseView(expenseMonthDate)
+        
+        
         
     }
     

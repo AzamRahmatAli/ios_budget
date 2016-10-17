@@ -36,7 +36,7 @@ class BackupRestoreViewController: UIViewController {
     
     @IBAction func RestoreBackupFile(sender: UIButton) {
         
-        let alertController = UIAlertController(title: "Restore from \(String.far["appName"]) Backup", message:  "You are about to restore a previous backup into \(String.far["appName"]). This will overwrite all existing data in \(String.far["appName"]). Would you like to continue", preferredStyle: UIAlertControllerStyle.Alert)
+        let alertController = UIAlertController(title: "Restore from \(StringFor.name["appName"]) Backup", message:  "You are about to restore a previous backup into \(StringFor.name["appName"]). This will overwrite all existing data in \(StringFor.name["appName"]). Would you like to continue", preferredStyle: UIAlertControllerStyle.Alert)
         
         
         let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in

@@ -119,7 +119,7 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
             return true
             
         }
-        if  textField  == category ||  textField  == subCategory
+        else if  textField  == category ||  textField  == subCategory
         {
             return true
         }

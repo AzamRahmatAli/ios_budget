@@ -840,6 +840,7 @@
                     </tableView>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="appName" destination="bzf-M0-1bQ" id="yp4-Yi-PEu"/>
                         <outlet property="cellAsButton" destination="mfV-wY-RFX" id="uVP-mR-9NB"/>
                         <segue destination="hL5-gf-cLH" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="IVx-tJ-cid"/>
                     </connections>

@@ -66,6 +66,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = StringFor.name["appName"]
+        
         let _ =  checkAndDownloadBackupFile()
         // print(((self.view.frame.height  - 480 ) + 24 ) / 2)
         bottomConstraint.constant = ((self.view.frame.height  - 480 ) + 24 ) / 2

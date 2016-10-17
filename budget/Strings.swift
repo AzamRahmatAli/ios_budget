@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct String
+struct StringFor
 {
-    static let far = ["appName" : "MyBudget"]
+    static let name = ["appName" : "MyBudget"]
 }

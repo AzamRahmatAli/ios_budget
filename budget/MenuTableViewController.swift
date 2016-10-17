@@ -15,6 +15,7 @@ class MenuTableViewController: UITableViewController {
     
     @IBOutlet weak var cellAsButton: UIButton!
     
+    @IBOutlet weak var appName: UILabel!
     
     
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
@@ -23,6 +24,7 @@ class MenuTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        appName.text = StringFor.name["appName"]
         cellAsButton.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), forControlEvents: UIControlEvents.TouchUpInside)
     }
     /*override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
