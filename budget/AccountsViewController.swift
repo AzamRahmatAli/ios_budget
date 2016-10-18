@@ -95,7 +95,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         
         
-        if  Helper.expandedAndCollapsedSectionsIncome[section]
+        if  Helper.expandedAndCollapsedSectionsAccount[section]
         {
             header.image.image = UIImage(named: "arrowDown")
             header.separator.hidden = true
@@ -129,8 +129,8 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         //do it before table reload
         //change the value of section to expandable or not expandable
-        Helper.expandedAndCollapsedSectionsIncome[section] = !Helper.expandedAndCollapsedSectionsIncome[section]
-        print(Helper.expandedAndCollapsedSectionsIncome[section], section)
+        Helper.expandedAndCollapsedSectionsAccount[section] = !Helper.expandedAndCollapsedSectionsAccount[section]
+        print(Helper.expandedAndCollapsedSectionsAccount[section], section)
         
         // Get the section
         sectionTapped  = section
@@ -141,7 +141,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if  Helper.expandedAndCollapsedSectionsIncome[section]
+        if  Helper.expandedAndCollapsedSectionsAccount[section]
         {
          
             
@@ -286,19 +286,19 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
             
             
             //append array if section increase
-            if Helper.expandedAndCollapsedSectionsIncome.count < accountData.count
+            if Helper.expandedAndCollapsedSectionsAccount.count < accountData.count
             {
-                let newSections = accountData.count - Helper.expandedAndCollapsedSectionsIncome.count
+                let newSections = accountData.count - Helper.expandedAndCollapsedSectionsAccount.count
                 
                 
                 //to make first section expanded at launch
-                if Helper.expandedAndCollapsedSectionsIncome.count == 0
+                if Helper.expandedAndCollapsedSectionsAccount.count == 0
                 {
-                    Helper.expandedAndCollapsedSectionsIncome.append(true)
+                    Helper.expandedAndCollapsedSectionsAccount.append(true)
                 }
                 
-                // expandedAndCollapsedSectionsIncome array can be greater then sections
-                Helper.expandedAndCollapsedSectionsIncome += [Bool](count: newSections, repeatedValue: false)
+                // expandedAndCollapsedSectionsAccount array can be greater then sections
+                Helper.expandedAndCollapsedSectionsAccount += [Bool](count: newSections, repeatedValue: false)
                 
                 
                 

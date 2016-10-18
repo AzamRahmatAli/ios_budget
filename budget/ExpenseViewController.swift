@@ -107,7 +107,7 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         
-        if section == sectionTapped
+        if  Helper.expandedAndCollapsedSectionsExpense[section]
         {
             header.image.image = UIImage(named: "arrowDown")
             header.separator.hidden = true
@@ -138,15 +138,23 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Get the view
         let senderView = sender.view as! TableSectionHeader
         
+        let section = senderView.headerCellSection
+        
+        //do it before table reload
+        //change the value of section to expandable or not expandable
+        Helper.expandedAndCollapsedSectionsExpense[section] = !Helper.expandedAndCollapsedSectionsExpense[section]
+        print(Helper.expandedAndCollapsedSectionsExpense[section], section)
+        
+        
         // Get the section
-        sectionTapped  = senderView.headerCellSection
+        sectionTapped  = section
         
     }
     
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == sectionTapped
+        if  Helper.expandedAndCollapsedSectionsExpense[section]
         {
             let index = expenseData!.values.startIndex.advancedBy(section)
             
@@ -191,7 +199,10 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cellparent", forIndexPath: indexPath) as! ParentTableViewCell
+        let index = expenseData!.values.startIndex.advancedBy(indexPath.section)
         
+        let array = expenseData!.values[index]
+        expenseDataForSection = array as? [ExpenseTable]
         
         cell.subCatg.text = expenseDataForSection![indexPath.row].subCategory!.name
         //Helper.currency + expenseDataForSection![indexPath.row].amount!
@@ -218,6 +229,14 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
         if (segue.identifier == "updateExpense") {
             let indexPath = self.tableView.indexPathForSelectedRow!
+            
+            
+            let index = expenseData!.values.startIndex.advancedBy(indexPath.section)
+            
+            let array = expenseData!.values[index]
+            expenseDataForSection = array as? [ExpenseTable]
+            
+            
             
             let dvc = segue.destinationViewController as! AddExpenseViewController
             
@@ -290,6 +309,26 @@ class ExpenseViewController: UIViewController, UITableViewDelegate, UITableViewD
         catch let error {
             print("error : ", error)
         }
+        
+        //append array if section increase
+        if Helper.expandedAndCollapsedSectionsExpense.count < expenseData!.count
+        {
+            let newSections = expenseData!.count - Helper.expandedAndCollapsedSectionsExpense.count
+            
+            
+            //to make first section expanded at launch
+            if Helper.expandedAndCollapsedSectionsExpense.count == 0
+            {
+                Helper.expandedAndCollapsedSectionsExpense.append(true)
+            }
+            
+            // expandedAndCollapsedSectionsExpense array can be greater then sections
+            Helper.expandedAndCollapsedSectionsExpense += [Bool](count: newSections, repeatedValue: false)
+            
+            
+            
+        }
+        
         
         tableView.reloadData()
         

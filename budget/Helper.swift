@@ -18,7 +18,8 @@ struct  Helper {
     
     static var pickedSubCaregory : SubCategoryTable?
     static var expandedAndCollapsedSectionsIncome  : [Bool] = []
-    static var expandedAndCollapsedSectionsAcoount : [Bool] = []
+    static var expandedAndCollapsedSectionsAccount : [Bool] = []
+    static var expandedAndCollapsedSectionsExpense : [Bool] = []
     static var datePic : NSDate? = nil
     static var pickAccount = false
     static var accountPicked = false

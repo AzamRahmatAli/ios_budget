@@ -218,8 +218,6 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
             
             let actionSheetControllerIOS8: UIAlertController = UIAlertController(title: "", message: "Update receipt image from", preferredStyle: .ActionSheet)
             
-            
-            
             let saveActionButton: UIAlertAction = UIAlertAction(title: "Camera", style: .Default)
             { action -> Void in
                 self.getImageFromCamera()
@@ -237,6 +235,8 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
                 
             }
             actionSheetControllerIOS8.addAction(cancelActionButton)
+            
+           
         }
     }
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
@@ -246,29 +246,14 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
     {
         scrollV.hidden = true
     }
+
+    
     @IBAction func addReciept(sender: UITapGestureRecognizer) {
         //Create the AlertController and add Its action like button in Actionsheet
         if let image = expenseData?.reciept
         {
             
-            scrollV=UIScrollView()
-            scrollV.hidden = false
-            scrollV.frame = CGRectMake(0, self.navigationController!.navigationBar.frame.size.height, self.view.frame.width, self.view.frame.height)
-            scrollV.minimumZoomScale=1
-            scrollV.maximumZoomScale=3
-            scrollV.bounces=false
-            scrollV.delegate=self;
-            self.view.addSubview(scrollV)
-            
-            imageView=UIImageView()
-            imageView.image = UIImage(data: image)
-            let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(AddExpenseViewController.imageTapped(_:)))
-            
-            scrollV.addGestureRecognizer(tapGestureRecognizer)
-            imageView.frame = CGRectMake(0, 0, scrollV.frame.width, scrollV.frame.height)
-            imageView.backgroundColor = .blackColor()
-            imageView.contentMode = .ScaleAspectFit
-            scrollV.addSubview(imageView)
+            zoomReciept(image)
         }
         else{
             let actionSheetControllerIOS8: UIAlertController = UIAlertController(title: "", message: "Attach receipt image from", preferredStyle: .ActionSheet)
@@ -453,6 +438,32 @@ class AddExpenseViewController: UIViewController, UITextFieldDelegate,UIActionSh
     
     func receivedMessageFromServer() {
         NSNotificationCenter.defaultCenter().postNotificationName("ReceivedData", object: nil)
+    }
+    
+    
+    
+    func zoomReciept(image : NSData)
+    {
+        
+        scrollV=UIScrollView()
+        scrollV.hidden = false
+        scrollV.frame = CGRectMake(0, self.navigationController!.navigationBar.frame.size.height, self.view.frame.width, self.view.frame.height)
+        scrollV.minimumZoomScale=1
+        scrollV.maximumZoomScale=3
+        scrollV.bounces=false
+        scrollV.delegate=self;
+        self.view.addSubview(scrollV)
+        
+        imageView=UIImageView()
+        imageView.image = UIImage(data: image)
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(AddExpenseViewController.imageTapped(_:)))
+        
+        scrollV.addGestureRecognizer(tapGestureRecognizer)
+        imageView.frame = CGRectMake(0, 0, scrollV.frame.width, scrollV.frame.height)
+        imageView.backgroundColor = .blackColor()
+        imageView.contentMode = .ScaleAspectFit
+        scrollV.addSubview(imageView)
+        
     }
     
 }
