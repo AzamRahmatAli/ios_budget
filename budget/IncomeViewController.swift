@@ -106,7 +106,7 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         
         header.catg.text = expenseData!.keys[index]
-        if Helper.expandedAndCollapsedSections[section]
+        if Helper.expandedAndCollapsedSectionsIncome[section]
         {
             header.image.image = UIImage(named: "arrowDown")
             header.separator.hidden = true
@@ -136,8 +136,8 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let section = senderView.headerCellSection
         //do it before table reload
         //change the value of section to expandable or not expandable
-        Helper.expandedAndCollapsedSections[section] = !Helper.expandedAndCollapsedSections[section]
-        print(Helper.expandedAndCollapsedSections[section], section)
+        Helper.expandedAndCollapsedSectionsIncome[section] = !Helper.expandedAndCollapsedSectionsIncome[section]
+        print(Helper.expandedAndCollapsedSectionsIncome[section], section)
         
         
         // Get the section
@@ -150,8 +150,8 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(Helper.expandedAndCollapsedSections[section], section)
-        if Helper.expandedAndCollapsedSections[section]
+        print(Helper.expandedAndCollapsedSectionsIncome[section], section)
+        if Helper.expandedAndCollapsedSectionsIncome[section]
         {
             let index = expenseData!.values.startIndex.advancedBy(section)
             
@@ -287,22 +287,21 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         //append array if section increase
-        if Helper.expandedAndCollapsedSections.count < expenseData!.count
+        if Helper.expandedAndCollapsedSectionsIncome.count < expenseData!.count
         {
-            let newSections = expenseData!.count - Helper.expandedAndCollapsedSections.count
-            print(newSections)
-            if newSections > 0
-            {
+            let newSections = expenseData!.count - Helper.expandedAndCollapsedSectionsIncome.count
+           
+            
                 //to make first section expanded at launch
-            if Helper.expandedAndCollapsedSections.count == 0
+            if Helper.expandedAndCollapsedSectionsIncome.count == 0
             {
-                Helper.expandedAndCollapsedSections.append(true)
+                Helper.expandedAndCollapsedSectionsIncome.append(true)
             }
         
-            // expandedAndCollapsedSections array can be greater then sections
-            Helper.expandedAndCollapsedSections += [Bool](count: newSections, repeatedValue: false)
+            // expandedAndCollapsedSectionsIncome array can be greater then sections
+            Helper.expandedAndCollapsedSectionsIncome += [Bool](count: newSections, repeatedValue: false)
             
-            }
+            
             
         }
         

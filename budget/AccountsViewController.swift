@@ -95,7 +95,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         
         
-        if section == sectionTapped
+        if  Helper.expandedAndCollapsedSectionsIncome[section]
         {
             header.image.image = UIImage(named: "arrowDown")
             header.separator.hidden = true
@@ -125,9 +125,15 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         // Get the view
         let senderView = sender.view as! TableSectionHeader
+        let section = senderView.headerCellSection
+        
+        //do it before table reload
+        //change the value of section to expandable or not expandable
+        Helper.expandedAndCollapsedSectionsIncome[section] = !Helper.expandedAndCollapsedSectionsIncome[section]
+        print(Helper.expandedAndCollapsedSectionsIncome[section], section)
         
         // Get the section
-        sectionTapped  = senderView.headerCellSection
+        sectionTapped  = section
        
         
     }
@@ -135,7 +141,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == sectionTapped
+        if  Helper.expandedAndCollapsedSectionsIncome[section]
         {
          
             
@@ -203,10 +209,12 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cellparent", forIndexPath: indexPath) as! ParentTableViewCell
         
+         dataForSection = accountData[indexPath.section].account!.allObjects as! [AccountTable]
+        
         cell.subCatg.text = dataForSection[indexPath.row].name
         cell.leftDown.text = "Reconciled: " + Float(dataForSection[indexPath.row].amount ?? "0")!.asLocaleCurrency
-        print(calculatedAmount[sectionTapped][indexPath.row],sectionTapped,indexPath.row,calculatedAmount)
-        let total = calculatedAmount[sectionTapped][indexPath.row]
+        
+        let total = calculatedAmount[indexPath.section][indexPath.row]
         cell.rightUp.text = total.asLocaleCurrency
         if total < 0
         {
@@ -232,7 +240,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         if segue.identifier == "updateAccount"
         {
         let indexPath = self.tableView.indexPathForSelectedRow!
-        
+        dataForSection = accountData[indexPath.section].account!.allObjects as! [AccountTable]
         let dvc = segue.destinationViewController as! AddAccountViewController
         
         dvc.accountData = dataForSection[indexPath.row]
@@ -277,6 +285,26 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
          
             
             
+            //append array if section increase
+            if Helper.expandedAndCollapsedSectionsIncome.count < accountData.count
+            {
+                let newSections = accountData.count - Helper.expandedAndCollapsedSectionsIncome.count
+                
+                
+                //to make first section expanded at launch
+                if Helper.expandedAndCollapsedSectionsIncome.count == 0
+                {
+                    Helper.expandedAndCollapsedSectionsIncome.append(true)
+                }
+                
+                // expandedAndCollapsedSectionsIncome array can be greater then sections
+                Helper.expandedAndCollapsedSectionsIncome += [Bool](count: newSections, repeatedValue: false)
+                
+                
+                
+            }
+            
+            
            
         }
             
@@ -292,6 +320,7 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.indexPathForSelectedRow!
         
+        dataForSection = accountData[indexPath.section].account!.allObjects as! [AccountTable]
         if Helper.pickAccount        {
             //  let index = expenseData.startIndex.advancedBy(indexPath.row)
             Helper.pickedAccountData = dataForSection[indexPath.row]
