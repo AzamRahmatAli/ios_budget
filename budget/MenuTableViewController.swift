@@ -24,7 +24,7 @@ class MenuTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        appName.text = StringFor.name["appName"]
+        appName.text = StringFor.name["appName"]!
         cellAsButton.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), forControlEvents: UIControlEvents.TouchUpInside)
     }
     /*override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -79,12 +79,19 @@ class MenuTableViewController: UITableViewController {
                     
             }
             
-            
-            
-            
         }
+        else if(indexPath.row == 4)
+        {
+            Helper.performUIUpdatesOnMain
+                {
+                    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                    
+                    let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("settings") as! UINavigationController
+                    self.presentViewController(nextViewController, animated:true, completion:nil)
+                    
+            }
     }
-    
+    }
     
     
     

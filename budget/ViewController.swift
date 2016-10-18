@@ -66,7 +66,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = StringFor.name["appName"]
+        self.title = StringFor.name["appName"]!
         
         let _ =  checkAndDownloadBackupFile()
         // print(((self.view.frame.height  - 480 ) + 24 ) / 2)

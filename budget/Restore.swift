@@ -208,9 +208,8 @@ struct Restore
         catch {/* error handling here */}
     }
     
-    
-    
-    static func clearCoreDataStore(dir : NSURL) {
+    private static func clearCoreData()
+    {
         let objectModel : NSManagedObjectModel? =  (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectModel
         
         let entities = objectModel!.entities
@@ -225,10 +224,28 @@ struct Restore
             }
             
         }
+    }
+    
+    static func clearCoreDataStore(dir : NSURL) {
+      
         do {
             try Helper.managedObjectContext!.save()
             restoreBackup(dir)
             
+            
+        } catch {
+            print("error")
+        }
+    }
+    
+    
+    static func fullReset()
+    {
+        clearCoreData()
+        do {
+            try Helper.managedObjectContext!.save()
+            
+            BasicData.addBasicData()
             
         } catch {
             print("error")
