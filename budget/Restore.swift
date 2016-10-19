@@ -227,7 +227,7 @@ struct Restore
     }
     
     static func clearCoreDataStore(dir : NSURL) {
-      
+            clearCoreData()
         do {
             try Helper.managedObjectContext!.save()
             restoreBackup(dir)
