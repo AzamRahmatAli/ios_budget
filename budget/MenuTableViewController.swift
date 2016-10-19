@@ -17,6 +17,7 @@ class MenuTableViewController: UITableViewController {
     
     @IBOutlet weak var appName: UILabel!
     
+    @IBOutlet weak var currency: UILabel!
     
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
@@ -94,7 +95,9 @@ class MenuTableViewController: UITableViewController {
     }
     
     
-    
+    override func viewWillAppear(animated: Bool) {
+        currency.text = Helper.formatter.currencyCode
+    }
     
     
     

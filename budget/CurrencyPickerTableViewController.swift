@@ -44,6 +44,8 @@ class CurrencyPickerTableViewController: UITableViewController {
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(pickedCurrencyCode, forKey: "currency")
         defaults.setObject(Helper.currencySymbol, forKey: "currencySymbol")
+        Helper.formatter.currencyCode = Helper.currency
+        Helper.formatter.currencySymbol = Helper.currencySymbol
         dismissViewControllerAnimated(true, completion: nil)
         
     }

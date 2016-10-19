@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
+        Helper.formatter.numberStyle = .CurrencyStyle
         let defaults = NSUserDefaults.standardUserDefaults()
         
         if let status = defaults.objectForKey("currency") as? String? {
@@ -26,8 +26,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let symbol = defaults.objectForKey("currencySymbol") as? String? {
                 
                 Helper.currencySymbol =  symbol
-                
+                Helper.formatter.currencyCode = Helper.currency
+                Helper.formatter.currencySymbol = Helper.currencySymbol
             }
+
+        }
+        else{
+            
+            
+         
+            Helper.currency = Helper.formatter.currencyCode
+            Helper.currencySymbol = Helper.formatter.currencySymbol
+            
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setObject(Helper.currency, forKey: "currency")
+            defaults.setObject(Helper.currencySymbol, forKey: "currencySymbol")
+            
+            
 
         }
 

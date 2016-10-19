@@ -15,6 +15,7 @@ struct Currency {
     init?(code: String?) {
         if let code = code,
             displayName = NSLocale.currentLocale().displayNameForKey(NSLocaleCurrencyCode, value:code) {
+           
             self.code = code
             self.displayName = displayName
         } else {

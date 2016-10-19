@@ -65,6 +65,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .CurrencyStyle
+      
+            formatter.locale = NSLocale.currentLocale()
+        print(formatter.currencyCode, formatter.currencySymbol)
+        
         
         self.title = StringFor.name["appName"]!
         

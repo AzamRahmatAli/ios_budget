@@ -15,7 +15,8 @@ struct  Helper {
     static var pickCategory = false
     static var categoryPicked = false
     
-    
+    static let formatter = NSNumberFormatter()
+   
     static var pickedSubCaregory : SubCategoryTable?
     static var expandedAndCollapsedSectionsIncome  : [Bool] = []
     static var expandedAndCollapsedSectionsAccount : [Bool] = []
@@ -85,40 +86,8 @@ struct  Helper {
 
 extension Float {
     var asLocaleCurrency:String {
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = .CurrencyStyle
-        if let currencyCode = Helper.currency
-        {
-            /*let components = [ NSLocaleCurrencyCode : currencyCode ]
-             let localeIdentifier = NSLocale.localeIdentifierFromComponents(components)
-             // print(localeIdentifier)
-             let localeForDefaultCurrency = NSLocale(localeIdentifier: localeIdentifier)
-             //print(localeForDefaultCurrency)
-             
-             formatter.locale = localeForDefaultCurrency
-             */
-            formatter.currencyCode = currencyCode
-            formatter.currencySymbol = Helper.currencySymbol
-            /* let locales: NSArray = NSLocale.availableLocaleIdentifiers()
-             for localeID in locales as! [NSString] {
-             let locale = NSLocale(localeIdentifier: localeID as String)
-             let code = locale.objectForKey(NSLocaleCurrencyCode) as? String
-             if code == currencyCode {
-             let symbol = locale.objectForKey(NSLocaleCurrencySymbol) as? String
-             print(symbol!)
-             
-             }
-             }*/
-            // formatter.currencySymbol = formatter.locale.objectForKey(NSLocaleCurrencySymbol) as? String
-            //print(formatter.internationalCurrencySymbol)
-            
-            //formatter.locale = NSLocale(localeIdentifier: "en_US")
-            
-        }else
-        {
-            formatter.locale = NSLocale.currentLocale()
-        }
-        return formatter.stringFromNumber(self)!
+        
+        return Helper.formatter.stringFromNumber(self)!
     }
     
     
