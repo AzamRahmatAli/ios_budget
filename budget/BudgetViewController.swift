@@ -292,8 +292,13 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if editingStyle == UITableViewCellEditingStyle.Delete {
             let request = NSFetchRequest(entityName: "SubCategoryTable")
             
+            let calendar = NSCalendar.currentCalendar()
+            let components = calendar.components([.Month , .Year], fromDate: NSDate())
+            let startDate = NSDate().startOfMonth(components)
+            let endDate = NSDate().endOfMonth(components)
             
-            request.predicate = NSPredicate(format: "category.name == %@", expenseData![indexPath.row].name!)
+            
+            request.predicate = NSPredicate(format: "expense.createdAt >= %@ AND expense.createdAt <= %@ AND category.name == %@", startDate!, endDate!  , expenseData![indexPath.row].name!)
             if managedObjectContext!.countForFetchRequest( request , error: nil) < 1
             {
                 if let category = CategoryTable.categoryByOnlyName(expenseData![indexPath.row].name!, inManagedObjectContext: managedObjectContext!)

@@ -155,12 +155,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     
                     
                     totalExpenses += Float(element.amount ?? "0") ?? 0.0
-                    if (element.account != nil)
-                    {
-                        expensesInAccountsTotal += totalExpenses
-                        
-                    }
-                    
+                  
                     
                     
                     
@@ -197,7 +192,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     
                     totalIncome += Float(element.amount ?? "0") ?? 0.0
                     
-                    incomeInAccountsTotal += totalIncome
+                    
                     
                     
                     
@@ -285,7 +280,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     
                     
                     total += Float(element.amount ?? "0") ?? 0.0
+                   if  let data = element.expense!.allObjects as? [ExpenseTable]
+                   {
+                    var expenses : Float = 0.0
+                   
+                    for expense in data
+                    {
+                        expenses += Float(expense.amount ?? "0") ?? 0.0
+                    }
+                        expensesInAccountsTotal += expenses
                     
+                    
+                    }
+                    if  let data = element.income!.allObjects as? [IncomeTable]
+                    {
+                         var incomes : Float = 0.0
+                        for income in data
+                        {
+                            incomes += Float(income.amount ?? "0") ?? 0.0
+                        }
+                        incomeInAccountsTotal += incomes
+                    }
                 }
             }
                 
