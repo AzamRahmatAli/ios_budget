@@ -683,10 +683,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="selectButton" destination="f13-4V-0Lp" id="GGK-UA-Co6"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NiP-Ad-Ha4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2768" y="1010"/>
+            <point key="canvasLocation" x="2574" y="1019"/>
         </scene>
         <!--Menu Table View Controller-->
         <scene sceneID="foP-Kl-YXs">

@@ -14,6 +14,7 @@ class CurrencyPickerTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        selectButton.enabled = false
         currency = CurrencyDataSource ()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -28,6 +29,7 @@ class CurrencyPickerTableViewController: UITableViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    @IBOutlet weak var selectButton: UIBarButtonItem!
     @IBAction func Select(sender: AnyObject) {
         
         let pickedCurrencyCode : String? = currency!.currencies[indexPathRow].code
@@ -93,7 +95,7 @@ class CurrencyPickerTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
+        selectButton.enabled = true
         indexPathRow = indexPath.row
         
     }
