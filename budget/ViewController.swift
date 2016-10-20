@@ -65,6 +65,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //tableView.backgroundColor = UIColor.greenColor()
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .CurrencyStyle
       
@@ -76,7 +77,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let _ =  checkAndDownloadBackupFile()
         // print(((self.view.frame.height  - 480 ) + 24 ) / 2)
-        bottomConstraint.constant = ((self.view.frame.height  - 480 ) + 24 ) / 2
+        //bottomConstraint.constant = ((self.view.frame.height  - 480 ) + 24 ) / 2
         
         // Do any additional setup after loading the view, typically from a nib.
         if  self.revealViewController() != nil {
@@ -105,14 +106,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
     }
-    /* override func viewDidLayoutSubviews(){
-     tableView.frame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, (self.view.frame.size.height /  13.7) * 4)
+     /*override func viewDidLayoutSubviews(){
+     tableView.frame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, self.view.frame.size.height /  3.5)
      // tableView.reloadData()
      }
-     override func viewDidAppear(animated: Bool) {
-     tableView.frame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, (self.view.frame.size.height /  13.7) * 4)
+     -override func viewDidAppear(animated: Bool) {
+     tableView.frame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, 50)
      }
-     */
+    */
     @IBOutlet weak var tableView: UITableView!
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -407,7 +408,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         //print(self.view.frame.size.height)
         //return self.tableView.frame.size.height /  13.7
-        return self.tableView.frame.size.height /  5
+        return self.tableView.frame.size.height /  4.2
     }
     
     
