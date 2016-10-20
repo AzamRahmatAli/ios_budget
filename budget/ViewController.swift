@@ -407,7 +407,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         //print(self.view.frame.size.height)
         //return self.tableView.frame.size.height /  13.7
-        return self.tableView.frame.size.height /  4.2
+        return self.tableView.frame.size.height /  5
     }
     
     
