@@ -54,6 +54,7 @@
 		F7E5F3F51D48B00F001FB6F7 /* ParentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E5F3F41D48B00F001FB6F7 /* ParentTableViewCell.swift */; };
 		F7EBC0051DBA40910089941B /* TransferTable+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EBC0031DBA40910089941B /* TransferTable+CoreDataProperties.swift */; };
 		F7EBC0061DBA40910089941B /* TransferTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EBC0041DBA40910089941B /* TransferTable.swift */; };
+		F7EBC0081DBA4BD20089941B /* TransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EBC0071DBA4BD20089941B /* TransferViewController.swift */; };
 		F7EFEE641D4B180A004695C0 /* AddExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EFEE631D4B180A004695C0 /* AddExpenseViewController.swift */; };
 		F7EFEE671D4B1ED1004695C0 /* ExpenseTable+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EFEE651D4B1ED1004695C0 /* ExpenseTable+CoreDataProperties.swift */; };
 		F7EFEE681D4B1ED1004695C0 /* ExpenseTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EFEE661D4B1ED1004695C0 /* ExpenseTable.swift */; };
@@ -114,6 +115,7 @@
 		F7E5F3F41D48B00F001FB6F7 /* ParentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentTableViewCell.swift; sourceTree = "<group>"; };
 		F7EBC0031DBA40910089941B /* TransferTable+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TransferTable+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F7EBC0041DBA40910089941B /* TransferTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferTable.swift; sourceTree = "<group>"; };
+		F7EBC0071DBA4BD20089941B /* TransferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferViewController.swift; sourceTree = "<group>"; };
 		F7EDF62D1DA2724E001C0F68 /* budget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = budget.entitlements; sourceTree = "<group>"; };
 		F7EFEE631D4B180A004695C0 /* AddExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddExpenseViewController.swift; sourceTree = "<group>"; };
 		F7EFEE651D4B1ED1004695C0 /* ExpenseTable+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ExpenseTable+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				F7D9BD0B1DA78F5200E88667 /* BackupRestoreViewController.swift */,
 				F7C4D23C1DAB830900084EEB /* OneBudgetViewController.swift */,
 				F7C7C84D1DB652CA001C899F /* SettingTableViewController.swift */,
+				F7EBC0071DBA4BD20089941B /* TransferViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				F7C7AF5D1D7448FF003FE534 /* AccountTypeTable+CoreDataProperties.swift in Sources */,
 				F7C7AF651D744D50003FE534 /* SubCategoryTable.swift in Sources */,
 				F7E5F3F51D48B00F001FB6F7 /* ParentTableViewCell.swift in Sources */,
+				F7EBC0081DBA4BD20089941B /* TransferViewController.swift in Sources */,
 				F7C073B11D7EBEC60019EF10 /* CurrencyPickerTableViewController.swift in Sources */,
 				F7D2AE601D618714007D6646 /* AccountTable.swift in Sources */,
 				F7DAE27A1D5DA10200AAA94F /* Helper.swift in Sources */,
