@@ -20,7 +20,7 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     @IBOutlet weak var deleteIcon: UIImageView!
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var missing: UILabel!
-    @IBOutlet weak var dateValue: UITextField!
+    //@IBOutlet weak var dateValue: UITextField!
     var updateAccount = false
     var accountData : AccountTable?
     
@@ -55,7 +55,7 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dateValue.delegate = self
+        //dateValue.delegate = self
         amount.delegate = self
         category.delegate = self
         subCategory.delegate = self
@@ -107,10 +107,10 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         // Constants.Picker.chooseSubCategory = true
-        if textField == dateValue
+        /*if textField == dateValue
         {
             self.performSegueWithIdentifier("pickDate", sender: nil)
-        }else if textField  == amount
+        }else*/ if textField  == amount
         {
             if amount.text == "0"
             {
@@ -283,7 +283,7 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
         }
         
         
-        dateValue.text =  Helper.getFormattedDate(accountDate!)
+        //dateValue.text =  Helper.getFormattedDate(accountDate!)
         icon.image = UIImage(named: Helper.bankIcon)
         
     }

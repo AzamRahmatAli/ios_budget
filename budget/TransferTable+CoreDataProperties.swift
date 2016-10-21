@@ -1,5 +1,5 @@
 //
-//  AccountTable+CoreDataProperties.swift
+//  TransferTable+CoreDataProperties.swift
 //  budget
 //
 //  Created by Azam Rahmat on 10/21/16.
@@ -12,15 +12,11 @@
 import Foundation
 import CoreData
 
-extension AccountTable {
+extension TransferTable {
 
-    @NSManaged var amount: String?
     @NSManaged var createdAt: NSDate?
-    @NSManaged var icon: String?
-    @NSManaged var name: String?
-    @NSManaged var accountType: AccountTypeTable?
-    @NSManaged var expense: NSSet?
-    @NSManaged var income: NSSet?
-    @NSManaged var transfer: NSSet?
+    @NSManaged var fromAccount: NSDate?
+    @NSManaged var toAccount: NSDate?
+    @NSManaged var account: AccountTable?
 
 }
