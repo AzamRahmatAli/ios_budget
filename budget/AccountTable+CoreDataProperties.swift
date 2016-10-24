@@ -2,7 +2,7 @@
 //  AccountTable+CoreDataProperties.swift
 //  budget
 //
-//  Created by Azam Rahmat on 10/21/16.
+//  Created by Azam Rahmat on 10/24/16.
 //  Copyright © 2016 Brainload Technologies. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -21,6 +21,7 @@ extension AccountTable {
     @NSManaged var accountType: AccountTypeTable?
     @NSManaged var expense: NSSet?
     @NSManaged var income: NSSet?
-    @NSManaged var transfer: NSSet?
+    @NSManaged var transferTo: NSSet?
+    @NSManaged var transferFrom: NSSet?
 
 }

@@ -12,6 +12,7 @@ import CoreData
 class AccountsViewController: UIViewController , UITableViewDelegate, UITableViewDataSource {
     
     
+    @IBOutlet weak var transferView: UIView!
     var selectedIndexPath : NSIndexPath?
     
     
@@ -53,7 +54,10 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
         
         let nib = UINib(nibName: "TableSectionHeader", bundle: nil)
         tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "TableSectionHeader")
-        
+        if Helper.pickAccount
+        {
+        transferView.hidden = true
+        }
     }
     
     
@@ -194,6 +198,26 @@ class AccountsViewController: UIViewController , UITableViewDelegate, UITableVie
             for element in expenses
             {
                 total -= Float(element.amount ?? "0") ?? 0.0
+            }
+        }
+        if let transfers =  dataForSection[row].transferTo?.allObjects as? [TransferTable]
+        {
+            for element in transfers
+            {
+                if element.transferAt?.compare(NSDate()) == .OrderedAscending
+                {
+                total -= Float(element.amount ?? "0") ?? 0.0
+                }
+            }
+        }
+        if let transfers =  dataForSection[row].transferFrom?.allObjects as? [TransferTable]
+        {
+            for element in transfers
+            {
+                if element.transferAt?.compare(NSDate()) == .OrderedAscending
+                {
+                total += Float(element.amount ?? "0") ?? 0.0
+                }
             }
         }
         return total

@@ -2192,7 +2192,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellparent" rowHeight="50" id="DAq-Fa-Rlz" customClass="ParentTableViewCell" customModule="budget" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="28" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DAq-Fa-Rlz" id="lKx-U4-4rY">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="49"/>
@@ -2313,13 +2313,14 @@
                     <connections>
                         <outlet property="accountTotalLabel" destination="QMC-eK-8j4" id="WYa-ZU-xWx"/>
                         <outlet property="tableView" destination="0cG-7g-z1f" id="kbK-gE-LNN"/>
+                        <outlet property="transferView" destination="IT5-5o-oAr" id="V5J-YS-fXt"/>
                         <segue destination="lQ8-HK-Rlz" kind="show" identifier="addAccount" id="hsH-l5-Qe9"/>
                         <segue destination="lQ8-HK-Rlz" kind="show" identifier="updateAccount" id="4bb-iU-kYY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rei-eW-sl7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2056" y="514"/>
+            <point key="canvasLocation" x="1977" y="613"/>
         </scene>
         <!--Add Account-->
         <scene sceneID="8I2-bt-XHD">
@@ -2491,7 +2492,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2521" y="488"/>
+            <point key="canvasLocation" x="2480" y="480"/>
         </scene>
         <!--Assign Icon-->
         <scene sceneID="PLP-F0-ucl">
@@ -2505,7 +2506,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="apA-n1-iUS">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="apA-n1-iUS">
                                 <rect key="frame" x="20" y="72" width="280" height="476"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nHO-1I-6yR">
@@ -2516,7 +2517,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cvcell" id="3wS-rF-pcG" customClass="CustomCollectionViewCell" customModule="budget" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="64" width="42" height="43"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="42" height="43"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="42" height="43"/>
@@ -2572,7 +2573,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RnH-fS-Q5a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3035" y="580"/>
+            <point key="canvasLocation" x="3040" y="812"/>
         </scene>
         <!--Setting Table View Controller-->
         <scene sceneID="1Ms-zb-N52">
@@ -2927,7 +2928,7 @@
                     <navigationItem key="navigationItem" title="Transfer" id="713-tu-A6A">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="sbd-6i-KqA">
                             <connections>
-                                <action selector="addExpense:" destination="ktf-1q-suf" id="BYa-he-6WI"/>
+                                <action selector="transfer:" destination="ktf-1q-suf" id="ssA-O9-spC"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -2935,17 +2936,17 @@
                     <connections>
                         <outlet property="amount" destination="7Tk-q8-t96" id="zL5-kp-bAN"/>
                         <outlet property="date" destination="mcc-dE-hlW" id="han-fK-xiC"/>
-                        <outlet property="dateValue" destination="mcc-dE-hlW" id="pSG-fA-bzp"/>
                         <outlet property="doThisBefore" destination="iYh-5c-JpO" id="haB-iG-jH1"/>
                         <outlet property="fromAccount" destination="OJs-Sk-bol" id="Vfm-Pq-9rI"/>
-                        <outlet property="missing" destination="iYh-5c-JpO" id="LFz-fm-hnT"/>
                         <outlet property="toAccount" destination="orY-1U-bL8" id="j4w-Uf-4u6"/>
+                        <segue destination="FLn-43-NNw" kind="show" identifier="pickAccount" id="nSy-yi-OpF"/>
+                        <segue destination="Fbh-7Y-0n5" kind="show" identifier="pickDate" id="7rb-HU-n6Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="clH-5b-g5v" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="g7O-Ig-8t5"/>
             </objects>
-            <point key="canvasLocation" x="2457" y="913"/>
+            <point key="canvasLocation" x="2567" y="753"/>
         </scene>
     </scenes>
     <resources>
@@ -2963,13 +2964,13 @@
         <image name="set" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JIA-nG-xpd"/>
-        <segue reference="u5g-mR-znT"/>
-        <segue reference="atI-d2-zGb"/>
         <segue reference="IVx-tJ-cid"/>
+        <segue reference="atI-d2-zGb"/>
+        <segue reference="u5g-mR-znT"/>
+        <segue reference="JIA-nG-xpd"/>
         <segue reference="rxT-Kq-Ui6"/>
-        <segue reference="CDC-Zr-p0D"/>
         <segue reference="hsH-l5-Qe9"/>
-        <segue reference="lxu-3I-7YJ"/>
+        <segue reference="nSy-yi-OpF"/>
+        <segue reference="7rb-HU-n6Q"/>
     </inferredMetricsTieBreakers>
 </document>

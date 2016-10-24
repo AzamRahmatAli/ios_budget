@@ -8,7 +8,8 @@
         <relationship name="accountType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AccountTypeTable" inverseName="account" inverseEntity="AccountTypeTable" syncable="YES"/>
         <relationship name="expense" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ExpenseTable" inverseName="account" inverseEntity="ExpenseTable" syncable="YES"/>
         <relationship name="income" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="IncomeTable" inverseName="account" inverseEntity="IncomeTable" syncable="YES"/>
-        <relationship name="transfer" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TransferTable" inverseName="account" inverseEntity="TransferTable" syncable="YES"/>
+        <relationship name="transferFrom" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TransferTable" inverseName="toAccount" inverseEntity="TransferTable" syncable="YES"/>
+        <relationship name="transferTo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TransferTable" inverseName="fromAccount" inverseEntity="TransferTable" syncable="YES"/>
     </entity>
     <entity name="AccountTypeTable" representedClassName=".AccountTypeTable" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -45,19 +46,19 @@
         <relationship name="expense" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ExpenseTable" inverseName="subCategory" inverseEntity="ExpenseTable" syncable="YES"/>
     </entity>
     <entity name="TransferTable" representedClassName=".TransferTable" syncable="YES">
-        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="fromAccount" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="toAccount" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AccountTable" inverseName="transfer" inverseEntity="AccountTable" syncable="YES"/>
+        <attribute name="amount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="transferAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="fromAccount" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AccountTable" inverseName="transferTo" inverseEntity="AccountTable" syncable="YES"/>
+        <relationship name="toAccount" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AccountTable" inverseName="transferFrom" inverseEntity="AccountTable" syncable="YES"/>
     </entity>
     <elements>
-        <element name="AccountTable" positionX="421" positionY="170" width="128" height="163"/>
+        <element name="AccountTable" positionX="421" positionY="170" width="128" height="178"/>
         <element name="AccountTypeTable" positionX="261" positionY="108" width="128" height="73"/>
         <element name="CategoryTable" positionX="432" positionY="18" width="128" height="88"/>
         <element name="ExpenseTable" positionX="-36" positionY="71" width="128" height="133"/>
-        <element name="IncomeTable" positionX="-36" positionY="222" width="128" height="120"/>
+        <element name="IncomeTable" positionX="-36" positionY="222" width="128" height="118"/>
         <element name="Other" positionX="108" positionY="252" width="128" height="60"/>
         <element name="SubCategoryTable" positionX="234" positionY="-63" width="128" height="118"/>
-        <element name="TransferTable" positionX="259" positionY="317" width="128" height="103"/>
+        <element name="TransferTable" positionX="36" positionY="252" width="128" height="103"/>
     </elements>
 </model>
