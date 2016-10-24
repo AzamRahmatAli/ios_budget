@@ -192,6 +192,48 @@ struct Restore
                         }
                     }
                 }
+                if let records = dic["TransferTable"]
+                {
+                    if let data =  records  as? [[String : String]]
+                    {
+                        for element in data{
+                            
+                            if let entity = NSEntityDescription.insertNewObjectForEntityForName("TransferTable", inManagedObjectContext: Helper.managedObjectContext!) as? TransferTable
+                            {
+                                let dateString = element["transferAt"]
+                                
+                                let dateObj = dateFormatter.dateFromString(dateString!)
+                                
+                                entity.transferAt = dateObj
+                                
+                                
+                                
+                                if element["amount"] != ""
+                                {
+                                    entity.amount = element["amount"]
+                                }
+                                if element["fromAccountname"] != ""
+                                {
+                                    
+                                    
+                                    entity.fromAccount = AccountTable.account(element["fromAccountname"]!, type: element["fromAccounttype"]!, inManagedObjectContext: Helper.managedObjectContext!)
+                                }
+                                if element["toAccountname"] != ""
+                                {
+                                    
+                                    
+                                    entity.toAccount = AccountTable.account(element["toAccountname"]!, type: element["toAccounttype"]!, inManagedObjectContext: Helper.managedObjectContext!)
+                                }
+
+
+                                
+                            }
+                        }
+                    }
+                }
+                
+                
+             
             }
             
             

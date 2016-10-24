@@ -108,6 +108,18 @@ static func doBackup() -> String?
         }
         dictionary["Other"] =  sets
         
+        
+        
+        fetchRequest = NSFetchRequest(entityName: "TransferTable")
+        fetchedData = try Helper.managedObjectContext?.executeFetchRequest(fetchRequest)
+        sets  = []
+        for element in (fetchedData! as! [TransferTable])
+            
+        {
+            sets.append(["transferAt" : String(element.transferAt!), "amount" :element.amount ?? "" , "fromAccountname" : element.fromAccount?.name ?? "", "fromAccounttype" : element.fromAccount?.accountType?.name ?? "" , "toAccountname" : element.toAccount?.name ?? "", "toAccounttype" : element.toAccount?.accountType?.name ?? ""])
+        }
+        dictionary["TransferTable"] =  sets
+        
         /*let dataInArr:NSArray = ManagedParser.convertToArray(fetchedGuest);
          NSLog("dataInArr \(dataInArr)");*/
         
