@@ -25,6 +25,7 @@
 		F793B10F1D40DFEA000960AC /* customTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F793B10E1D40DFE9000960AC /* customTableViewCell.swift */; };
 		F7A52B051D41F15F00033146 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7A52B031D41F15F00033146 /* SWRevealViewController.m */; };
 		F7A52B071D41FDC400033146 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A52B061D41FDC400033146 /* MenuTableViewController.swift */; };
+		F7B5C1351DBF7C54001552A6 /* QuickSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B5C1341DBF7C54001552A6 /* QuickSummaryViewController.swift */; };
 		F7B8A9941D799568009AA030 /* PickIconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B8A9931D799568009AA030 /* PickIconViewController.swift */; };
 		F7C073B11D7EBEC60019EF10 /* CurrencyPickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C073B01D7EBEC60019EF10 /* CurrencyPickerTableViewController.swift */; };
 		F7C3A39C1D66C93D004FA6B0 /* AddBudgetCGViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C3A39B1D66C93D004FA6B0 /* AddBudgetCGViewController.swift */; };
@@ -86,6 +87,7 @@
 		F7A52B021D41F15F00033146 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		F7A52B031D41F15F00033146 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		F7A52B061D41FDC400033146 /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
+		F7B5C1341DBF7C54001552A6 /* QuickSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickSummaryViewController.swift; sourceTree = "<group>"; };
 		F7B8A9931D799568009AA030 /* PickIconViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickIconViewController.swift; sourceTree = "<group>"; };
 		F7C073B01D7EBEC60019EF10 /* CurrencyPickerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyPickerTableViewController.swift; sourceTree = "<group>"; };
 		F7C3A39B1D66C93D004FA6B0 /* AddBudgetCGViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddBudgetCGViewController.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				F7C4D23C1DAB830900084EEB /* OneBudgetViewController.swift */,
 				F7C7C84D1DB652CA001C899F /* SettingTableViewController.swift */,
 				F7EBC0071DBA4BD20089941B /* TransferViewController.swift */,
+				F7B5C1341DBF7C54001552A6 /* QuickSummaryViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				F7EFEE681D4B1ED1004695C0 /* ExpenseTable.swift in Sources */,
 				F77CB8C81DB113DF0016F412 /* Strings.swift in Sources */,
 				F7D79ADA1D9A3102008ECF6D /* EmailBackupViewController.swift in Sources */,
+				F7B5C1351DBF7C54001552A6 /* QuickSummaryViewController.swift in Sources */,
 				F7A52B051D41F15F00033146 /* SWRevealViewController.m in Sources */,
 				F7C7AF641D744D50003FE534 /* SubCategoryTable+CoreDataProperties.swift in Sources */,
 				F7C3A39C1D66C93D004FA6B0 /* AddBudgetCGViewController.swift in Sources */,
