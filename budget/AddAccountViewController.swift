@@ -24,6 +24,7 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
     
     @IBOutlet weak var deleteIcon: UIImageView!
     @IBOutlet weak var icon: UIImageView!
+    @IBOutlet weak var summary: UIView!
     @IBOutlet weak var missing: UILabel!
     //@IBOutlet weak var dateValue: UITextField!
     var updateAccount = false
@@ -77,6 +78,54 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
         if updateAccount
         {
             
+            
+            
+            var remaining : Float = Float(accountData!.amount!)!
+            var fundIn : Float = 0.0
+            var fundOut : Float = 0.0
+            if let incomes =  accountData!.income?.allObjects as? [IncomeTable]
+            {
+                for element in incomes
+                {
+                    remaining += Float(element.amount ?? "0") ?? 0.0
+                    fundIn += Float(element.amount ?? "0") ?? 0.0
+                }
+            }
+            if let expenses =  accountData!.expense?.allObjects as? [ExpenseTable]
+            {
+                for element in expenses
+                {
+                    remaining -= Float(element.amount ?? "0") ?? 0.0
+                    fundOut += Float(element.amount ?? "0") ?? 0.0
+                }
+            }
+            if let transfers =  accountData!.transferTo?.allObjects as? [TransferTable]
+            {
+                for element in transfers
+                {
+                    if element.transferAt?.compare(NSDate()) == .OrderedAscending
+                    {
+                        remaining -= Float(element.amount ?? "0") ?? 0.0
+                        fundOut += Float(element.amount ?? "0") ?? 0.0
+                    }
+                }
+            }
+            if let transfers =  accountData!.transferFrom?.allObjects as? [TransferTable]
+            {
+                for element in transfers
+                {
+                    if element.transferAt?.compare(NSDate()) == .OrderedAscending
+                    {
+                        remaining += Float(element.amount ?? "0") ?? 0.0
+                        fundIn += Float(element.amount ?? "0") ?? 0.0
+                    }
+                }
+            }
+            
+            
+            
+            
+            
             category.text = accountData!.accountType?.name
             amount.text = accountData!.amount
             
@@ -87,12 +136,20 @@ class AddAccountViewController: UIViewController , UITextFieldDelegate {
             Helper.bankIcon =  accountData!.icon!
             
             self.title = "Update Account"
-            
+            if let total = Float(accountData!.amount!)
+            {
+                asOfAccount.text = "As of " + String(accountData!.createdAt!).componentsSeparatedByString(" ").first!
+            reconciledAmount.text = total.asLocaleCurrency
+            currentAmount.text = remaining.asLocaleCurrency
+            fundsIn.text = fundIn.asLocaleCurrency
+            fundsout.text = fundOut.asLocaleCurrency
+            }
         }
         else
         {
             
             deleteIcon.hidden = true
+            summary.hidden = true
             
         }
         
