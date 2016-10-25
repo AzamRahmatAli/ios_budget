@@ -11,6 +11,11 @@ import CoreData
 
 class AddAccountViewController: UIViewController , UITextFieldDelegate {
     
+    @IBOutlet weak var asOfAccount: UILabel!
+    @IBOutlet weak var currentAmount: UILabel!
+    @IBOutlet weak var fundsout: UILabel!
+    @IBOutlet weak var reconciledAmount: UILabel!
+    @IBOutlet weak var fundsIn: UILabel!
     
     @IBOutlet weak var category: UITextField!
     
