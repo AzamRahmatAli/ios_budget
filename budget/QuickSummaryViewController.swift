@@ -19,12 +19,12 @@ class QuickSummaryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        for index in 0...3
+      
+       for index in 0...3
             {
-                expenseTotal[index] = getExpenses(index)
-                incomeTotal[index] = getIncome(index)
-                timePeriod[index] = getDateSting(index)
+                expenseTotal.append(getExpenses(index))
+                incomeTotal.append(getIncome(index))
+                timePeriod.append(getDateSting(index))
                 
         }
     }
@@ -48,7 +48,47 @@ class QuickSummaryViewController: UIViewController {
       
     }
     
-    
+    func getDatesOfRange(index : Int) -> (startDate : NSDate, endDate : NSDate)
+    {
+        let cal = NSCalendar.currentCalendar()
+        var beginning : NSDate?
+        var end : NSDate?
+        var unit : NSCalendarUnit = NSCalendarUnit()
+        let components = NSDateComponents()
+     
+        if index == 0
+        {
+            unit = .Day
+            
+        }
+        else if index == 1
+        {
+            unit = .WeekOfYear
+            cal.firstWeekday = 2
+        }
+        else if index == 2
+        {
+            unit = .Month
+          
+        }
+        else if index == 3
+        {
+            unit = .Year
+            
+        }
+        if let date = cal.dateByAddingComponents(components, toDate: NSDate(), options: NSCalendarOptions(rawValue: 0)) {
+                       var duration = NSTimeInterval()
+            if cal.rangeOfUnit(unit, startDate: &beginning, interval: &duration, forDate: date) {
+                 end = beginning?.dateByAddingTimeInterval(duration)
+                                let seconds = Double(NSTimeZone.localTimeZone().secondsFromGMT)
+                beginning = beginning!.dateByAddingTimeInterval(seconds)// Optional(2015-02-15 05:00:00 +0000)
+                end = end!.dateByAddingTimeInterval(seconds - 1)// Optional(2015-02-22 05:00:00 +0000)
+            }
+        }
+
+        print(beginning!, end!)
+        return (beginning!, end!)
+    }
     
     
     
@@ -69,45 +109,62 @@ class QuickSummaryViewController: UIViewController {
     
     func getDateSting(index : Int) -> String
     {
+        let dateFormatter = NSDateFormatter()
+        
+        if index == 0
+        {
+            
+            dateFormatter.dateFormat = "dd-MMM-yyyy"
+            let selectedDate = dateFormatter.stringFromDate(NSDate())
+            return "Day: \(selectedDate)"
+        }
+        else if index == 1
+        {
+            let (startDate, endDate) = getDatesOfRange(index)
+            dateFormatter.dateFormat = "MMM dd"
+            let start = dateFormatter.stringFromDate(startDate)
+            
+            let end = endDate.dateByAddingTimeInterval(-20 * 60 * 60) // because endDate is giving next day date
+            let last = dateFormatter.stringFromDate(end)
+            return "Week: \(start) - \(last)"
+        }
+        else if index == 2
+        {
+            dateFormatter.dateFormat = "MMMM yyyy"
+            let selectedDate = dateFormatter.stringFromDate(NSDate())
+            return "Month: \(selectedDate)"
+            
+        }
+        else if index == 3
+        {
+            dateFormatter.dateFormat = "yyyy"
+            let selectedDate = dateFormatter.stringFromDate(NSDate())
+            return "Year: \(selectedDate)"
+            
+        }
         return ""
     }
     func getIncome(index : Int) -> Float
     {
-        return 0.0
-    }
-    
-    func getExpenses(index : Int) -> Float
-    {
+     
+        var income : Float = 0.0
         
-        var expenses : Float = 0.0
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Month , .Year], fromDate: expenseMonthDate)
-        
-        let dayTimePeriodFormatter = NSDateFormatter()
-        dayTimePeriodFormatter.dateFormat = "MMM YYYY"
-        
-        let dateString = dayTimePeriodFormatter.stringFromDate(expenseMonthDate)
-        
-       
-        
-        
+        let (startDate, endDate) = getDatesOfRange(index)
         
         
         do{
-            let request = NSFetchRequest(entityName: "ExpenseTable")
+            let request = NSFetchRequest(entityName: "IncomeTable")
             
             
             
-            let startDate = NSDate().startOfMonth(components)
-            let endDate = NSDate().endOfMonth(components)
-            request.predicate = NSPredicate(format: "createdAt >= %@ AND createdAt <= %@", startDate!, endDate!)
+            request.predicate = NSPredicate(format: "createdAt >= %@ AND createdAt <= %@", startDate, endDate)
             
-          
-            let queryResult = try Helper.managedObjectContext?.executeFetchRequest(request) as! [ExpenseTable]
+            
+            let queryResult = try Helper.managedObjectContext?.executeFetchRequest(request) as! [IncomeTable]
             
             for element in queryResult
             {
-                expenses += Float(element.amount ?? "0") ?? 0.0
+                income += Float(element.amount ?? "0") ?? 0.0
                 
             }
             
@@ -118,8 +175,41 @@ class QuickSummaryViewController: UIViewController {
             print("error : ", error)
         }
         
+        
+        return income
+
+    }
     
-    return expenses
+    func getExpenses(index : Int) -> Float
+    {
+        var expenses : Float = 0.0
+        
+        let (startDate, endDate) = getDatesOfRange(index)
+        
+        
+        do{
+            let request = NSFetchRequest(entityName: "ExpenseTable")
+            
+            
+            
+            request.predicate = NSPredicate(format: "createdAt >= %@ AND createdAt <= %@", startDate, endDate)
+            
+            
+            let queryResult = try Helper.managedObjectContext?.executeFetchRequest(request) as! [ExpenseTable]
+            
+            for element in queryResult
+            {
+                expenses += Float(element.amount ?? "0") ?? 0.0
+                
+            }
+            
+        }
+        catch let error {
+            print("error : ", error)
+        }
+        
+        
+        return expenses
         
     }
 

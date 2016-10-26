@@ -148,7 +148,20 @@
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qYZ-mW-ze8">
                                 <rect key="frame" x="0.0" y="489" width="320" height="59"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7h7-qv-EJn">
+                                        <rect key="frame" x="8" y="15" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <segue destination="FEc-rb-35B" kind="show" id="Ftd-ZX-cWg"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="7h7-qv-EJn" firstAttribute="leading" secondItem="qYZ-mW-ze8" secondAttribute="leadingMargin" id="Bs0-1a-AK6"/>
+                                    <constraint firstItem="7h7-qv-EJn" firstAttribute="centerY" secondItem="qYZ-mW-ze8" secondAttribute="centerY" id="ZQp-t9-eMG"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="66q-wP-9jt">
                                 <rect key="frame" x="0.0" y="354" width="320" height="127"/>
@@ -224,7 +237,6 @@
                         <segue destination="qpj-1g-0ZE" kind="show" identifier="incomeList" id="x0o-Zv-uNe"/>
                         <segue destination="F2O-Rf-L1q" kind="show" identifier="budgetView" id="Vax-Si-0IU"/>
                         <segue destination="FLn-43-NNw" kind="show" identifier="accountList" id="fEM-OY-Hyi"/>
-                        <segue destination="FEc-rb-35B" kind="show" identifier="quickSummary" id="MuP-Tg-8dY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -2854,7 +2866,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eEF-uG-AUO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1095" y="947"/>
+            <point key="canvasLocation" x="1144" y="1031"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="RyY-XX-Waz">

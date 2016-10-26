@@ -16,8 +16,8 @@ extension NSDate {
         let calendar = NSCalendar.currentCalendar()
         
         var startOfMonth = calendar.dateFromComponents(dateComponents)
-        
-        startOfMonth = startOfMonth!.dateByAddingTimeInterval(5 * 60 * 60)
+         let seconds = Double(NSTimeZone.localTimeZone().secondsFromGMT)
+        startOfMonth = startOfMonth!.dateByAddingTimeInterval(seconds)
         return startOfMonth
     }
     
@@ -40,7 +40,8 @@ extension NSDate {
             let plusOneMonthDateComponents = calendar.components([.Year, .Month], fromDate: plusOneMonthDate)
             
             var endOfMonth = calendar.dateFromComponents(plusOneMonthDateComponents)?.dateByAddingTimeInterval(-1)
-            endOfMonth = endOfMonth!.dateByAddingTimeInterval(5 * 60 * 60)
+            let seconds = Double(NSTimeZone.localTimeZone().secondsFromGMT)
+            endOfMonth = endOfMonth!.dateByAddingTimeInterval(seconds - 1)
             return endOfMonth
         }
         
