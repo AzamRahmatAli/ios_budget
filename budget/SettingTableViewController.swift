@@ -9,7 +9,9 @@
 import UIKit
 
 class SettingTableViewController: UITableViewController {
-
+    
+    
+    @IBOutlet weak var currency: UILabel!
     @IBAction func back(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
         
@@ -17,7 +19,7 @@ class SettingTableViewController: UITableViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        Helper.addMenuButton(self)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -26,7 +28,9 @@ class SettingTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if(indexPath.row == 0)
+        
+        
+        if(indexPath.row == 1 && indexPath.section == 1)
         {
             let alertController = UIAlertController(title: "Fully reset \(StringFor.name["appName"]!)", message:  "This will delete all data that you have entered and leave  \(StringFor.name["appName"]!) as if it was newly installed. Would you like to continue?", preferredStyle: UIAlertControllerStyle.Alert)
             
@@ -47,10 +51,17 @@ class SettingTableViewController: UITableViewController {
         {
          
         }
-  
+            
+        
+      
     }
     
-    
+     override func viewWillAppear(animated: Bool) {
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+       
+            currency.text = Helper.formatter.currencyCode
+        
+        }
     
     // MARK: - Table view data source
 

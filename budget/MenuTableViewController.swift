@@ -13,20 +13,50 @@ import CoreData
 
 class MenuTableViewController: UITableViewController {
     
-    @IBOutlet weak var cellAsButton: UIButton!
+   // @IBOutlet weak var cellAsButton: UIButton!
     
     @IBOutlet weak var appName: UILabel!
+    @IBOutlet weak var help: UIImageView!
     
-    @IBOutlet weak var currency: UILabel!
+    @IBOutlet weak var setting: UIImageView!
+  
+    @IBOutlet weak var dashBoard: UIImageView!
+    @IBOutlet weak var quickSummary: UIImageView!
+    //@IBOutlet weak var currency: UILabel!
     
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        switchColor(1)
         appName.text = StringFor.name["appName"]!
-        cellAsButton.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        
+       // cellAsButton.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+    }
+    
+    func switchColor(index : Int)
+    {
+        dashBoard.tintColor = UIColor.lightGrayColor()
+        quickSummary.tintColor = UIColor.lightGrayColor()
+        setting.tintColor = UIColor.lightGrayColor()
+        help.tintColor = UIColor.lightGrayColor()
+        if index == 1
+        {
+            dashBoard.tintColor = UIColor(red: 0, green : 0.478431, blue: 1 , alpha: 1)
+        }else if index == 2
+        {
+          quickSummary.tintColor = UIColor(red: 0, green : 0.478431, blue: 1 , alpha: 1)
+        }
+        else if index == 3
+        {
+           setting.tintColor = UIColor(red: 0, green : 0.478431, blue: 1 , alpha: 1)
+        }
+        else if index == 4
+        {
+          help.tintColor = UIColor(red: 0, green : 0.478431, blue: 1 , alpha: 1)
+        }
     }
     /*override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
      let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
@@ -58,8 +88,13 @@ class MenuTableViewController: UITableViewController {
         {
             
         }
-        else if(indexPath.row == 2)
+        if(indexPath.row == 1)
         {
+            self.performSegueWithIdentifier("dashboard", sender: nil)
+            switchColor(indexPath.row)
+        }
+        else if(indexPath.row == 2)
+        {/*
             Helper.performUIUpdatesOnMain
                 {
                     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
@@ -67,22 +102,26 @@ class MenuTableViewController: UITableViewController {
                     let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("currency") as! UINavigationController
                     self.presentViewController(nextViewController, animated:true, completion:nil)
                     
-            }
+            }*/
+            
+            switchColor(indexPath.row)
+            
         }
         else if(indexPath.row == 3)
         {
-            Helper.performUIUpdatesOnMain
+            /*Helper.performUIUpdatesOnMain
                 {
                     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
                     
                     let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("emailBackup") as! UINavigationController
                     self.presentViewController(nextViewController, animated:true, completion:nil)
                     
-            }
+            }*/
+            switchColor(indexPath.row)
             
         }
         else if(indexPath.row == 4)
-        {
+        {/*
             Helper.performUIUpdatesOnMain
                 {
                     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
@@ -90,13 +129,14 @@ class MenuTableViewController: UITableViewController {
                     let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("settings") as! UINavigationController
                     self.presentViewController(nextViewController, animated:true, completion:nil)
                     
-            }
+            }*/
+            switchColor(indexPath.row)
     }
     }
     
     
-    override func viewWillAppear(animated: Bool) {
-        currency.text = Helper.formatter.currencyCode
+   override func viewWillAppear(animated: Bool) {
+        //currency.text = Helper.formatter.currencyCode
     }
     
     

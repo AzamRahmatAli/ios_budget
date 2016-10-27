@@ -80,6 +80,26 @@ struct  Helper {
         
         
     }
+    static func addMenuButton(controller : UIViewController)
+    {
+    if  controller.revealViewController() != nil {
+    //  menuButton.target = self.revealViewController()
+    //  menuButton.action = "rightRevealToggle:"
+    
+    
+    let myBtn: UIButton = UIButton()
+    myBtn.setImage(UIImage(named: "menu"), forState: .Normal)
+    myBtn.frame = CGRectMake(0, 0, 50, 50)
+    myBtn.backgroundColor = UIColor.clearColor()
+    // myBtn.addTarget(self, action: "rightRevealToggle:", forControlEvents: .TouchUpInside)
+    myBtn.addTarget(controller.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+    controller.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: myBtn), animated: true)
+    
+    
+  
+    }
+
+    }
     
 }
 

@@ -15,11 +15,23 @@ class QuickSummaryViewController: UIViewController {
     var timePeriod : [String] = []
     var incomeTotal : [Float] = []
     var expenseTotal : [Float] = []
- 
+    var bySegue = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        Helper.addMenuButton(self)
+        if bySegue
+        {
+        let myBtn: UIButton = UIButton()
+            myBtn.setTitle("Back", forState: .Normal)
+        
+       
+        myBtn.backgroundColor = UIColor.clearColor()
+        // myBtn.addTarget(self, action: "rightRevealToggle:", forControlEvents: .TouchUpInside)
+            myBtn.addTarget(self.revealViewController(), action: #selector(QuickSummaryViewController.dismis), forControlEvents: UIControlEvents.TouchUpInside)
+            self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: myBtn), animated: true)
+        }
+
        for index in 0...3
             {
                 expenseTotal.append(getExpenses(index))
@@ -29,23 +41,16 @@ class QuickSummaryViewController: UIViewController {
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
-        
-        
-        
-        
+    func dismis()
+    {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    
     }
-    
-    @IBOutlet weak var tableView: UITableView!
-    
-
-
+ 
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
-            
             return timePeriod.count
-      
     }
     
     func getDatesOfRange(index : Int) -> (startDate : NSDate, endDate : NSDate)
@@ -86,7 +91,7 @@ class QuickSummaryViewController: UIViewController {
             }
         }
 
-        print(beginning!, end!)
+        
         return (beginning!, end!)
     }
     
@@ -110,12 +115,12 @@ class QuickSummaryViewController: UIViewController {
     func getDateSting(index : Int) -> String
     {
         let dateFormatter = NSDateFormatter()
-        
+        let selectedDate = dateFormatter.stringFromDate(NSDate())
         if index == 0
         {
             
             dateFormatter.dateFormat = "dd-MMM-yyyy"
-            let selectedDate = dateFormatter.stringFromDate(NSDate())
+            
             return "Day: \(selectedDate)"
         }
         else if index == 1
@@ -131,14 +136,14 @@ class QuickSummaryViewController: UIViewController {
         else if index == 2
         {
             dateFormatter.dateFormat = "MMMM yyyy"
-            let selectedDate = dateFormatter.stringFromDate(NSDate())
+            
             return "Month: \(selectedDate)"
             
         }
         else if index == 3
         {
             dateFormatter.dateFormat = "yyyy"
-            let selectedDate = dateFormatter.stringFromDate(NSDate())
+            
             return "Year: \(selectedDate)"
             
         }
@@ -214,7 +219,9 @@ class QuickSummaryViewController: UIViewController {
     }
 
     
-        
+    override func viewWillAppear(animated: Bool) {
+        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+    }
     
         
 }

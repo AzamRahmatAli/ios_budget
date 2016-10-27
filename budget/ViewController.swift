@@ -80,19 +80,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //bottomConstraint.constant = ((self.view.frame.height  - 480 ) + 24 ) / 2
         
         // Do any additional setup after loading the view, typically from a nib.
-        if  self.revealViewController() != nil {
-            //  menuButton.target = self.revealViewController()
-            //  menuButton.action = "rightRevealToggle:"
-            
-            
-            let myBtn: UIButton = UIButton()
-            myBtn.setImage(UIImage(named: "menu"), forState: .Normal)
-            myBtn.frame = CGRectMake(0, 0, 50, 50)
-            myBtn.backgroundColor = UIColor.clearColor()
-            // myBtn.addTarget(self, action: "rightRevealToggle:", forControlEvents: .TouchUpInside)
-            myBtn.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: myBtn), animated: true)
-            
+        
+        
+        Helper.addMenuButton(self)
             
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "MMMM yyyy"
@@ -103,8 +93,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             /*menuButton.addTarget(self.revealViewController(), action: "revealToggle:", forControlEvents: UIControlEvents.TouchUpInside)
              
              */
-        }
-        
+       
     }
      /*override func viewDidLayoutSubviews(){
      tableView.frame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, self.view.frame.size.height /  3.5)
