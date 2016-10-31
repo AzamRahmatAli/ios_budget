@@ -290,19 +290,37 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if editingStyle == UITableViewCellEditingStyle.Delete {
-            let request = NSFetchRequest(entityName: "SubCategoryTable")
+            //let request = NSFetchRequest(entityName: "SubCategoryTable")
             
-            let calendar = NSCalendar.currentCalendar()
-            let components = calendar.components([.Month , .Year], fromDate: NSDate())
-            let startDate = NSDate().startOfMonth(components)
-            let endDate = NSDate().endOfMonth(components)
+            //let calendar = NSCalendar.currentCalendar()
+            //let components = calendar.components([.Month , .Year], fromDate: NSDate())
+            //let startDate = NSDate().startOfMonth(components)
+            //let endDate = NSDate().endOfMonth(components)
+            //request.predicate = NSPredicate(format: "expense.createdAt >= %@ AND expense.createdAt <= %@ AND category.name == %@", startDate!, endDate!  , expenseData![indexPath.row].name!)
             
-            
-            request.predicate = NSPredicate(format: "expense.createdAt >= %@ AND expense.createdAt <= %@ AND category.name == %@", startDate!, endDate!  , expenseData![indexPath.row].name!)
-            if managedObjectContext!.countForFetchRequest( request , error: nil) < 1
+            //request.predicate = NSPredicate(format: "category.name == %@", expenseData![indexPath.row].name!)
+            /*if managedObjectContext!.countForFetchRequest( request , error: nil) < 1
+             {
+             if let category = CategoryTable.categoryByOnlyName(expenseData![indexPath.row].name!, inManagedObjectContext: managedObjectContext!)
+             {
+             managedObjectContext!.deleteObject(category)
+             do {
+             try managedObjectContext!.save()
+             
+             
+             } catch {
+             print("error")
+             }
+             
+             expenseData!.removeAtIndex(indexPath.row)
+             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+             }
+             
+             }*/
+            if let category = CategoryTable.categoryByOnlyName(expenseData![indexPath.row].name!, inManagedObjectContext: managedObjectContext!)
             {
-                if let category = CategoryTable.categoryByOnlyName(expenseData![indexPath.row].name!, inManagedObjectContext: managedObjectContext!)
-                {
+                if category.subcategory?.count < 1{
+                    
                     managedObjectContext!.deleteObject(category)
                     do {
                         try managedObjectContext!.save()
@@ -311,26 +329,24 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     } catch {
                         print("error")
                     }
-                    
                     expenseData!.removeAtIndex(indexPath.row)
                     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
                 }
-                
-            }
-            else{
-                let alertController = UIAlertController(title: "Delete not allowed", message: "Delete the subcategories first", preferredStyle: UIAlertControllerStyle.Alert)
-                
-                
-                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
-                    print("OK")
+                else{
+                    let alertController = UIAlertController(title: "Delete not allowed", message: "Delete the subcategories first", preferredStyle: UIAlertControllerStyle.Alert)
+                    
+                    
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+                        print("OK")
+                    }
+                    
+                    alertController.addAction(okAction)
+                    self.presentViewController(alertController, animated: true, completion: nil)
                 }
                 
-                alertController.addAction(okAction)
-                self.presentViewController(alertController, animated: true, completion: nil)
+                
+                
             }
-            
-            
-            
         }
     }
     

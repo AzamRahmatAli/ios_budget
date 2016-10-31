@@ -16,16 +16,21 @@ class SearchTableViewController: UITableViewController {
     var filteredExpenses : [ExpenseTable] = []
     
     func filterContentForSearchText(text : String)
-  {
+          {
     filteredExpenses = expenseData.filter{ expense in
         let lowerCaseText = text.lowercaseString
+        var accountName = ""
+        if let account = expense.account?.name
+        {
+            accountName = account
+        }
         return (
             expense.subCategory!.category!.name!.lowercaseString.containsString(lowerCaseText) ||
             expense.subCategory!.name!.lowercaseString.containsString(lowerCaseText) ||
             expense.note!.lowercaseString.containsString(lowerCaseText) ||
             expense.amount!.containsString(lowerCaseText) ||
             String(expense.createdAt).containsString(lowerCaseText) ||
-            expense.account!.name!.lowercaseString.containsString(lowerCaseText)
+            accountName.lowercaseString.containsString(lowerCaseText) 
         )
         
     }
