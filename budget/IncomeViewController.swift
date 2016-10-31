@@ -236,13 +236,13 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
-    func updateMonthlyExpenseView(expenseMonthDate : NSDate)
+    func updateMonthlyExpenseView(incomeMonthDate : NSDate)
     {
      
         let dayTimePeriodFormatter = NSDateFormatter()
         dayTimePeriodFormatter.dateFormat = "MMM YYYY"
         
-        let dateString = dayTimePeriodFormatter.stringFromDate(expenseMonthDate)
+        let dateString = dayTimePeriodFormatter.stringFromDate(incomeMonthDate)
         
         self.titleMonth.text =  dateString
         expenseData = [:]
@@ -253,7 +253,7 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let request = NSFetchRequest(entityName: "IncomeTable")
             
             
-            let (startDate , endDate) =  NSDate().getDatesOfRange(.Month)
+            let (startDate , endDate) =  incomeMonthDate.getDatesOfRange(.Month)
             
             request.predicate = NSPredicate(format: "createdAt >= %@ AND createdAt <= %@", startDate, endDate)
             
