@@ -146,7 +146,16 @@ class BudgetViewController: UIViewController, UITableViewDelegate, UITableViewDa
         {
             for category in subCategories
             {
-                if let expenses = category.expense?.allObjects as? [ExpenseTable]
+                let expenseArray = category.expense?.allObjects as? [ExpenseTable]
+                let filteredExpenses : [ExpenseTable]? = expenseArray!.filter{ expense in
+                    let (startDate , endDate) =  NSDate().getDatesOfRange(.Month)
+                    
+                    return  expense.createdAt!.compare(startDate) == .OrderedDescending && expense.createdAt!.compare(endDate) == .OrderedAscending
+                    
+                    
+                }
+                if let expenses = filteredExpenses
+                
                 {
                     for expense in expenses
                     {

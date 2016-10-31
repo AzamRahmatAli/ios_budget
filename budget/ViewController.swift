@@ -120,11 +120,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
         var request = NSFetchRequest(entityName: "ExpenseTable")
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Month , .Year], fromDate: NSDate())
-        let startDate = NSDate().startOfMonth(components)
-        let endDate = NSDate().endOfMonth(components)
-        let predicate = NSPredicate(format: "createdAt >= %@ AND createdAt <= %@", startDate!, endDate!)
+        
+        
+        let (startDate , endDate) =  NSDate().getDatesOfRange(.Month)
+        let predicate = NSPredicate(format: "createdAt >= %@ AND createdAt <= %@", startDate, endDate)
         
         
         

@@ -17,7 +17,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
     
     
-    var expenseData = [SubCategoryTable]()
+    var subCategories = [SubCategoryTable]()
     var category : CategoryTable?
     var available : Float = 0
     
@@ -46,7 +46,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
     {
         
         
-        expenseData = []
+        subCategories = []
         
         
         do{
@@ -58,10 +58,10 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
             
             let queryResult = try managedObjectContext?.executeFetchRequest(request) as! [SubCategoryTable]
             
-            expenseData = queryResult
+            subCategories = queryResult
             
             var totalAmount : Float = 0
-            for element in expenseData
+            for element in subCategories
             {
                 
                 totalAmount += Float(element.amount ?? "0" ) ?? 0.0
@@ -81,8 +81,8 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        print(expenseData.count)
-        return expenseData.count
+        print(subCategories.count)
+        return subCategories.count
         
     }
     
@@ -91,8 +91,15 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
     {
         // if expenseData[row].expense != nil{
         var amount : Float = 0.0
+        let expenseArray = subCategories[row].expense?.allObjects as? [ExpenseTable]
+        let filteredExpenses : [ExpenseTable]? = expenseArray!.filter{ expense in
+            let (startDate , endDate) =  NSDate().getDatesOfRange(.Month)
         
-        if let expenses = expenseData[row].expense?.allObjects as? [ExpenseTable]
+            return  expense.createdAt!.compare(startDate) == .OrderedDescending && expense.createdAt!.compare(endDate) == .OrderedAscending
+           
+            
+        }
+        if let expenses = filteredExpenses
         {
             for expense in expenses
             {
@@ -114,7 +121,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         
         var amount : Float = 0.0
         
-        if let price = Float(expenseData[row].amount ?? "0")
+        if let price = Float(subCategories[row].amount ?? "0")
         {
             amount += price
         }
@@ -139,7 +146,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCellWithIdentifier("cellparent", forIndexPath: indexPath) as! ParentTableViewCell
         
         
-        cell.leftUp.text = expenseData[indexPath.row].name
+        cell.leftUp.text = subCategories[indexPath.row].name
         cell.img.tintColor = Helper.colors[indexPath.row % 5]
         cell.img.tintColor = UIColor.whiteColor()
         cell.viewInCell.backgroundColor = Helper.colors[indexPath.row % 5]
@@ -175,7 +182,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         
-        if let scicon = expenseData[indexPath.row].icon
+        if let scicon = subCategories[indexPath.row].icon
         {
             cell.img.image = UIImage(named: scicon)
         }
@@ -199,7 +206,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         if Helper.pickCategory
         {
             
-            Helper.pickedSubCaregory = expenseData[indexPath.row]
+            Helper.pickedSubCaregory = subCategories[indexPath.row]
             
             Helper.pickCategory = false
             Helper.categoryPicked = true
@@ -235,7 +242,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
             dvc.addSubCategory = true
             dvc.update = true
             dvc.category = category
-            dvc.subcategory = expenseData[path.row]
+            dvc.subcategory = subCategories[path.row]
             
         }
             
@@ -245,9 +252,9 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
             let path = self.tableView.indexPathForSelectedRow!
             let dvc = segue.destinationViewController as! SetBudgetViewController
             
-            dvc.crntCategory = expenseData[path.row].category!.name!
-            dvc.crntSubCategory = expenseData[path.row].name!
-            if let amount = expenseData[path.row].amount
+            dvc.crntCategory = subCategories[path.row].category!.name!
+            dvc.crntSubCategory = subCategories[path.row].name!
+            if let amount = subCategories[path.row].amount
             {
                 dvc.crntAmount = amount
             }
@@ -285,7 +292,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
         
         if editingStyle == UITableViewCellEditingStyle.Delete {
             
-            if let category = SubCategoryTable.subCategory(expenseData[indexPath.row].name!,categoryName: category!.name!, inManagedObjectContext: managedObjectContext!)
+            if let category = SubCategoryTable.subCategory(subCategories[indexPath.row].name!,categoryName: category!.name!, inManagedObjectContext: managedObjectContext!)
             {
                 if category.expense?.count < 1{
                     
@@ -297,7 +304,7 @@ class SCBudgetViewController: UIViewController, UITableViewDelegate, UITableView
                     } catch {
                         print("error")
                     }
-                    expenseData.removeAtIndex(indexPath.row)
+                    subCategories.removeAtIndex(indexPath.row)
                     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
                     
                 }

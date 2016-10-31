@@ -55,44 +55,32 @@ class QuickSummaryViewController: UIViewController {
     
     func getDatesOfRange(index : Int) -> (startDate : NSDate, endDate : NSDate)
     {
-        let cal = NSCalendar.currentCalendar()
-        var beginning : NSDate?
-        var end : NSDate?
-        var unit : NSCalendarUnit = NSCalendarUnit()
-        let components = NSDateComponents()
-     
+       
         if index == 0
         {
-            unit = .Day
+            return NSDate().getDatesOfRange(.Day)
             
         }
         else if index == 1
         {
-            unit = .WeekOfYear
-            cal.firstWeekday = 2
+            return NSDate().getDatesOfRange(.WeekOfYear)
+            
         }
         else if index == 2
         {
-            unit = .Month
+            return NSDate().getDatesOfRange(.Month)
+           
           
         }
         else if index == 3
         {
-            unit = .Year
+            return NSDate().getDatesOfRange(.Year)
+            
             
         }
-        if let date = cal.dateByAddingComponents(components, toDate: NSDate(), options: NSCalendarOptions(rawValue: 0)) {
-                       var duration = NSTimeInterval()
-            if cal.rangeOfUnit(unit, startDate: &beginning, interval: &duration, forDate: date) {
-                 end = beginning?.dateByAddingTimeInterval(duration)
-                                let seconds = Double(NSTimeZone.localTimeZone().secondsFromGMT)
-                beginning = beginning!.dateByAddingTimeInterval(seconds)// Optional(2015-02-15 05:00:00 +0000)
-                end = end!.dateByAddingTimeInterval(seconds - 1)// Optional(2015-02-22 05:00:00 +0000)
-            }
-        }
-
         
-        return (beginning!, end!)
+        return (NSDate(), NSDate())
+        
     }
     
     

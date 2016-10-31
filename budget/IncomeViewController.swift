@@ -238,9 +238,7 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func updateMonthlyExpenseView(expenseMonthDate : NSDate)
     {
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Month , .Year], fromDate: expenseMonthDate)
-        
+     
         let dayTimePeriodFormatter = NSDateFormatter()
         dayTimePeriodFormatter.dateFormat = "MMM YYYY"
         
@@ -255,11 +253,11 @@ class IncomeViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let request = NSFetchRequest(entityName: "IncomeTable")
             
             
-            let startDate = NSDate().startOfMonth(components)
-            let endDate = NSDate().endOfMonth(components)
-            request.predicate = NSPredicate(format: "createdAt >= %@ AND createdAt <= %@", startDate!, endDate!)
+            let (startDate , endDate) =  NSDate().getDatesOfRange(.Month)
             
-            print(startDate! ,  endDate!)
+            request.predicate = NSPredicate(format: "createdAt >= %@ AND createdAt <= %@", startDate, endDate)
+            
+            print(startDate ,  endDate)
             let queryResult = try managedObjectContext?.executeFetchRequest(request) as! [IncomeTable]
             var totalAmount : Float = 0
             for element in queryResult

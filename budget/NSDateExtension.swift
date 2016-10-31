@@ -11,40 +11,32 @@ import Foundation
 
 extension NSDate {
     
-    func startOfMonth(dateComponents: NSDateComponents) -> NSDate? {
+ 
+    func getDatesOfRange(calendarUnit : NSCalendarUnit ) -> (startDate : NSDate, endDate : NSDate)
+    {
+        let cal = NSCalendar.currentCalendar()
+        var beginning : NSDate?
+        var end : NSDate?
         
-        let calendar = NSCalendar.currentCalendar()
+        let components = NSDateComponents()
         
-        var startOfMonth = calendar.dateFromComponents(dateComponents)
-         let seconds = Double(NSTimeZone.localTimeZone().secondsFromGMT)
-        startOfMonth = startOfMonth!.dateByAddingTimeInterval(seconds)
-        return startOfMonth
-    }
-    
-    func dateByAddingMonths(dateComponents: NSDateComponents) -> NSDate? {
-        
-        let calendar = NSCalendar.currentCalendar()
-        
-        
-        let date = calendar.dateFromComponents(dateComponents)
-        
-        return calendar.dateByAddingUnit(.Month, value: 1, toDate: date!, options: [])!
-        
-    }
-    
-    func endOfMonth(dateComponents: NSDateComponents) -> NSDate? {
-        
-        let calendar = NSCalendar.currentCalendar()
-        if let plusOneMonthDate = dateByAddingMonths(dateComponents) {
+        if calendarUnit == .WeekOfYear
+        {
             
-            let plusOneMonthDateComponents = calendar.components([.Year, .Month], fromDate: plusOneMonthDate)
-            
-            var endOfMonth = calendar.dateFromComponents(plusOneMonthDateComponents)?.dateByAddingTimeInterval(-1)
-            let seconds = Double(NSTimeZone.localTimeZone().secondsFromGMT)
-            endOfMonth = endOfMonth!.dateByAddingTimeInterval(seconds - 1)
-            return endOfMonth
+            cal.firstWeekday = 2
+        }
+                
+        if let date = cal.dateByAddingComponents(components, toDate: self, options: NSCalendarOptions(rawValue: 0)) {
+            var duration = NSTimeInterval()
+            if cal.rangeOfUnit(calendarUnit, startDate: &beginning, interval: &duration, forDate: date) {
+                end = beginning?.dateByAddingTimeInterval(duration)
+                let seconds = Double(NSTimeZone.localTimeZone().secondsFromGMT)
+                beginning = beginning!.dateByAddingTimeInterval(seconds)// Optional(2015-02-15 05:00:00 +0000)
+                end = end!.dateByAddingTimeInterval(seconds - 1)// Optional(2015-02-22 05:00:00 +0000)
+            }
         }
         
-        return nil
+        
+        return (beginning!, end!)
     }
 }
