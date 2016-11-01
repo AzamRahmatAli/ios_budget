@@ -26,6 +26,8 @@
 		F7987FF61DC33993005FC805 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7987FF51DC33993005FC805 /* SearchTableViewController.swift */; };
 		F7A52B051D41F15F00033146 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7A52B031D41F15F00033146 /* SWRevealViewController.m */; };
 		F7A52B071D41FDC400033146 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A52B061D41FDC400033146 /* MenuTableViewController.swift */; };
+		F7AA75A11DC8AF0A00B54A81 /* Lock.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7AA75A01DC8AF0A00B54A81 /* Lock.xib */; };
+		F7AA75A31DC8AFEF00B54A81 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7AA75A21DC8AFEF00B54A81 /* Lock.swift */; };
 		F7B5C1351DBF7C54001552A6 /* QuickSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B5C1341DBF7C54001552A6 /* QuickSummaryViewController.swift */; };
 		F7B8A9941D799568009AA030 /* PickIconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B8A9931D799568009AA030 /* PickIconViewController.swift */; };
 		F7C073B11D7EBEC60019EF10 /* CurrencyPickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C073B01D7EBEC60019EF10 /* CurrencyPickerTableViewController.swift */; };
@@ -89,6 +91,8 @@
 		F7A52B021D41F15F00033146 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		F7A52B031D41F15F00033146 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		F7A52B061D41FDC400033146 /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
+		F7AA75A01DC8AF0A00B54A81 /* Lock.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Lock.xib; sourceTree = "<group>"; };
+		F7AA75A21DC8AFEF00B54A81 /* Lock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lock.swift; sourceTree = "<group>"; };
 		F7B5C1341DBF7C54001552A6 /* QuickSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickSummaryViewController.swift; sourceTree = "<group>"; };
 		F7B8A9931D799568009AA030 /* PickIconViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickIconViewController.swift; sourceTree = "<group>"; };
 		F7C073B01D7EBEC60019EF10 /* CurrencyPickerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyPickerTableViewController.swift; sourceTree = "<group>"; };
@@ -163,10 +167,7 @@
 				F793B0FB1D40C975000960AC /* Main.storyboard */,
 				F793B0FE1D40C975000960AC /* budget.xcdatamodeld */,
 				F793B0F71D40C974000960AC /* AppDelegate.swift */,
-				F7E31EED1D54ACFA005110BB /* extention */,
 				F7E31EE21D545BDF005110BB /* Controller */,
-				F7E31EE31D545C0B005110BB /* Custom View */,
-				F7E31EE11D545BB1005110BB /* slide menu */,
 				F7E31EE41D545C43005110BB /* Model */,
 				F793B1011D40C975000960AC /* Assets.xcassets */,
 				F793B1061D40C975000960AC /* Info.plist */,
@@ -212,6 +213,7 @@
 		F7E31EE21D545BDF005110BB /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				F7E31EE31D545C0B005110BB /* Custom View */,
 				F793B0F91D40C974000960AC /* ViewController.swift */,
 				F7A52B061D41FDC400033146 /* MenuTableViewController.swift */,
 				F7E5F3F21D489BE2001FB6F7 /* ExpenseViewController.swift */,
@@ -245,6 +247,8 @@
 				F7E5F3F41D48B00F001FB6F7 /* ParentTableViewCell.swift */,
 				F7F17DD01D51BF8C0054920D /* TableSectionHeader.swift */,
 				F77C7BE31D6717DB0046A789 /* CustomCollectionViewCell.swift */,
+				F7AA75A01DC8AF0A00B54A81 /* Lock.xib */,
+				F7AA75A21DC8AFEF00B54A81 /* Lock.swift */,
 			);
 			name = "Custom View";
 			sourceTree = "<group>";
@@ -252,6 +256,8 @@
 		F7E31EE41D545C43005110BB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F7E31EE11D545BB1005110BB /* slide menu */,
+				F7E31EED1D54ACFA005110BB /* extention */,
 				F7C7AF611D74491B003FE534 /* coreData */,
 				F7DAE2791D5DA10200AAA94F /* Helper.swift */,
 				F77CB8C71DB113DF0016F412 /* Strings.swift */,
@@ -338,6 +344,7 @@
 				F7F17DD91D51C42E0054920D /* TableSectionHeader.xib in Resources */,
 				F793B1051D40C975000960AC /* LaunchScreen.storyboard in Resources */,
 				F793B1021D40C975000960AC /* Assets.xcassets in Resources */,
+				F7AA75A11DC8AF0A00B54A81 /* Lock.xib in Resources */,
 				F793B0FD1D40C975000960AC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,6 +378,7 @@
 				F7E5F3F31D489BE2001FB6F7 /* ExpenseViewController.swift in Sources */,
 				F7A52B071D41FDC400033146 /* MenuTableViewController.swift in Sources */,
 				F7C7C84E1DB652CA001C899F /* SettingTableViewController.swift in Sources */,
+				F7AA75A31DC8AFEF00B54A81 /* Lock.swift in Sources */,
 				F7C7AF601D7448FF003FE534 /* CategoryTable.swift in Sources */,
 				F7987FF61DC33993005FC805 /* SearchTableViewController.swift in Sources */,
 				F77CB8C61DB10F450016F412 /* BasicData.swift in Sources */,

@@ -35,7 +35,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var ExpenceAsPercentage : CGFloat = 0.0
     
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
-    
+    let lockView = Lock.instanceFromNib()
     
     
     func checkAndDownloadBackupFile() -> Bool{
@@ -61,11 +61,39 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         return true
     }
+    let notificationCenter = NSNotificationCenter.defaultCenter()
+   /*
     
+    // Remove observer:
+    notificationCenter.removeObserver(self,
+    name:UIApplicationWillResignActiveNotification,
+    object:nil)
     
+    // Remove all observer for all notifications:
+    notificationCenter.removeObserver(self)
+    */
+    // Callback:
+    func applicationDidBecomeActiveNotification() {
+        // Handle application will resign notification event.
+        print("active")
+        
+    }
+    override func viewDidDisappear(animated: Bool) {
+        notificationCenter.removeObserver(self,
+                                          name:UIApplicationDidBecomeActiveNotification,
+                                          object:nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         //tableView.backgroundColor = UIColor.greenColor()
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        // Add observer:
+        
+        lockView.frame = self.view.frame
+        
+        self.view.addSubview(lockView)
+        
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .CurrencyStyle
       
@@ -381,13 +409,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewWillAppear(animated: Bool) {
+        if lockView.unlocked{
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         
+        notificationCenter.addObserver(self,
+                                       selector:#selector(ViewController.applicationDidBecomeActiveNotification),
+                                       name:UIApplicationDidBecomeActiveNotification,
+                                       object:nil)
         incomeInAccountsTotal  = 0
         expensesInAccountsTotal = 0
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         tableView.reloadData()
         
-        
+        }
         
     }
     
