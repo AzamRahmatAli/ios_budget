@@ -78,14 +78,65 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+            
+        
+        if var topController = UIApplication.sharedApplication().keyWindow?.rootViewController {
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+            
+            let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("lock")
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+           
+            if String(topController).componentsSeparatedByString(" ").first! != String(self.window!.rootViewController!).componentsSeparatedByString(" ").first!
+            {
+                print(topController , self.window!.rootViewController!)
+                topController.presentViewController(nextViewController, animated:true, completion:nil)
+            }
+            // topController should now be your topmost view controller
+        }
+        
+            /*let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+            
+            let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("lock")
+            guard let rvc = self.window?.rootViewController else {
+                return
+            }
+            if let vc = getCurrentViewController(rvc) {
+                // do your stuff here
+                
+                vc.presentViewController(nextViewController, animated:true, completion:nil)
+            }
+            */
+            /*print(self.window!.rootViewController!)
+             self.window!.rootViewController!.presentViewController(nextViewController, animated:true, completion:nil)*/
+        
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
-
+    func getCurrentViewController(vc: UIViewController) -> UIViewController? {
+        if let pvc = vc.presentedViewController {
+            return getCurrentViewController(pvc)
+        }
+        else if let svc = vc as? UISplitViewController where svc.viewControllers.count > 0 {
+            return getCurrentViewController(svc.viewControllers.last!)
+        }
+        else if let nc = vc as? UINavigationController where nc.viewControllers.count > 0 {
+            return getCurrentViewController(nc.topViewController!)
+        }
+        else if let tbc = vc as? UITabBarController {
+            if let svc = tbc.selectedViewController {
+                return getCurrentViewController(svc)
+            }
+        }
+        return vc
+    }
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        
     }
 
     func applicationWillTerminate(application: UIApplication) {

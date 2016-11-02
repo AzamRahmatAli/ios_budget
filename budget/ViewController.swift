@@ -87,12 +87,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         //tableView.backgroundColor = UIColor.greenColor()
         
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        //self.navigationController?.setNavigationBarHidden(true, animated: true)
         // Add observer:
         
-        lockView.frame = self.view.frame
+        //lockView.frame = self.view.frame
         
-        self.view.addSubview(lockView)
+        //self.view.addSubview(lockView)
         
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .CurrencyStyle
@@ -409,8 +409,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewWillAppear(animated: Bool) {
-        if lockView.unlocked{
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        //if lockView.unlocked{
+        //self.navigationController?.setNavigationBarHidden(false, animated: true)
         
         notificationCenter.addObserver(self,
                                        selector:#selector(ViewController.applicationDidBecomeActiveNotification),
@@ -421,7 +421,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         tableView.reloadData()
         
-        }
+        //}
         
     }
     

@@ -14,6 +14,7 @@ import UIKit
 struct  Helper {
     static var pickCategory = false
     static var categoryPicked = false
+    static var firstStart = true
     
     static let formatter = NSNumberFormatter()
    

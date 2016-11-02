@@ -29,6 +29,8 @@
 		F7AA75A11DC8AF0A00B54A81 /* Lock.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7AA75A01DC8AF0A00B54A81 /* Lock.xib */; };
 		F7AA75A31DC8AFEF00B54A81 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7AA75A21DC8AFEF00B54A81 /* Lock.swift */; };
 		F7B5C1351DBF7C54001552A6 /* QuickSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B5C1341DBF7C54001552A6 /* QuickSummaryViewController.swift */; };
+		F7B60CB91DC9BF0400BF56C3 /* Other.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7B60CB81DC9BF0400BF56C3 /* Other.storyboard */; };
+		F7B60CBB1DC9C15700BF56C3 /* LockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B60CBA1DC9C15700BF56C3 /* LockViewController.swift */; };
 		F7B8A9941D799568009AA030 /* PickIconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B8A9931D799568009AA030 /* PickIconViewController.swift */; };
 		F7C073B11D7EBEC60019EF10 /* CurrencyPickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C073B01D7EBEC60019EF10 /* CurrencyPickerTableViewController.swift */; };
 		F7C3A39C1D66C93D004FA6B0 /* AddBudgetCGViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C3A39B1D66C93D004FA6B0 /* AddBudgetCGViewController.swift */; };
@@ -94,6 +96,8 @@
 		F7AA75A01DC8AF0A00B54A81 /* Lock.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Lock.xib; sourceTree = "<group>"; };
 		F7AA75A21DC8AFEF00B54A81 /* Lock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lock.swift; sourceTree = "<group>"; };
 		F7B5C1341DBF7C54001552A6 /* QuickSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickSummaryViewController.swift; sourceTree = "<group>"; };
+		F7B60CB81DC9BF0400BF56C3 /* Other.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Other.storyboard; sourceTree = "<group>"; };
+		F7B60CBA1DC9C15700BF56C3 /* LockViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LockViewController.swift; sourceTree = "<group>"; };
 		F7B8A9931D799568009AA030 /* PickIconViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickIconViewController.swift; sourceTree = "<group>"; };
 		F7C073B01D7EBEC60019EF10 /* CurrencyPickerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyPickerTableViewController.swift; sourceTree = "<group>"; };
 		F7C3A39B1D66C93D004FA6B0 /* AddBudgetCGViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddBudgetCGViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +170,7 @@
 				F7EDF62D1DA2724E001C0F68 /* budget.entitlements */,
 				F793B0FB1D40C975000960AC /* Main.storyboard */,
 				F793B0FE1D40C975000960AC /* budget.xcdatamodeld */,
+				F7B60CB81DC9BF0400BF56C3 /* Other.storyboard */,
 				F793B0F71D40C974000960AC /* AppDelegate.swift */,
 				F7E31EE21D545BDF005110BB /* Controller */,
 				F7E31EE41D545C43005110BB /* Model */,
@@ -236,6 +241,7 @@
 				F7EBC0071DBA4BD20089941B /* TransferViewController.swift */,
 				F7B5C1341DBF7C54001552A6 /* QuickSummaryViewController.swift */,
 				F7987FF51DC33993005FC805 /* SearchTableViewController.swift */,
+				F7B60CBA1DC9C15700BF56C3 /* LockViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -346,6 +352,7 @@
 				F793B1021D40C975000960AC /* Assets.xcassets in Resources */,
 				F7AA75A11DC8AF0A00B54A81 /* Lock.xib in Resources */,
 				F793B0FD1D40C975000960AC /* Main.storyboard in Resources */,
+				F7B60CB91DC9BF0400BF56C3 /* Other.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +414,7 @@
 				F7E31EEC1D54AB8C005110BB /* IncomeViewController.swift in Sources */,
 				F77CB8C41DB10ABA0016F412 /* Restore.swift in Sources */,
 				F77CB8C21DB10A9B0016F412 /* Backup.swift in Sources */,
+				F7B60CBB1DC9C15700BF56C3 /* LockViewController.swift in Sources */,
 				F7C7AF5F1D7448FF003FE534 /* CategoryTable+CoreDataProperties.swift in Sources */,
 				F70316F51D585A4100B5BC98 /* SCBudgetViewController.swift in Sources */,
 			);

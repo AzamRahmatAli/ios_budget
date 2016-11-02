@@ -43,6 +43,7 @@ class Lock: UIView  , UITextFieldDelegate{
         
     }
     override func awakeFromNib() {
+        self.hidden = false
         unlocked = false
         password.delegate = self
         appName.text = StringFor.name["appName"]

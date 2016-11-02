@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="kz8-pC-rL9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="z1y-fj-PPv">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -1100,7 +1100,7 @@
         <!--Reveal View Controller-->
         <scene sceneID="skh-3g-b8q">
             <objects>
-                <viewController id="kz8-pC-rL9" customClass="SWRevealViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="entryPoint" id="kz8-pC-rL9" customClass="SWRevealViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RMY-y0-ntQ"/>
                         <viewControllerLayoutGuide type="bottom" id="4gO-7H-mBo"/>
@@ -3269,6 +3269,70 @@
             </objects>
             <point key="canvasLocation" x="1020" y="1026"/>
         </scene>
+        <!--Lock View Controller-->
+        <scene sceneID="Nev-Yp-XNK">
+            <objects>
+                <viewController storyboardIdentifier="lock" id="z1y-fj-PPv" customClass="LockViewController" customModule="budget" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vR7-iO-Zuv"/>
+                        <viewControllerLayoutGuide type="bottom" id="4cb-0f-O0D"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dHu-ZF-8vk">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_logo" translatesAutoresizingMaskIntoConstraints="NO" id="ndx-MF-f5S">
+                                <rect key="frame" x="8" y="142" width="304" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="SmU-OA-pyv"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AppName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="59J-6D-Tjm">
+                                <rect key="frame" x="8" y="75" width="304" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="MfM-XP-5LD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HRj-JY-G6T">
+                                <rect key="frame" x="103" y="278" width="115" height="30"/>
+                                <state key="normal" title="Forgot Password"/>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZGh-we-7Jt">
+                                <rect key="frame" x="118" y="104" width="84" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZGh-we-7Jt" firstAttribute="centerX" secondItem="dHu-ZF-8vk" secondAttribute="centerX" id="C9M-Xt-4QX"/>
+                            <constraint firstItem="HRj-JY-G6T" firstAttribute="centerX" secondItem="dHu-ZF-8vk" secondAttribute="centerX" id="EgV-xE-RgY"/>
+                            <constraint firstItem="59J-6D-Tjm" firstAttribute="leading" secondItem="dHu-ZF-8vk" secondAttribute="leadingMargin" constant="-8" id="Em7-md-Vcu"/>
+                            <constraint firstItem="59J-6D-Tjm" firstAttribute="centerX" secondItem="ZGh-we-7Jt" secondAttribute="centerX" id="Fk3-b8-OyS"/>
+                            <constraint firstItem="ZGh-we-7Jt" firstAttribute="top" secondItem="59J-6D-Tjm" secondAttribute="bottom" constant="8" id="M6K-ed-wCX"/>
+                            <constraint firstItem="ndx-MF-f5S" firstAttribute="top" secondItem="ZGh-we-7Jt" secondAttribute="bottom" constant="8" id="Oq0-6U-UxP"/>
+                            <constraint firstItem="59J-6D-Tjm" firstAttribute="centerX" secondItem="dHu-ZF-8vk" secondAttribute="centerX" id="W3u-Zq-brg"/>
+                            <constraint firstItem="ndx-MF-f5S" firstAttribute="centerX" secondItem="HRj-JY-G6T" secondAttribute="centerX" id="YZh-l6-lGH"/>
+                            <constraint firstItem="59J-6D-Tjm" firstAttribute="trailing" secondItem="ndx-MF-f5S" secondAttribute="trailing" id="bGI-Vn-7lc"/>
+                            <constraint firstItem="HRj-JY-G6T" firstAttribute="top" secondItem="ndx-MF-f5S" secondAttribute="bottom" constant="8" id="bUm-AI-X7E"/>
+                            <constraint firstItem="59J-6D-Tjm" firstAttribute="top" secondItem="vR7-iO-Zuv" secondAttribute="bottom" constant="55" id="gYX-JF-zpn"/>
+                            <constraint firstItem="59J-6D-Tjm" firstAttribute="leading" secondItem="ndx-MF-f5S" secondAttribute="leading" id="sNj-l7-9IN"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="appName" destination="59J-6D-Tjm" id="TOY-nK-G4i"/>
+                        <outlet property="password" destination="ZGh-we-7Jt" id="jFw-IT-My0"/>
+                        <segue destination="kz8-pC-rL9" kind="show" identifier="unlocked" id="beI-7T-llZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yrp-ia-3q6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="213" y="136"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Camera" width="217" height="285"/>
@@ -3284,13 +3348,13 @@
         <image name="prevMonth" width="144" height="144"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="JIA-nG-xpd"/>
         <segue reference="Vax-Si-0IU"/>
-        <segue reference="IVx-tJ-cid"/>
+        <segue reference="aKh-Cl-C3P"/>
         <segue reference="fEM-OY-Hyi"/>
-        <segue reference="Z4r-al-0ds"/>
-        <segue reference="rxT-Kq-Ui6"/>
         <segue reference="hsH-l5-Qe9"/>
         <segue reference="7rb-HU-n6Q"/>
-        <segue reference="JIA-nG-xpd"/>
+        <segue reference="Z4r-al-0ds"/>
+        <segue reference="rxT-Kq-Ui6"/>
     </inferredMetricsTieBreakers>
 </document>
