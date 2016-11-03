@@ -17,9 +17,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        let request = NSFetchRequest(entityName: "Other")
         Helper.formatter.numberStyle = .CurrencyStyle
         let defaults = NSUserDefaults.standardUserDefaults()
-        
+        if managedObjectContext.countForFetchRequest( request , error: nil) > 0
+        {
+            
+            do{
+                
+                let queryResult = try Helper.managedObjectContext?.executeFetchRequest(request).first as! Other
+                
+                if let isLockOn = queryResult.lockOn
+                {
+                    Helper.passwordProtectionOn = Bool(isLockOn)
+                    Helper.password = queryResult.password!
+                }
+                
+                
+            }
+            catch let error {
+                print("error : ", error)
+            }
+            
+            
+            
+        }
         if let status = defaults.objectForKey("currency") as? String? {
             
             Helper.currency =  status
@@ -67,6 +89,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         iCloudAccountIsSignedIn()
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        var initialViewController = storyboard.instantiateViewControllerWithIdentifier("entryPoint")
+        if Helper.passwordProtectionOn
+        {
+            initialViewController = storyboard.instantiateViewControllerWithIdentifier("lock")
+        }
+        self.window?.rootViewController = initialViewController
+        self.window?.makeKeyAndVisible()
+        
         return true
     }
 
@@ -81,18 +114,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         
         if var topController = UIApplication.sharedApplication().keyWindow?.rootViewController {
-            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             
-            let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("lock")
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController
             }
-           
-            if String(topController).componentsSeparatedByString(" ").first! != String(self.window!.rootViewController!).componentsSeparatedByString(" ").first!
-            {
-                print(topController , self.window!.rootViewController!)
-                topController.presentViewController(nextViewController, animated:true, completion:nil)
-            }
+            
+            
+               // topController.view.hidden = true
+            
             // topController should now be your topmost view controller
         }
         
@@ -115,6 +144,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        
+        if var topController = UIApplication.sharedApplication().keyWindow?.rootViewController {
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+            
+            let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("lock")
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+            
+            if !Helper.lockActivated && Helper.passwordProtectionOn
+            {
+                topController.presentViewController(nextViewController, animated:true, completion:nil)
+                
+            }
+            // topController should now be your topmost view controller
+        }
+
     }
     func getCurrentViewController(vc: UIViewController) -> UIViewController? {
         if let pvc = vc.presentedViewController {

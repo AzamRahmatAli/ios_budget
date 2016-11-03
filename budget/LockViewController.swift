@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LocalAuthentication
 
 class LockViewController: UIViewController , UITextFieldDelegate{
 
@@ -29,11 +30,10 @@ class LockViewController: UIViewController , UITextFieldDelegate{
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         
-        if (textField.text! + string) == "1234"
+        if (textField.text! + string) == Helper.password
         {
+            Helper.lockActivated = false
             
-           
-            textField.text = "1234"
             
             if Helper.firstStart
             {
@@ -41,11 +41,15 @@ class LockViewController: UIViewController , UITextFieldDelegate{
             
             self.performSegueWithIdentifier("unlocked", sender: nil)
                 Helper.firstStart = false
-                return true
+            
             }
+            else{
             
             self.dismissViewControllerAnimated(true, completion: nil)
+            }
         }
+        
+        
         return true
        
     }
@@ -53,13 +57,54 @@ class LockViewController: UIViewController , UITextFieldDelegate{
     
     override func viewDidLoad() {
       
-        
+        Helper.lockActivated = true
         password.delegate = self
         appName.text = StringFor.name["appName"]
         
     }
     
     
+    override func viewWillAppear(animated: Bool) {
+        print("will appear")
+    }
+    
+    
+    override func viewDidAppear(animated: Bool) {
+        let authContext : LAContext = LAContext()
+        var error : NSError?
+        if authContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &error ){
+            authContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Authentication is needed to access \(StringFor.name["appName"]!)", reply: { (wasSuccessful : Bool, error : NSError?) in
+                if wasSuccessful
+                {
+                    
+                    Helper.lockActivated = false
+                    if Helper.firstStart
+                    {
+                        Helper.performUIUpdatesOnMain()
+                            {
+                        
+                        self.performSegueWithIdentifier("unlocked", sender: nil)
+                        }
+                        Helper.firstStart = false
+                        
+                        
+                    }
+                    else{
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    }
+                }
+                else{
+                    Helper.performUIUpdatesOnMain()
+                        {
+                    self.password.becomeFirstResponder()
+                    }
+                }
+            })
+        }
+
+    }
+
+   
 
 
 }

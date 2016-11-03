@@ -15,7 +15,9 @@ struct  Helper {
     static var pickCategory = false
     static var categoryPicked = false
     static var firstStart = true
-    
+    static var lockActivated = false
+    static var passwordProtectionOn = false
+    static var password = ""
     static let formatter = NSNumberFormatter()
    
     static var pickedSubCaregory : SubCategoryTable?

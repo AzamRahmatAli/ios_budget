@@ -41,6 +41,7 @@
 		F7C7AF641D744D50003FE534 /* SubCategoryTable+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C7AF621D744D50003FE534 /* SubCategoryTable+CoreDataProperties.swift */; };
 		F7C7AF651D744D50003FE534 /* SubCategoryTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C7AF631D744D50003FE534 /* SubCategoryTable.swift */; };
 		F7C7C84E1DB652CA001C899F /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C7C84D1DB652CA001C899F /* SettingTableViewController.swift */; };
+		F7C973161DCB5562001E6556 /* PasswordSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C973151DCB5562001E6556 /* PasswordSetupViewController.swift */; };
 		F7D2AE5F1D618714007D6646 /* AccountTable+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D2AE5D1D618714007D6646 /* AccountTable+CoreDataProperties.swift */; };
 		F7D2AE601D618714007D6646 /* AccountTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D2AE5E1D618714007D6646 /* AccountTable.swift */; };
 		F7D2AE621D618A6A007D6646 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D2AE611D618A6A007D6646 /* AccountsViewController.swift */; };
@@ -105,6 +106,7 @@
 		F7C7AF621D744D50003FE534 /* SubCategoryTable+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SubCategoryTable+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F7C7AF631D744D50003FE534 /* SubCategoryTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategoryTable.swift; sourceTree = "<group>"; };
 		F7C7C84D1DB652CA001C899F /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
+		F7C973151DCB5562001E6556 /* PasswordSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordSetupViewController.swift; sourceTree = "<group>"; };
 		F7D2AE5D1D618714007D6646 /* AccountTable+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AccountTable+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F7D2AE5E1D618714007D6646 /* AccountTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTable.swift; sourceTree = "<group>"; };
 		F7D2AE611D618A6A007D6646 /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				F7B5C1341DBF7C54001552A6 /* QuickSummaryViewController.swift */,
 				F7987FF51DC33993005FC805 /* SearchTableViewController.swift */,
 				F7B60CBA1DC9C15700BF56C3 /* LockViewController.swift */,
+				F7C973151DCB5562001E6556 /* PasswordSetupViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				F77C7BE41D6717DB0046A789 /* CustomCollectionViewCell.swift in Sources */,
 				F7E31EEA1D549329005110BB /* AddIncomeViewController.swift in Sources */,
 				F7D9BD0C1DA78F5200E88667 /* BackupRestoreViewController.swift in Sources */,
+				F7C973161DCB5562001E6556 /* PasswordSetupViewController.swift in Sources */,
 				F793B0FA1D40C974000960AC /* ViewController.swift in Sources */,
 				F7B8A9941D799568009AA030 /* PickIconViewController.swift in Sources */,
 				F70316FF1D5865BC00B5BC98 /* SetBudgetViewController.swift in Sources */,

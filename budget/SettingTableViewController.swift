@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import CoreData
 
 class SettingTableViewController: UITableViewController {
     
     
     @IBOutlet weak var currency: UILabel!
+    @IBOutlet weak var email: UILabel!
+    @IBOutlet weak var lockOn: UILabel!
     @IBAction func back(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
         
@@ -20,6 +23,7 @@ class SettingTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         Helper.addMenuButton(self)
+        lockOn.text = "OFF"
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -56,9 +60,20 @@ class SettingTableViewController: UITableViewController {
       
     }
     
+   
+    
      override func viewWillAppear(animated: Bool) {
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-       
+    
+                    if Helper.passwordProtectionOn
+                    {
+                    lockOn.text = "ON"
+                    }
+                    else{
+                        lockOn.text = "OFF"
+                    }
+        
+        
             currency.text = Helper.formatter.currencyCode
         
         }

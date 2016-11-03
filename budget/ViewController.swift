@@ -35,7 +35,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var ExpenceAsPercentage : CGFloat = 0.0
     
     var managedObjectContext: NSManagedObjectContext? = (UIApplication.sharedApplication().delegate as? AppDelegate)?.managedObjectContext
-    let lockView = Lock.instanceFromNib()
+    
     
     
     func checkAndDownloadBackupFile() -> Bool{
