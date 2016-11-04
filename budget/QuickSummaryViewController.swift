@@ -15,21 +15,14 @@ class QuickSummaryViewController: UIViewController {
     var timePeriod : [String] = []
     var incomeTotal : [Float] = []
     var expenseTotal : [Float] = []
-    var bySegue = false
+    var addMenu = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Helper.addMenuButton(self)
-        if bySegue
-        {
-        let myBtn: UIButton = UIButton()
-            myBtn.setTitle("Back", forState: .Normal)
         
-       
-        myBtn.backgroundColor = UIColor.clearColor()
-        // myBtn.addTarget(self, action: "rightRevealToggle:", forControlEvents: .TouchUpInside)
-            myBtn.addTarget(self.revealViewController(), action: #selector(QuickSummaryViewController.dismis), forControlEvents: UIControlEvents.TouchUpInside)
-            self.navigationItem.setLeftBarButtonItem(UIBarButtonItem(customView: myBtn), animated: true)
+        if addMenu
+        {
+            Helper.addMenuButton(self)
         }
 
        for index in 0...3
@@ -208,7 +201,10 @@ class QuickSummaryViewController: UIViewController {
 
     
     override func viewWillAppear(animated: Bool) {
+        if addMenu
+        {
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
     }
     
         

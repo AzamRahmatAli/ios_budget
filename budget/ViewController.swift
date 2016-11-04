@@ -404,6 +404,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             
             
+        }else{
+            if (segue.identifier == "summary") {
+                
+                let dvc = segue.destinationViewController as! QuickSummaryViewController
+                dvc.addMenu = false
+                
+                
+                
+            }
         }
         
     }
