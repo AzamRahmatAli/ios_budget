@@ -19,7 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let request = NSFetchRequest(entityName: "Other")
         Helper.formatter.numberStyle = .CurrencyStyle
-        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        
+        
         if managedObjectContext.countForFetchRequest( request , error: nil) > 0
         {
             
@@ -31,8 +33,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 {
                     Helper.passwordProtectionOn = Bool(isLockOn)
                     Helper.password = queryResult.password!
+                    
                 }
-                
+                if let currencyCode = queryResult.currencyCode
+                {
+                Helper.formatter.currencyCode = currencyCode
+                Helper.formatter.currencySymbol = queryResult.currencySymbol
+                }
                 
             }
             catch let error {
@@ -42,32 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             
         }
-        if let status = defaults.objectForKey("currency") as? String? {
-            
-            Helper.currency =  status
-            if let symbol = defaults.objectForKey("currencySymbol") as? String? {
-                
-                Helper.currencySymbol =  symbol
-                Helper.formatter.currencyCode = Helper.currency
-                Helper.formatter.currencySymbol = Helper.currencySymbol
-            }
-
-        }
-        else{
-            
-            
-         
-            Helper.currency = Helper.formatter.currencyCode
-            Helper.currencySymbol = Helper.formatter.currencySymbol
-            
-            let defaults = NSUserDefaults.standardUserDefaults()
-            defaults.setObject(Helper.currency, forKey: "currency")
-            defaults.setObject(Helper.currencySymbol, forKey: "currencySymbol")
-            
-            
-
-        }
-
+        
         
         if(NSUserDefaults.standardUserDefaults().boolForKey("HasLaunchedOnce"))
         {

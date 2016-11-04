@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class CurrencyPickerTableViewController: UITableViewController {
     
@@ -39,16 +40,51 @@ class CurrencyPickerTableViewController: UITableViewController {
          let locale = NSLocale(localeIdentifier: localeIdentifier)
          print(locale)
          let Identifier = locale.objectForKey(NSLocaleCurrencySymbol) as? String*/
-        print(pickedCurrencyCode)
         
-        Helper.currency = pickedCurrencyCode
-        Helper.currencySymbol =  Helper.getLocalCurrencySymbl(pickedCurrencyCode!)
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(pickedCurrencyCode, forKey: "currency")
-        defaults.setObject(Helper.currencySymbol, forKey: "currencySymbol")
-        Helper.formatter.currencyCode = Helper.currency
-        Helper.formatter.currencySymbol = Helper.currencySymbol
-        dismissViewControllerAnimated(true, completion: nil)
+        
+        Helper.formatter.currencyCode = pickedCurrencyCode
+        Helper.formatter.currencySymbol =  Helper.getLocalCurrencySymbl(pickedCurrencyCode!)
+        let request = NSFetchRequest(entityName: "Other")
+        
+        
+        
+        if Helper.managedObjectContext!.countForFetchRequest( request , error: nil) > 0
+        {
+            
+            do{
+                
+                
+                let queryResult = try Helper.managedObjectContext?.executeFetchRequest(request).first as! Other
+                queryResult.currencyCode = Helper.formatter.currencyCode
+                queryResult.currencySymbol = Helper.formatter.currencySymbol
+                
+                
+            }
+            catch let error {
+                print("error : ", error)
+            }
+            
+            
+            
+        }
+            
+        else if let entity = NSEntityDescription.insertNewObjectForEntityForName("Other", inManagedObjectContext: Helper.managedObjectContext!) as? Other
+        {
+            
+            entity.currencyCode =  Helper.formatter.currencyCode
+            entity.currencySymbol =  Helper.formatter.currencySymbol
+            
+        }
+        do {
+            try Helper.managedObjectContext!.save()
+           
+            navigationController?.popViewControllerAnimated(true)
+        } catch {
+            print("error")
+        }
+        
+        
+        
         
     }
     // MARK: - Table view data source

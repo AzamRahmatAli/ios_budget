@@ -10,10 +10,10 @@ import UIKit
 import LocalAuthentication
 
 class LockViewController: UIViewController , UITextFieldDelegate{
-
+    
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var appName: UILabel!
-  
+    
     /*override func viewDidLoad() {
      super.viewDidLoad()
      appName.text = StringFor.name["appName"]
@@ -37,39 +37,34 @@ class LockViewController: UIViewController , UITextFieldDelegate{
             
             if Helper.firstStart
             {
-            
-            
-            self.performSegueWithIdentifier("unlocked", sender: nil)
+                
+                
+                self.performSegueWithIdentifier("unlocked", sender: nil)
                 Helper.firstStart = false
-            
+                
             }
             else{
-            
-            self.dismissViewControllerAnimated(true, completion: nil)
+                
+                self.dismissViewControllerAnimated(true, completion: nil)
             }
         }
         
         
         return true
-       
-    }
-    
-    
-    override func viewDidLoad() {
-      
-        Helper.lockActivated = true
-        password.delegate = self
-        appName.text = StringFor.name["appName"]
         
     }
     
     
-    override func viewWillAppear(animated: Bool) {
-        print("will appear")
-    }
-    
-    
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidLoad() {
+        
+        Helper.lockActivated = true
+        password.delegate = self
+        appName.text = StringFor.name["appName"]
+        
+        
+        
+        
+        
         let authContext : LAContext = LAContext()
         var error : NSError?
         if authContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &error ){
@@ -82,8 +77,8 @@ class LockViewController: UIViewController , UITextFieldDelegate{
                     {
                         Helper.performUIUpdatesOnMain()
                             {
-                        
-                        self.performSegueWithIdentifier("unlocked", sender: nil)
+                                
+                                self.performSegueWithIdentifier("unlocked", sender: nil)
                         }
                         Helper.firstStart = false
                         
@@ -96,15 +91,20 @@ class LockViewController: UIViewController , UITextFieldDelegate{
                 else{
                     Helper.performUIUpdatesOnMain()
                         {
-                    self.password.becomeFirstResponder()
+                            self.password.becomeFirstResponder()
                     }
                 }
             })
         }
-
+        
+        
+        
+        
     }
-
-   
-
-
+    
+    
+    
+    
+    
+    
 }
