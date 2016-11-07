@@ -26,12 +26,10 @@ class PasswordSetupViewController: UIViewController , UITextFieldDelegate{
                 {
                     if email.text == ""
                     {
-                        error.text = "Email required"
+                        error.text = "Hint required"
                     }
                     else{
-                        if validateEmail(email.text!)
-                        {
-                            
+                       
                             
                             let request = NSFetchRequest(entityName: "Other")
                             
@@ -74,10 +72,7 @@ class PasswordSetupViewController: UIViewController , UITextFieldDelegate{
                             }
 
                             
-                            
-                        }else{
-                            error.text = "Email is not valid"
-                        }
+                          
                     }
                 }else{
                     error.text = "Confirm password does not match"
@@ -124,10 +119,10 @@ class PasswordSetupViewController: UIViewController , UITextFieldDelegate{
             
         }
     }
-    func validateEmail(candidate: String) -> Bool {
+    /*func validateEmail(candidate: String) -> Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
         return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluateWithObject(candidate)
-    }
+    }*/
     override func viewDidLoad() {
         super.viewDidLoad()
         password.delegate  = self
@@ -161,13 +156,10 @@ class PasswordSetupViewController: UIViewController , UITextFieldDelegate{
         textField.resignFirstResponder()
         return true
     }
+    
+    
     override func viewWillAppear(animated: Bool) {
         let request = NSFetchRequest(entityName: "Other")
-        
-        
-        
-        
-        
         
         if Helper.managedObjectContext!.countForFetchRequest( request , error: nil) > 0
         {

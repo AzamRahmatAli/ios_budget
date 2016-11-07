@@ -248,7 +248,6 @@ struct Restore
             }
             
             
-            print(json)
             do {
                 try Helper.managedObjectContext!.save()
                 
