@@ -96,12 +96,12 @@ class QuickSummaryViewController: UIViewController {
     func getDateSting(index : Int) -> String
     {
         let dateFormatter = NSDateFormatter()
-        let selectedDate = dateFormatter.stringFromDate(NSDate())
+        
         if index == 0
         {
             
             dateFormatter.dateFormat = "dd-MMM-yyyy"
-            
+            let selectedDate = dateFormatter.stringFromDate(NSDate())
             return "Day: \(selectedDate)"
         }
         else if index == 1
@@ -117,14 +117,14 @@ class QuickSummaryViewController: UIViewController {
         else if index == 2
         {
             dateFormatter.dateFormat = "MMMM yyyy"
-            
+            let selectedDate = dateFormatter.stringFromDate(NSDate())
             return "Month: \(selectedDate)"
             
         }
         else if index == 3
         {
             dateFormatter.dateFormat = "yyyy"
-            
+            let selectedDate = dateFormatter.stringFromDate(NSDate())
             return "Year: \(selectedDate)"
             
         }

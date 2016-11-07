@@ -94,11 +94,22 @@ struct Restore
                             
                             if let entity = NSEntityDescription.insertNewObjectForEntityForName("Other", inManagedObjectContext: Helper.managedObjectContext!) as? Other
                             {
+                                if element["email"]  != ""
+                                {
+                                    entity.email = element["email"]
+                                }
+                                if element["password"]  != ""
+                                {
+                                    entity.password = element["password"]
+                                }
+                                if element["lockOn"]  != ""
+                                {
+                                    entity.lockOn = element["lockOn"] == "1" ? true : false
+                                }
                                 if element["oneBudget"]  != ""
                                 {
                                     entity.oneBudget = element["oneBudget"]
                                 }
-                                
                                 
                                 
                             }

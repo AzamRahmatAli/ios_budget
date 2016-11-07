@@ -103,7 +103,14 @@ static func doBackup() -> String?
         for element in (fetchedData! as! [Other])
             
         {
-            sets.append(["oneBudget" :element.oneBudget ?? ""])
+            var lockOn = ""
+            if let lock = element.lockOn
+            {
+                lockOn = String(lock)
+                print(String(lock))
+            }
+            
+            sets.append(["oneBudget" :element.oneBudget ?? "" , "password" :element.password ?? "" , "email" :element.email ?? "" , "lockOn" : lockOn])
             
         }
         dictionary["Other"] =  sets
